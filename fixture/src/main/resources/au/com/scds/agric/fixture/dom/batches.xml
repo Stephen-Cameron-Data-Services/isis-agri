@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:batches xmlns:tns="http://scds.com.au/acric/fixture/xml/generated"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://scds.com.au/acric/fixture/xml/generated AgricSchema.xsd ">
+	<tns:batch>
+		<tns:created-on>2016-07-20T10:00:00</tns:created-on>
+		<tns:created-by>
+			<tns:id>1</tns:id>
+			<tns:firstname>Deborah</tns:firstname>
+			<tns:lastname>White</tns:lastname>
+		</tns:created-by>
+		<tns:scheduled-for>2016-07-25T12:00:00</tns:scheduled-for>
+		<tns:completed-on>2016-07-26T09:00:00</tns:completed-on>
+		<tns:completed-by>
+			<tns:id>1</tns:id>
+			<tns:firstname>John</tns:firstname>
+			<tns:lastname>Frost</tns:lastname>
+		</tns:completed-by>
+		<tns:formulation>
+			<tns:id>1</tns:id>
+			<tns:name>Double Cream Brie 2</tns:name>
+			<tns:description>An improvement on the last formulation.</tns:description>
+			<tns:ingredient>
+				<tns:name>Full Cream Milk</tns:name>
+				<tns:quantity>1000</tns:quantity>
+				<tns:unit>litres</tns:unit>
+			</tns:ingredient>
+			<tns:ingredient>
+				<tns:name>Cream</tns:name>
+				<tns:quantity>100</tns:quantity>
+				<tns:unit>litres</tns:unit>
+			</tns:ingredient>
+			<tns:ingredient>
+				<tns:name>Rennet</tns:name>
+				<tns:quantity>100</tns:quantity>
+				<tns:unit>grams</tns:unit>
+			</tns:ingredient>
+			<tns:ingredient>
+				<tns:name>Salt</tns:name>
+				<tns:quantity>10</tns:quantity>
+				<tns:unit>kilograms</tns:unit>
+			</tns:ingredient>
+			<tns:ingredient>
+				<tns:name>Penicillium camemberti culture</tns:name>
+				<tns:quantity>100</tns:quantity>
+				<tns:unit>grams</tns:unit>
+			</tns:ingredient>
+		</tns:formulation>
+		<tns:component>
+			<tns:id>1</tns:id>
+			<tns:ingredient>
+				<tns:name>Full Cream Milk</tns:name>
+			</tns:ingredient>
+			<tns:supplier>
+				<tns:name>Van Diemen's Land Company</tns:name>
+			</tns:supplier>
+		</tns:component>
+		<tns:component>
+			<tns:id>1</tns:id>
+			<tns:ingredient>
+				<tns:name>Cream</tns:name>
+			</tns:ingredient>
+			<tns:supplier>
+				<tns:name>Van Diemen's Land Company</tns:name>
+			</tns:supplier>
+		</tns:component>
+		<tns:sample>
+			<tns:id>1</tns:id>
+		</tns:sample>
+	</tns:batch>
+</tns:batches>

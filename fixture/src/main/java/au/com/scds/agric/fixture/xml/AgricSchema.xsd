@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://scds.com.au/acric/fixture/xml/generated"
+	xmlns:tns="http://scds.com.au/acric/fixture/xml/generated"
+	elementFormDefault="qualified">
+
+
+	<complexType name="ProductLineFixture">
+		<sequence>
+			<element name="name" type="string" minOccurs="1" maxOccurs="1"></element>
+			<element name="product-type" type="tns:ProductTypeFixture" minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="batches" type="tns:BatchListFixture" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="ProductTypeFixture">
+		<sequence>
+			<element name="name" type="string" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+
+    <complexType name="BatchListFixture">
+    	<sequence>
+    		<element name="batch" type="tns:BatchFixture" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="BatchFixture">
+    	<sequence>
+    		<element name="created-on" type="dateTime" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="created-by" type="tns:PersonFixture"
+    			minOccurs="1" maxOccurs="1">
+    		</element>
+    		<element name="scheduled-for" type="dateTime" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<element name="completed-on" type="dateTime" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<element name="completed-by" type="tns:PersonFixture" minOccurs="0" maxOccurs="1"></element>
+    		<element name="formulation" type="tns:FormulationFixture"
+    			minOccurs="0" maxOccurs="1">
+    		</element>
+    		<element name="component" type="tns:BatchComponentFixture"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="sample" type="tns:SampleFixture"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="FormulationFixture">
+    	<sequence>
+    		<element name="id" type="ID" minOccurs="1" maxOccurs="1"></element>
+    		<element name="name" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="description" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="ingredient" type="tns:IngredientFixture" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="PersonFixture">
+    	<sequence>
+    		<element name="id" type="ID" minOccurs="1" maxOccurs="1"></element>
+    		<element name="firstname" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="lastname" type="string" minOccurs="1" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="SampleFixture">
+    	<sequence>
+    		<element name="id" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="batch" type="tns:BatchFixture" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<element name="test" type="tns:TestFixture" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="BatchComponentFixture">
+    	<sequence>
+    		<element name="id" type="ID" minOccurs="1" maxOccurs="1"></element>
+    		<element name="ingredient" type="tns:IngredientFixture" minOccurs="0" maxOccurs="1"></element>
+    		<element name="supplier" type="tns:SupplierFixture"
+    			minOccurs="0" maxOccurs="1">
+    		</element>
+    		<element name="manufacturer" type="tns:ManufacturerFixture"
+    			minOccurs="0" maxOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Party">
+    	<sequence>
+    		<element name="name" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="SupplierFixture">
+    	<complexContent>
+    		<extension base="tns:Party">
+    			<sequence>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+    
+    <complexType name="ManufacturerFixture">
+    	<complexContent>
+    		<extension base="tns:Party">
+    			<sequence>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="ProductItem">
+    	<sequence>
+    		<element name="id" type="ID" minOccurs="1" maxOccurs="1"></element>
+    		<element name="production-code" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="batch" type="tns:BatchFixture" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="product-line" type="tns:ProductLineFixture" minOccurs="1" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="OrderLine">
+    	<sequence>
+    		<element name="id" type="ID"></element>
+    		<element name="product-line"
+    			type="tns:ProductLineFixture">
+    		</element>
+    		<element name="quantity" type="int"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ScheduledOrderLineFixture">
+    	<complexContent>
+    		<extension base="tns:NewOrderLineFixture">
+    			<sequence>
+    				<element name="scheduled-on" type="dateTime"></element>
+    				<element name="scheduled-by"
+    					type="tns:PersonFixture">
+    				</element>
+    				<element name="scheduled-batch" type="string"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="CompletedOrderLineFixture">
+    	<complexContent>
+    		<extension base="tns:ScheduledOrderLineFixture">
+    			<sequence>
+    				<element name="completed" type="dateTime"></element>
+    				<element name="completed-by" type="tns:PersonFixture"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="OrderFixture">
+    	<sequence>
+    		<element name="id" type="ID" minOccurs="1" maxOccurs="1"></element>
+    		<element name="client" type="tns:ClientFixture"
+    			minOccurs="1" maxOccurs="1">
+    		</element>
+    		<element name="taken" type="dateTime" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="taken-by" type="tns:PersonFixture"
+    			minOccurs="1" maxOccurs="1">
+    		</element>
+    		<element name="order-line"
+    			type="tns:NewOrderLineFixture" minOccurs="1"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="scheduled-order-line"
+    			type="tns:ScheduledOrderLineFixture" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="completed-order-line"
+    			type="tns:CompletedOrderLineFixture" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="delivery" type="tns:DeliveryFixture" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="NewOrderLineFixture">
+    	<complexContent>
+    		<extension base="tns:OrderLine">
+    			<sequence>
+    				<element name="added-on" type="dateTime"></element>
+                    <element name="added-by" type="tns:PersonFixture" minOccurs="1" maxOccurs="1"></element>
+                </sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="ClientFixture">
+    	<complexContent>
+    		<extension base="tns:Party">
+    			<sequence>
+    				<element name="order" type="tns:OrderFixture" minOccurs="0" maxOccurs="unbounded"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="DeliveryFixture">
+    	<sequence>
+    		<element name="delivery-date" type="dateTime" minOccurs="1" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="TestFixture">
+    	<sequence>
+    		<element name="name" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <element name="orders" type="tns:OrdersFixture"></element>
+
+    <complexType name="OrdersFixture">
+    	<sequence>
+    		<element name="order" type="tns:OrderFixture" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+
+    <element name="batches" type="tns:BatchesFixture"></element>
+
+    <complexType name="BatchesFixture">
+    	<sequence>
+    		<element name="batch" type="tns:BatchFixture" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+
+    <complexType name="IngredientFixture">
+    	<sequence>
+    		<element name="name" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="quantity" type="double" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<element name="unit" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="TestSuiteFixture">
+    	<sequence>
+    		<choice minOccurs="1" maxOccurs="unbounded">
+    			<element name="test" type="tns:TestFixture" minOccurs="0" maxOccurs="unbounded"></element>
+    			<element name="test-group" type="tns:TestGroupFixture" minOccurs="0" maxOccurs="unbounded"></element>
+    		</choice>
+    	</sequence>
+    </complexType>
+
+    <complexType name="TestGroupFixture">
+    	<sequence>
+    		<element name="test" type="tns:TestFixture" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="ResultFixture">
+    	<sequence>
+    		<element name="name" type="string" minOccurs="1"></element>
+    		<element name="result" type="double" minOccurs="1" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

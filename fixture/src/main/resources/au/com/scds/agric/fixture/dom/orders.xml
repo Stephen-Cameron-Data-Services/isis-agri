@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:orders xmlns:tns="http://scds.com.au/acric/fixture/xml/generated"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://scds.com.au/acric/fixture/xml/generated AgricSchema.xsd ">
+	<tns:order>
+		<tns:id>1</tns:id>
+		<tns:client>
+			<tns:name>Woolworths</tns:name>
+		</tns:client>
+		<tns:taken>2016-06-22T12:00:00</tns:taken>
+		<tns:taken-by>
+			<tns:id>1</tns:id>
+			<tns:firstname>Sam</tns:firstname>
+			<tns:lastname>Smith</tns:lastname>
+		</tns:taken-by>
+		<tns:order-line>
+			<tns:id>1</tns:id>
+			<tns:product-line>
+				<tns:name>Whole Chicken</tns:name>
+				<tns:product-type>
+					<tns:name>Chicken Meat</tns:name>
+				</tns:product-type>
+			</tns:product-line>
+			<tns:quantity>100</tns:quantity>
+			<tns:added-on>2016-06-23T12:00:00</tns:added-on>
+			<tns:added-by>
+				<tns:id>2</tns:id>
+				<tns:firstname>John</tns:firstname>
+				<tns:lastname>Brown</tns:lastname>
+			</tns:added-by>
+		</tns:order-line>
+	</tns:order>
+	<tns:order>
+		<tns:id>1</tns:id>
+		<tns:client>
+			<tns:name>IGA</tns:name>
+		</tns:client>
+		<tns:taken>2016-06-22T12:00:00</tns:taken>
+		<tns:taken-by>
+			<tns:id>1</tns:id>
+			<tns:firstname>Sam</tns:firstname>
+			<tns:lastname>Smith</tns:lastname>
+		</tns:taken-by>
+		<tns:order-line>
+			<tns:id>1</tns:id>
+			<tns:product-line>
+				<tns:name>Double Cream Brie</tns:name>
+				<tns:product-type>
+					<tns:name>Cheese</tns:name>
+				</tns:product-type>
+			</tns:product-line>
+			<tns:quantity>100</tns:quantity>
+			<tns:added-on>2016-06-23T12:00:00</tns:added-on>
+			<tns:added-by>
+				<tns:id>2</tns:id>
+				<tns:firstname>Trudy</tns:firstname>
+				<tns:lastname>Clark</tns:lastname>
+			</tns:added-by>
+		</tns:order-line>
+	</tns:order>
+	<tns:order>
+		<tns:id>1</tns:id>
+		<tns:client>
+			<tns:name>Salamanca Fresh</tns:name>
+		</tns:client>
+		<tns:taken>2016-06-22T12:00:00</tns:taken>
+		<tns:taken-by>
+			<tns:id>1</tns:id>
+			<tns:firstname>Sam</tns:firstname>
+			<tns:lastname>Smith</tns:lastname>
+		</tns:taken-by>
+		<tns:order-line>
+			<tns:id>1</tns:id>
+			<tns:product-line>
+				<tns:name>Full Cream Milk</tns:name>
+				<tns:product-type>
+					<tns:name>Milk</tns:name>
+				</tns:product-type>
+			</tns:product-line>
+			<tns:quantity>100</tns:quantity>
+			<tns:added-on>2016-06-23T12:00:00</tns:added-on>
+			<tns:added-by>
+				<tns:id>2</tns:id>
+				<tns:firstname>Mary</tns:firstname>
+				<tns:lastname>Green</tns:lastname>
+			</tns:added-by>
+		</tns:order-line>
+	</tns:order>
+</tns:orders>
