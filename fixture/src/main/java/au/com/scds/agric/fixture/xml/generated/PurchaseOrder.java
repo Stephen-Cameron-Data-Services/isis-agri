@@ -13,21 +13,20 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for OrderLine complex type.
+ * <p>Java class for PurchaseOrder complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OrderLine">
+ * &lt;complexType name="PurchaseOrder">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="product-pack" type="{http://www.example.org/AgricProducerSchema}ProductPack" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supply" type="{http://www.example.org/AgricProducerSchema}IngredientSupply" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,44 +36,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "OrderLine", propOrder = {
-    "productPack"
+@XmlType(name = "PurchaseOrder", propOrder = {
+    "supply"
 })
-@XmlSeeAlso({
-    NewOrderLine.class
-})
-public class OrderLine {
+public class PurchaseOrder {
 
-    @XmlElement(name = "product-pack")
-    protected List<ProductPack> productPack;
+    @XmlElement(required = true)
+    protected List<IngredientSupply> supply;
 
     /**
-     * Gets the value of the productPack property.
+     * Gets the value of the supply property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the productPack property.
+     * This is why there is not a <CODE>set</CODE> method for the supply property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getProductPack().add(newItem);
+     *    getSupply().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ProductPack }
+     * {@link IngredientSupply }
      * 
      * 
      */
-    public List<ProductPack> getProductPack() {
-        if (productPack == null) {
-            productPack = new ArrayList<ProductPack>();
+    public List<IngredientSupply> getSupply() {
+        if (supply == null) {
+            supply = new ArrayList<IngredientSupply>();
         }
-        return this.productPack;
+        return this.supply;
     }
 
 }

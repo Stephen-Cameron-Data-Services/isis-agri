@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:producer xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+  <tns:name>tns:name</tns:name>
+  <tns:product-line>
+    <tns:name>tns:name</tns:name>
+    <tns:product-type>
+      <tns:name>tns:name</tns:name>
+    </tns:product-type>
+    <tns:batch>
+      <tns:created-on>2001-12-31T12:00:00</tns:created-on>
+      <tns:created-by>
+        <tns:first-name>tns:first-name</tns:first-name>
+        <tns:last-name>tns:last-name</tns:last-name>
+      </tns:created-by>
+      <tns:scheduled-for>2001-12-31T12:00:00</tns:scheduled-for>
+      <tns:completed-on>2001-12-31T12:00:00</tns:completed-on>
+      <tns:completed-by>
+        <tns:first-name>tns:first-name</tns:first-name>
+        <tns:last-name>tns:last-name</tns:last-name>
+      </tns:completed-by>
+      <tns:formulation>
+        <tns:name>tns:name</tns:name>
+        <tns:description>tns:description</tns:description>
+        <tns:method>
+          <tns:description>tns:description</tns:description>
+          <tns:step>
+            <tns:description>tns:description</tns:description>
+            <tns:order>0</tns:order>
+          </tns:step>
+        </tns:method>
+        <tns:component>
+          <tns:ingredient>
+            <tns:name>tns:name</tns:name>
+            <tns:description>tns:description</tns:description>
+            <tns:specification>tns:specification</tns:specification>
+          </tns:ingredient>
+          <tns:quantity>1</tns:quantity>
+          <tns:unit>tns:unit</tns:unit>
+        </tns:component>
+      </tns:formulation>
+      <tns:product-item>
+        <tns:serial-number>tns:serial-number</tns:serial-number>
+      </tns:product-item>
+    </tns:batch>
+  </tns:product-line>
+</tns:producer>

@@ -16,16 +16,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Party complex type.
+ * A specific test to perform on a Sample
+ * 
+ * <p>Java class for Test complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Party">
+ * &lt;complexType name="Test">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="test-name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,42 +37,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Party", propOrder = {
-    "name"
+@XmlType(name = "Test", propOrder = {
+    "testName"
 })
 @XmlSeeAlso({
-    Consumer.class,
-    IngredientSupplier.class,
-    IngredientManufacturer.class,
-    Client.class
+    TestSuite.class,
+    TestGroup.class,
+    TestSingle.class
 })
-public class Party {
+public class Test {
 
-    @XmlElement(required = true)
-    protected String name;
+    @XmlElement(name = "test-name", required = true)
+    protected String testName;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the testName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getTestName() {
+        return testName;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the testName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setTestName(String value) {
+        this.testName = value;
     }
 
 }

@@ -11,17 +11,18 @@ package au.com.scds.agric.fixture.xml.generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Party complex type.
+ * SI Unit
+ * 
+ * <p>Java class for SiUnit complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Party">
+ * &lt;complexType name="SiUnit">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -35,16 +36,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Party", propOrder = {
+@XmlType(name = "SiUnit", propOrder = {
     "name"
 })
-@XmlSeeAlso({
-    Consumer.class,
-    IngredientSupplier.class,
-    IngredientManufacturer.class,
-    Client.class
-})
-public class Party {
+public class SiUnit {
 
     @XmlElement(required = true)
     protected String name;

@@ -11,21 +11,21 @@ package au.com.scds.agric.fixture.xml.generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Party complex type.
+ * <p>Java class for FormulationStep complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Party">
+ * &lt;complexType name="FormulationStep">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="order" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,42 +35,54 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Party", propOrder = {
-    "name"
+@XmlType(name = "FormulationStep", propOrder = {
+    "description",
+    "order"
 })
-@XmlSeeAlso({
-    Consumer.class,
-    IngredientSupplier.class,
-    IngredientManufacturer.class,
-    Client.class
-})
-public class Party {
+public class FormulationStep {
 
     @XmlElement(required = true)
-    protected String name;
+    protected String description;
+    protected int order;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the description property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the description property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setDescription(String value) {
+        this.description = value;
+    }
+
+    /**
+     * Gets the value of the order property.
+     * 
+     */
+    public int getOrder() {
+        return order;
+    }
+
+    /**
+     * Sets the value of the order property.
+     * 
+     */
+    public void setOrder(int value) {
+        this.order = value;
     }
 
 }

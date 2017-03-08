@@ -1,151 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/AgricProducerSchema"
 	xmlns:tns="http://www.example.org/AgricProducerSchema"
-	elementFormDefault="qualified">
-	
-	<complexType name="FParty">
-    	<sequence>
-    		<element name="name" type="string"></element>
-    	</sequence>
-    </complexType>
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	elementFormDefault="qualified" jaxb:version="2.1">
+	<annotation>
+		<appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.util.Date" xmlType="dateTime"
+					parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDateTime"
+					printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDateTime" />
+				<jaxb:javaType name="java.util.Date" xmlType="date"
+					parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDate"
+					printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDate" />
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+	<complexType name="Party">
+		<sequence>
+			<element name="name" type="string"></element>
+		</sequence>
+	</complexType>
 
-	<complexType name="FClient">
+	<complexType name="Client">
 		<complexContent>
-			<extension base="tns:FParty"></extension>
+			<extension base="tns:Party"></extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FProducer">
+	<complexType name="Producer">
+		<annotation>
+			<documentation>The organisation or individual producing product (as
+				Product Lines).
+			</documentation>
+		</annotation>
 		<sequence>
-			<element name="product-line" type="tns:FProductLine"
+			<element name="name" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="product-line" type="tns:ProductLine"
 				minOccurs="1" maxOccurs="unbounded">
 			</element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FSupplier">
+	<complexType name="IngredientSupplier">
 		<complexContent>
-			<extension base="tns:FParty"></extension>
+			<extension base="tns:Party"></extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FOrder">
+	<complexType name="Order">
 		<sequence>
-		    <element name="taken" type="dateTime" minOccurs="1"
-    			maxOccurs="1">
-    		</element>
-    		<element name="taken-by" type="tns:FPerson"
-    			minOccurs="1" maxOccurs="1">
-    		</element>
-    		<element name="order-line"
-    			type="tns:FNewOrderLine" minOccurs="1"
-    			maxOccurs="unbounded">
-    		</element>
-    		<element name="scheduled-order-line"
-    			type="tns:FScheduledOrderLine" minOccurs="0"
-    			maxOccurs="unbounded">
-    		</element>
-    		<element name="completed-order-line"
-    			type="tns:FCompletedOrderLine" minOccurs="0"
-    			maxOccurs="unbounded">
-    		</element>
+			<element name="taken" type="dateTime" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="taken-by" type="tns:Person" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="order-line" type="tns:NewOrderLine" minOccurs="1"
+				maxOccurs="unbounded">
+			</element>
+			<element name="scheduled-order-line" type="tns:ScheduledOrderLine"
+				minOccurs="0" maxOccurs="unbounded">
+			</element>
+			<element name="completed-order-line" type="tns:CompletedOrderLine"
+				minOccurs="0" maxOccurs="unbounded">
+			</element>
 		</sequence>
 	</complexType>
-	
-	    <complexType name="FNewOrderLine">
-    	<complexContent>
-    		<extension base="tns:FOrderLine">
-    			<sequence>
-    				<element name="added-on" type="dateTime"></element>
-                    <element name="added-by" type="tns:FPerson" minOccurs="1" maxOccurs="1"></element>
-                </sequence>
-    		</extension>
-    	</complexContent>
-    </complexType>
-    
-    <complexType name="FScheduledOrderLine">
-    	<complexContent>
-    		<extension base="tns:FNewOrderLine">
-    			<sequence>
-    				<element name="scheduled-on" type="dateTime"></element>
-    				<element name="scheduled-by"
-    					type="tns:FPerson">
-    				</element>
-    				<element name="scheduled-batch" type="string"></element>
-    			</sequence>
-    		</extension>
-    	</complexContent>
-    </complexType>
 
-    <complexType name="FCompletedOrderLine">
-    	<complexContent>
-    		<extension base="tns:FScheduledOrderLine">
-    			<sequence>
-    				<element name="completed" type="dateTime"></element>
-    				<element name="completed-by" type="tns:FPerson"></element>
-    			</sequence>
-    		</extension>
-    	</complexContent>
-    </complexType>
+	<complexType name="NewOrderLine">
+		<annotation>
+			<documentation>A New OrderLine, just created but not yet scheduled
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="tns:OrderLine">
+				<sequence>
+					<element name="added-on" type="dateTime"></element>
+					<element name="added-by" type="tns:Person" minOccurs="1"
+						maxOccurs="1"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
 
-	<complexType name="FPurchaseOrder">
+	<complexType name="ScheduledOrderLine">
+		<annotation>
+			<documentation>An Order Line that has been scheduled for filling as
+				part of a specific Batch
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="tns:NewOrderLine">
+				<sequence>
+					<element name="scheduled-on" type="dateTime"></element>
+					<element name="scheduled-by" type="tns:Person">
+					</element>
+					<element name="scheduled-batch" type="string"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="CompletedOrderLine">
+		<complexContent>
+			<extension base="tns:ScheduledOrderLine">
+				<sequence>
+					<element name="completed" type="dateTime"></element>
+					<element name="completed-by" type="tns:Person"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="PurchaseOrder">
 		<sequence>
-			<element name="supply" type="tns:FSupply" minOccurs="1"
+			<element name="supply" type="tns:IngredientSupply" minOccurs="1"
 				maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FProductLine">
+	<complexType name="ProductLine">
+		<annotation>
+			<documentation>A product (line) sold to customers.</documentation>
+		</annotation>
 		<sequence>
-			<element name="name" type="string" maxOccurs="1"
-				minOccurs="1">
+			<element name="name" type="string" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="product-type" type="tns:FProductType" maxOccurs="1" minOccurs="0"></element>
-			<element name="batch" type="tns:FBatch" minOccurs="1"
+			<element name="product-type" type="tns:ProductType"
+				maxOccurs="1" minOccurs="0"></element>
+			<element name="batch" type="tns:Batch" minOccurs="1"
 				maxOccurs="unbounded">
 			</element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FFormulation">
+	<complexType name="Formulation">
+		<annotation>
+			<documentation>A Formulation is essentially a set of ingredients
+				(FormulationComponent) and a method that is followed to create
+				Batches of Product
+			</documentation>
+		</annotation>
 		<sequence>
-			<element name="name" type="string" maxOccurs="1"
-				minOccurs="1">
+			<element name="name" type="string" maxOccurs="1" minOccurs="1">
 			</element>
 			<element name="description" type="string" maxOccurs="1"
 				minOccurs="1">
 			</element>
-			<element name="component"
-				type="tns:FFormulationComponent" maxOccurs="unbounded" minOccurs="1">
+			<element name="method" type="tns:FormulationMethod"
+				maxOccurs="1" minOccurs="1"></element>
+			<element name="component" type="tns:FormulationComponent"
+				maxOccurs="unbounded" minOccurs="1">
 			</element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FOrderLine">
+	<complexType name="OrderLine">
 		<sequence>
-			<element name="product-pack" type="tns:FProductPack" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="product-pack" type="tns:ProductPack"
+				maxOccurs="unbounded" minOccurs="0"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FProductPack">
+	<complexType name="ProductPack">
 		<sequence>
-			<element name="product-item" type="tns:FProductItem"
+			<element name="product-item" type="tns:ProductItem"
 				minOccurs="1" maxOccurs="unbounded"></element>
-			<element name="delivery" type="tns:FDelivery" minOccurs="0"
+			<element name="delivery" type="tns:Delivery" minOccurs="0"
 				maxOccurs="1">
 			</element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FConsumer">
+	<complexType name="Consumer">
 		<complexContent>
-			<extension base="tns:FParty"></extension>
+			<extension base="tns:Party"></extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FProductItem">
+	<complexType name="ProductItem">
+		<annotation>
+			<documentation>The basic unit in which form a Product is sold to the
+				final retail consumers as (container,package).
+			</documentation>
+		</annotation>
 		<complexContent>
-			<extension base="tns:FSampled">
+			<extension base="tns:Sampled">
 				<sequence>
 					<element name="serial-number" type="string"></element>
 				</sequence>
@@ -153,19 +193,19 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="FBatch">
+	<complexType name="Batch">
 		<annotation>
 			<documentation>A batch of product, efficiently created in bulk for
 				subdivision into product-item lots.
 			</documentation>
 		</annotation>
 		<complexContent>
-			<extension base="tns:FSampled">
+			<extension base="tns:Sampled">
 				<sequence>
 					<element name="created-on" type="dateTime" minOccurs="1"
 						maxOccurs="1">
 					</element>
-					<element name="created-by" type="tns:FPerson" minOccurs="1"
+					<element name="created-by" type="tns:Person" minOccurs="1"
 						maxOccurs="1">
 					</element>
 					<element name="scheduled-for" type="dateTime" minOccurs="0"
@@ -174,11 +214,13 @@
 					<element name="completed-on" type="dateTime" minOccurs="0"
 						maxOccurs="1">
 					</element>
-					<element name="completed-by" type="tns:FPerson" minOccurs="0"
-						maxOccurs="1"></element>
-					<element name="formulation" type="tns:FFormulation"
-						minOccurs="1" maxOccurs="1"></element>
-					<element name="product-item" type="tns:FProductItem"
+					<element name="completed-by" type="tns:Person" minOccurs="0"
+						maxOccurs="1">
+					</element>
+					<element name="formulation" type="tns:Formulation"
+						minOccurs="1" maxOccurs="1">
+					</element>
+					<element name="product-item" type="tns:ProductItem"
 						minOccurs="0" maxOccurs="unbounded">
 					</element>
 				</sequence>
@@ -186,7 +228,11 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="FPerson">
+	<complexType name="Person">
+		<annotation>
+			<documentation>A Person working in the Producer organisation.
+			</documentation>
+		</annotation>
 		<sequence>
 			<element name="first-name" type="string" minOccurs="1"
 				maxOccurs="1"></element>
@@ -195,140 +241,287 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="FBatchComponent">
+	<complexType name="BatchComponent">
+		<annotation>
+			<documentation>A component of a Batch taken from a larger Supply
+			</documentation>
+		</annotation>
 		<complexContent>
-			<extension base="tns:FSampled">
+			<extension base="tns:Sampled">
 				<sequence>
-					<element name="parent-supply" type="tns:FSupply" minOccurs="1"
-						maxOccurs="1"></element>
+					<element name="ingredient" type="tns:Ingredient" minOccurs="1"
+						maxOccurs="1">
+					</element>
+					<element name="parent-supply" type="tns:IngredientSupply"
+						minOccurs="1" maxOccurs="1">
+					</element>
+					<element name="quantity" type="float" maxOccurs="1"
+						minOccurs="1">
+					</element>
+					<element name="unit" type="tns:SiUnit" maxOccurs="1"
+						minOccurs="1"></element>
 				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FSupply">
+	<complexType name="IngredientSupply">
+		<annotation>
+			<documentation>A specific supply (or batch) of an Ingredient consumed
+				in the production of Batches of Product for sale.
+				Possibly purchased
+				from a supplier and produced by another manufacturer.
+			</documentation>
+		</annotation>
 		<complexContent>
-			<extension base="tns:FSampled">
+			<extension base="tns:Sampled">
 				<sequence>
-					<element name="manufacturer"
-						type="tns:FManufacturer" maxOccurs="1" minOccurs="0">
+					<element name="manufacturer" type="tns:IngredientManufacturer"
+						maxOccurs="1" minOccurs="0">
 					</element>
-					<element name="supplier" type="tns:FSupplier"
-						maxOccurs="1" minOccurs="1">
+					<element name="supplier" type="tns:IngredientSupplier"
+						maxOccurs="1" minOccurs="0">
 					</element>
+					<element name="quantity-initial" type="float" minOccurs="1">
+					</element>
+					<element name="quantity-remaining" type="string" maxOccurs="1"
+						minOccurs="1"></element>
 				</sequence>
-				
+
 			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FIngredient">
+	<complexType name="Ingredient">
+		<annotation>
+			<documentation>A well defined material use in the manufactur of
+				Batches of Product.
+			</documentation>
+		</annotation>
 		<sequence>
-			<element name="name" type="string" maxOccurs="1"
+			<element name="name" type="string" maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="description" type="string" maxOccurs="1"
+				minOccurs="1">
+				<annotation>
+					<documentation>
+						A well defined thing used in the production of
+						Batches of Product. Formulation Components and
+						(hence Batch
+						Components) will conform to an
+						Ingredient specification.
+					</documentation>
+				</annotation>
+			</element>
+			<element name="specification" type="string" maxOccurs="1"
 				minOccurs="1">
 			</element>
-			<element name="quantity" type="float" maxOccurs="1"
-				minOccurs="1">
-			</element>
-			<element name="unit" type="string" maxOccurs="1" minOccurs="0"></element>
-			<element name="batch-component" type="tns:FBatchComponent"
-				minOccurs="1" maxOccurs="unbounded">
-			</element>
-		</sequence>
-	</complexType>
-
-	<complexType name="FSample">
-		<sequence>
-			<element name="result" type="tns:FResult" minOccurs="0"
+			<element name="supply" type="tns:IngredientSupply" minOccurs="0"
 				maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FTestSuite">
+	<complexType name="Sample">
+		<annotation>
+			<documentation>A sample of a sampled item (product, batch, ingredient
+				etc.) taken for testing.
+			</documentation>
+		</annotation>
 		<sequence>
-			<choice minOccurs="1" maxOccurs="unbounded">
-				<element name="test" type="tns:FTest" minOccurs="0"
-					maxOccurs="unbounded"></element>
-				<element name="test-group" type="tns:FTestGroup" minOccurs="0"
-					maxOccurs="unbounded"></element>
-			</choice>
-
+			<element name="sampled" type="tns:Sampled" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="test" type="tns:TestSingle"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="test-group" type="tns:TestGroup"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="test-suite" type="tns:TestSuite" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="result" type="tns:Result" minOccurs="0"
+				maxOccurs="unbounded">
+			</element>
 		</sequence>
 	</complexType>
 
+	<complexType name="TestSuite">
+		<annotation>
+			<documentation>
+				A suite (set) of tests and/or test-groups that can be
+				applied to a Sample, usually of a specific type of
+				Sampled
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="tns:Test">
+				<sequence>
+					<element name="test" type="tns:TestSingle"
+						maxOccurs="unbounded" minOccurs="0">
+					</element>
+					<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
 
-	<complexType name="FTest">
-		<sequence>
+
+	<complexType name="Test">
+        <annotation>
+        	<documentation>A specific test to perform on a Sample</documentation>
+        </annotation>
+        <sequence>
 			<element name="test-name" type="string"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FResult">
+	<complexType name="Result">
 		<sequence>
-			<element name="test" type="tns:FTest"></element>
-			<element name="test-result" type="string"></element>
+			<element name="test-result" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FSampled">
+	<complexType name="Sampled">
+		<annotation>
+			<documentation>A food product, batch, ingredient etc that is sampled for the purpose of
+quality assurance or food safety testing.
+			</documentation>
+		</annotation>
 		<sequence>
-			<element name="sample" type="tns:FSample" minOccurs="0"
-				maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FDelivery">
+	<complexType name="Delivery">
 		<sequence>
 			<element name="date" type="dateTime"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FTestGroup">
-		<sequence>
-			<element name="test" type="tns:FTest" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-	</complexType>
-
-	<element name="clients" type="tns:FClients"></element>
-
-	<complexType name="FClients">
-		<sequence>
-			<element name="client" type="tns:FClient" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-	</complexType>
-
-	<element name="producer" type="tns:FProducer"></element>
-
-	<element name="test-suites" type="tns:FTestSuites"></element>
-
-	<complexType name="FTestSuites">
-		<sequence>
-			<element name="test-suite" type="tns:FTestSuite" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-	</complexType>
-
-	<complexType name="FManufacturer">
-		<complexContent>
-			<extension base="tns:FParty"></extension>
+	<complexType name="TestGroup">
+        <annotation>
+        	<documentation>A logical grouping of Tests and/or Test-Groups to perform on a Sample</documentation>
+        </annotation>
+        <complexContent>
+			<extension base="tns:Test">
+				<sequence>
+					<element name="test" type="tns:TestSingle"
+						minOccurs="0" maxOccurs="unbounded">
+					</element>
+					<element name="test-group" type="tns:TestGroup"
+						maxOccurs="unbounded" minOccurs="0">
+					</element>
+				</sequence>
+			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="FProductType">
+	<element name="clients" type="tns:Clients"></element>
+
+	<complexType name="Clients">
+		<sequence>
+			<element name="client" type="tns:Client" minOccurs="1"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<element name="producer" type="tns:Producer"></element>
+
+	<element name="test-suites" type="tns:TestSuites"></element>
+
+	<complexType name="TestSuites">
+		<sequence>
+			<element name="test-suite" type="tns:TestSuite" minOccurs="1"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="IngredientManufacturer">
+		<annotation>
+			<documentation>An entity producing Ingredient.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="tns:Party"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ProductType">
+		<annotation>
+			<documentation>A category of Product Lines produced by the Producer.
+			</documentation>
+		</annotation>
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 	</complexType>
 
-	<complexType name="FFormulationComponent">
+	<complexType name="FormulationComponent">
 		<sequence>
-			<element name="ingredient" type="tns:FIngredient"
-				maxOccurs="1" minOccurs="1">
+			<element name="ingredient" type="tns:Ingredient" maxOccurs="1"
+				minOccurs="1">
 			</element>
-			<element name="quantity" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="quantity" type="float" maxOccurs="1"
+				minOccurs="1"></element>
 			<element name="unit" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 	</complexType>
+
+	<complexType name="FormulationMethod">
+		<annotation>
+			<documentation>
+				A method of creating a Batch (of Product) associated
+				with one or more Formulations
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="description" type="string" maxOccurs="1"
+				minOccurs="1">
+				<annotation>
+					<documentation>
+						A description of the Formulation Method, or the
+						actual method (if not using defined steps)
+					</documentation>
+				</annotation>
+			</element>
+			<element name="step" type="tns:FormulationStep" minOccurs="0"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="FormulationStep">
+		<sequence>
+			<element name="description" type="string"></element>
+			<element name="order" type="int">
+				<annotation>
+					<documentation>An ordered step in a specific Formulation Method.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="SiUnit">
+		<annotation>
+			<documentation>SI Unit</documentation>
+		</annotation>
+		<sequence>
+			<element name="name" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="TestSingle">
+		<complexContent>
+			<extension base="tns:Test">
+				<sequence>
+					<element name="result" type="tns:Result" maxOccurs="1" minOccurs="0"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+    <element name="samples">
+    	<complexType>
+    		<sequence>
+    			<element name="sample" type="tns:Sample" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType></element>
+
 </schema>
