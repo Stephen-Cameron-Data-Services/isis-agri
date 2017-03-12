@@ -13,16 +13,13 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.BatchComponent;
 import au.com.scds.agric.dom.demo.data.ProductLine;
+import au.com.scds.agric.dom.simple.SimpleObject;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Batch.class)
 public class BatchRepository {
 
-	public List<Batch> listAll() {
-		return repositoryService.allInstances(Batch.class);
-	}
-
 	public Batch createBatch(ProductLine productLine) {
-		if(productLine == null)
+		if (productLine == null)
 			return null;
 		final Batch batch = new Batch();
 		batch.setProductLine(productLine);
@@ -31,9 +28,16 @@ public class BatchRepository {
 		return batch;
 	}
 
-	@Programmatic
+	public List<Batch> listAll() {
+		return repositoryService.allInstances(Batch.class);
+	}
+
+	public Batch findById(String id) {
+		return repositoryService.firstMatch(new QueryDefault<>(Batch.class, "findById", "id", id));
+	}
+	
 	public BatchComponent createComponent(Batch batch) {
-		if(batch==null)
+		if (batch == null)
 			return null;
 		final BatchComponent component = new BatchComponent();
 		serviceRegistry.injectServicesInto(component);

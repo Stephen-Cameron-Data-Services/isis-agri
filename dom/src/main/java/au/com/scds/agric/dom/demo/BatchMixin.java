@@ -22,12 +22,12 @@ public class BatchMixin {
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public Batch createProductItem(String serialNumber){
-		ProductItem item = productRepo.createItem(serialNumber);
+		ProductItem item = productItemRepo.createProductItem(serialNumber);
 		item.setBatch(this.batch);
 		this.batch.getProductItems().add(item);
 		return this.batch;
 	}
 	
 	@javax.inject.Inject
-	ProductRepository productRepo;
+	ProductItemRepository productItemRepo;
 }

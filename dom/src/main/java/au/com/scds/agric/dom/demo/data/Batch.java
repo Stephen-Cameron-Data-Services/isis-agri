@@ -16,6 +16,8 @@ import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -61,44 +63,44 @@ import org.apache.isis.applib.annotation.DomainObject;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Batch", propOrder = { "createdOn", "createdBy", "scheduledFor", "completedOn", "completedBy",
 		"formulation", "productItems" })
-@DomainObject(objectType="Batch")
+@DomainObject(objectType = "Batch")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Queries({
+		@Query(name = "findById", language = "JDOQL", value = "SELECT FROM au.com.scds.agric.dom.demo.data.Batch WHERE batch_id_OID == :id ") })
 public class Batch extends Sampled {
 
-
-
 	@XmlTransient
-	@Column(allowsNull="false")
+	@Column(allowsNull = "false")
 	protected ProductLine productLine;
 	@XmlElement(name = "created-on", required = true, type = String.class)
 	@XmlJavaTypeAdapter(Adapter1.class)
 	@XmlSchemaType(name = "dateTime")
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Date createdOn;
 	@XmlElement(name = "created-by", required = true)
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Person createdBy;
 	@XmlElement(name = "scheduled-for", type = String.class)
 	@XmlJavaTypeAdapter(Adapter1.class)
 	@XmlSchemaType(name = "dateTime")
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Date scheduledFor;
 	@XmlElement(name = "completed-on", type = String.class)
 	@XmlJavaTypeAdapter(Adapter1.class)
 	@XmlSchemaType(name = "dateTime")
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Date completedOn;
 	@XmlElement(name = "completed-by")
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Person completedBy;
 	@XmlElement(required = true)
-	@Column(allowsNull="true")
+	@Column(allowsNull = "true")
 	protected Formulation formulation;
 	@XmlElement(name = "product-item")
-	@Persistent(mappedBy="batch")
+	@Persistent(mappedBy = "batch")
 	protected List<ProductItem> productItems;
-	
+
 	public ProductLine getProductLine() {
 		return productLine;
 	}

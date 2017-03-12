@@ -10,6 +10,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.query.QueryDefault;
 
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.ProductLine;
@@ -25,7 +26,17 @@ public class BatchMenu30 {
 	}
 	
 	public List<ProductLine> choices0Create(){
-		return productLineRepo.listAll();
+		return productLineRepo.listAllProductLine();
+	}
+	
+	@Action()
+	public List<Batch> listAll() {
+		return batchRepo.listAll();
+	}
+
+	@Action()
+	public Batch findById(final String id) {
+		return batchRepo.findById(id);
 	}
 
 	@Inject

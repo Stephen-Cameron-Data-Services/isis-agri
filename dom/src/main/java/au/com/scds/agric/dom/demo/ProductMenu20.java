@@ -22,19 +22,19 @@ public class ProductMenu20 {
 	@Action()
 	@MemberOrder(sequence = "1")
 	public ProductLine createProductLine(String name, ProductType type) {
-		return productRepo.createProductLine(name, type);
+		return productLineRepo.createProductLine(name, type);
 	}
 	
 	public List<ProductType> choices1CreateProductLine(){
-		return productRepo.listAllProductTypes();
+		return productLineRepo.listAllProductTypes();
 	}
 	
 	@Action()
 	@MemberOrder(sequence = "2")
 	public ProductType createProductType(String name) {
-		return productRepo.createProductType(name);
+		return productLineRepo.createProductType(name);
 	}
 
 	@javax.inject.Inject
-	ProductRepository productRepo;
+	ProductLineRepository productLineRepo;
 }

@@ -6,8 +6,11 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
+
+import au.com.scds.agric.dom.demo.data.Person;
 import au.com.scds.agric.dom.demo.data.ProductType;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = ProductType.class)
@@ -23,6 +26,10 @@ public class ProductTypeRepository {
 	
 	public List<ProductType> listAll() {
 		return repositoryService.allInstances(ProductType.class);
+	}
+	
+	public ProductType findById(final String id) {
+		return repositoryService.firstMatch(new QueryDefault<>(ProductType.class, "findById", "id", id));
 	}
 
 	@Inject

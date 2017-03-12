@@ -24,7 +24,7 @@ public class FormulationMenu80 {
 	}
 	
 	public List<ProductLine> choices0Create(){
-		return productLineRepo.listAll();
+		return productLineRepo.listAllProductLine();
 	}
 
 	@Inject
