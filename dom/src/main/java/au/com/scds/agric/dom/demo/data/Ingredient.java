@@ -65,7 +65,7 @@ public class Ingredient {
 	@Column(allowsNull = "false")
 	protected String description;
 	@XmlElement(required = true)
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	protected String specification;
 	@Join()
 	protected List<IngredientSupply> supplies;

@@ -13,14 +13,6 @@ import au.com.scds.agric.dom.demo.data.Person;
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Person.class)
 public class PersonRepository {
 
-	public List<Person> listAll() {
-		return repositoryService.allInstances(Person.class);
-	}
-
-	public List<Person> findById(final String id) {
-		return repositoryService.allMatches(new QueryDefault<>(Person.class, "findById", "id", id));
-	}
-	
 	public Person createPerson(String firstname, String lastname) {
 		if(firstname == null || lastname==null)
 			return null;
@@ -30,6 +22,14 @@ public class PersonRepository {
 		serviceRegistry.injectServicesInto(person);
 		repositoryService.persistAndFlush(person);
 		return person;
+	}
+	
+	public List<Person> listAll() {
+		return repositoryService.allInstances(Person.class);
+	}
+
+	public List<Person> findById(final String id) {
+		return repositoryService.allMatches(new QueryDefault<>(Person.class, "findById", "id", id));
 	}
 
 	@javax.inject.Inject

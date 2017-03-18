@@ -30,11 +30,13 @@ public class BatchMenu30 {
 	}
 	
 	@Action()
+	@MemberOrder(sequence = "2")
 	public List<Batch> listAll() {
 		return batchRepo.listAll();
 	}
 
 	@Action()
+	@MemberOrder(sequence = "3")
 	public Batch findById(final String id) {
 		return batchRepo.findById(id);
 	}

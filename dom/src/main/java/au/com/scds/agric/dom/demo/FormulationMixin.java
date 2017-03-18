@@ -38,15 +38,15 @@ public class FormulationMixin {
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public Formulation addComponentIngredient(Ingredient ingredient, Float quantity, String units) {
-		FormulationComponent component = formulationRepo.createFormulationComponent(ingredient, quantity, units);
+		FormulationComponent component = formulationRepo.createFormulationComponent(this.formulation, ingredient, quantity, units);
 		this.formulation.getComponents().add(component);
 		return this.formulation;
 	}
 	
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public Ingredient createComponentIngredient(String ingredientName, Float quantity, String units) {
-		Ingredient ingredient = ingredientRepo.createIngredient(ingredientName);
+	public Ingredient createComponentIngredient(String ingredientName, String ingredientDescription, Float quantity, String units) {
+		Ingredient ingredient = ingredientRepo.createIngredient(ingredientName, ingredientDescription);
 		addComponentIngredient(ingredient, quantity, units);
 		return ingredient;
 	}

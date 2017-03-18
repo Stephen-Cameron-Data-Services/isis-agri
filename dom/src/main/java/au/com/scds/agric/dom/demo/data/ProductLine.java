@@ -51,7 +51,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ProductLine", propOrder = { "name", "productType", "batch" })
+@XmlType(name = "ProductLine", propOrder = { "name", "productType", "batches" })
 @DomainObject(objectType="ProductLine")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -66,9 +66,9 @@ public class ProductLine {
 	@XmlElement(name = "product-type")
 	@Column(allowsNull = "false")
 	protected ProductType productType;
-	@XmlElement(required = true)
+	@XmlElement(name = "batch", required = true)
 	@Persistent(mappedBy = "productLine")
-	protected List<Batch> batch;
+	protected List<Batch> batches;
 	
 	public Producer getProducer() {
 		return producer;
@@ -142,11 +142,8 @@ public class ProductLine {
 	 * 
 	 * 
 	 */
-	public List<Batch> getBatch() {
-		if (batch == null) {
-			batch = new ArrayList<Batch>();
-		}
-		return this.batch;
+	public List<Batch> getBatches() {
+		return this.batches;
 	}
 
 }

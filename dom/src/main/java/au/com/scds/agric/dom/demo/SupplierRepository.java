@@ -11,8 +11,9 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.IngredientSupplier;
 import au.com.scds.agric.dom.demo.data.IngredientSupply;
+import au.com.scds.agric.dom.demo.data.ProductType;
 
-@DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
+@DomainService(nature = NatureOfService.DOMAIN, repositoryFor = IngredientSupply.class)
 public class SupplierRepository {
 
 	public IngredientSupplier createIngredientSupplier(String name) {
@@ -23,12 +24,12 @@ public class SupplierRepository {
 		return supplier;
 	}
 	
-	public List<IngredientSupplier> listAll() {
+	public List<IngredientSupplier> listAllIngredientSupplier() {
 		return repositoryService.allInstances(IngredientSupplier.class);
 	}
 
-	public List<IngredientSupplier> findById(final String id) {
-		return repositoryService.allMatches(new QueryDefault<>(IngredientSupplier.class, "findById", "id", id));
+	public IngredientSupplier findIngredientSupplierById(final String id) {
+		return repositoryService.firstMatch(new QueryDefault<>(IngredientSupplier.class, "findById", "id", id));
 	}
 	
 	public IngredientSupply createIngredientSupply(Ingredient ingredient, IngredientSupplier supplier) {
@@ -37,6 +38,14 @@ public class SupplierRepository {
 		serviceRegistry.injectServicesInto(supply);
 		repositoryService.persistAndFlush(supply);
 		return supply;
+	}
+	
+	public List<IngredientSupply> listAllIngredientSupply() {
+		return repositoryService.allInstances(IngredientSupply.class);
+	}
+
+	public IngredientSupply findIngredientSupplyById(final String id) {
+		return repositoryService.firstMatch(new QueryDefault<>(IngredientSupply.class, "findById", "id", id));
 	}
 	
 	@javax.inject.Inject

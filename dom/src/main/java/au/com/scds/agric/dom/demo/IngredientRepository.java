@@ -16,9 +16,10 @@ import au.com.scds.agric.dom.demo.data.Ingredient;
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Ingredient.class)
 public class IngredientRepository {
 
-	public Ingredient createIngredient(String name) {
+	public Ingredient createIngredient(String name, String description) {
 		final Ingredient ingredient = new Ingredient();
 		ingredient.setName(name);
+		ingredient.setDescription(description);
 		serviceRegistry.injectServicesInto(ingredient);
 		repositoryService.persistAndFlush(ingredient);
 		return ingredient;

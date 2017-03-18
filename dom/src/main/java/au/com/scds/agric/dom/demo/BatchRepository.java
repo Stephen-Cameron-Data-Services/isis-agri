@@ -25,6 +25,7 @@ public class BatchRepository {
 		batch.setProductLine(productLine);
 		serviceRegistry.injectServicesInto(batch);
 		repositoryService.persistAndFlush(batch);
+		productLine.getBatches().add(batch);
 		return batch;
 	}
 

@@ -18,6 +18,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
+import javax.jdo.annotations.Order;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -99,6 +100,7 @@ public class Batch extends Sampled {
 	protected Formulation formulation;
 	@XmlElement(name = "product-item")
 	@Persistent(mappedBy = "batch")
+	@Order(column="batchorder_idx")
 	protected List<ProductItem> productItems;
 
 	public ProductLine getProductLine() {
@@ -260,6 +262,10 @@ public class Batch extends Sampled {
 	 */
 	public List<ProductItem> getProductItems() {
 		return this.productItems;
+	}
+
+	protected void setProductItems(List<ProductItem> productItems) {
+		this.productItems = productItems;
 	}
 
 }

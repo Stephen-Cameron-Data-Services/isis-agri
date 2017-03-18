@@ -24,9 +24,11 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.BatchMixin;
 import au.com.scds.agric.dom.demo.FormulationMenu80;
+import au.com.scds.agric.dom.demo.FormulationMethodMixin;
 import au.com.scds.agric.dom.demo.FormulationMixin;
 import au.com.scds.agric.dom.demo.PersonMenu91;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
+import au.com.scds.agric.dom.demo.ProducerMixin;
 import au.com.scds.agric.dom.demo.ProductMenu20;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.Formulation;
@@ -62,7 +64,7 @@ public class ProducerCreate extends FixtureScript {
 	protected void execute(ExecutionContext ec) {
 
 		try {
-			//import object graph from XML
+			// import object graph from XML
 			// create and persist equivalent objects via menus.
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/Producer.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
@@ -71,13 +73,14 @@ public class ProducerCreate extends FixtureScript {
 			producer = wrap(producerMenu).create(pr.getName());
 			ProductLine pl = pr.getProductLines().get(0);
 			ProductType productType = wrap(productMenu).createProductType(pl.getProductType().getName());
-			ProductLine productLine = wrap(productMenu).createProductLine(pl.getName(), productType);
-			Batch ba = pl.getBatch().get(0);
-			Batch batch = wrap(batchMenu).create(productLine);
+			ProducerMixin pmx = new ProducerMixin(producer);
+			wrap(pmx).addProductLine(pl.getProductType().getName(), productType);
+			Batch ba = pl.getBatches().get(0);
+			Batch batch = wrap(batchMenu).create(producer.getProductLines().get(0));
 			Person p1 = ba.getCreatedBy();
 			Person p2 = ba.getCompletedBy();
-			Person creator = wrap(personMenu).create(p1.getFirstName(),p1.getLastName());
-			Person completor = wrap(personMenu).create(p2.getFirstName(),p2.getLastName());
+			Person creator = wrap(personMenu).create(p1.getFirstName(), p1.getLastName());
+			Person completor = wrap(personMenu).create(p2.getFirstName(), p2.getLastName());
 			wrap(batch).setCreatedBy(creator);
 			wrap(batch).setCompletedBy(completor);
 			wrap(batch).setCreatedOn(ba.getCreatedOn());
@@ -85,15 +88,18 @@ public class ProducerCreate extends FixtureScript {
 			wrap(batch).setCompletedOn(ba.getCompletedOn());
 			Formulation fo = ba.getFormulation();
 			Formulation formulation = wrap(formulationMenu).create(fo.getName());
+			batch.setFormulation(formulation);
 			wrap(formulation).setDescription(fo.getDescription());
 			FormulationMethod fme = fo.getMethod();
 			FormulationMixin fmx = new FormulationMixin(formulation);
 			FormulationMethod formulationMethod = wrap(fmx).createMethod();
+			wrap(formulationMethod).setDescription(fme.getDescription());
 			FormulationComponent fmc = fo.getComponents().get(0);
-			Ingredient ingredient = wrap(fmx).createComponentIngredient(fmc.getIngredient().getName(), fmc.getQuantity(), fmc.getUnit());
-			wrap(ingredient).setName(fmc.getIngredient().getName());
-			wrap(ingredient).setDescription(fmc.getIngredient().getDescription());
+			Ingredient ingredient = wrap(fmx).createComponentIngredient(fmc.getIngredient().getName(),
+					fmc.getIngredient().getDescription(), fmc.getQuantity(), fmc.getUnit());
 			wrap(ingredient).setSpecification(fmc.getIngredient().getSpecification());
+			FormulationMethodMixin fmmx = new FormulationMethodMixin(formulationMethod);
+			wrap(fmmx).addStep(fme.getSteps().get(0).getDescription(), fme.getSteps().get(0).getOrder());
 			ProductItem pri = ba.getProductItems().get(0);
 			BatchMixin bmx = new BatchMixin(batch);
 			wrap(bmx).createProductItem(pri.getSerialNumber());
@@ -105,15 +111,15 @@ public class ProducerCreate extends FixtureScript {
 	public Producer getProducer() {
 		return this.producer;
 	}
-	
-    @javax.inject.Inject
-    private ProducerMenu10 producerMenu;
-    @javax.inject.Inject
-    private ProductMenu20 productMenu;
-    @javax.inject.Inject
-    private BatchMenu30 batchMenu;
-    @javax.inject.Inject
-    private PersonMenu91 personMenu;
-    @javax.inject.Inject
-    private FormulationMenu80 formulationMenu;
+
+	@javax.inject.Inject
+	private ProducerMenu10 producerMenu;
+	@javax.inject.Inject
+	private ProductMenu20 productMenu;
+	@javax.inject.Inject
+	private BatchMenu30 batchMenu;
+	@javax.inject.Inject
+	private PersonMenu91 personMenu;
+	@javax.inject.Inject
+	private FormulationMenu80 formulationMenu;
 }

@@ -109,7 +109,7 @@ public class FormulationMethod {
 	 * 
 	 * 
 	 */
-	public List<FormulationStep> getStep() {
+	public List<FormulationStep> getSteps() {
 		return this.steps;
 	}
 

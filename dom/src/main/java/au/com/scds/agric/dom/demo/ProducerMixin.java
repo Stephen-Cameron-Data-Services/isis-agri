@@ -1,5 +1,7 @@
 package au.com.scds.agric.dom.demo;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
@@ -25,9 +27,16 @@ public class ProducerMixin {
 	public ProductLine addProductLine(String name, ProductType type) {
 		ProductLine productLine = productLineRepo.createProductLine(name, type);
 		productLine.setProducer(this.producer);
+		this.producer.getProductLines().add(productLine);
 		return productLine;
+	}
+	
+	public List<ProductType> choices1AddProductLine(){
+		return productTypeRepo.listAll();
 	}
 	
 	@Inject
 	ProductLineRepository productLineRepo;
+	@Inject
+	ProductTypeRepository productTypeRepo;
 }
