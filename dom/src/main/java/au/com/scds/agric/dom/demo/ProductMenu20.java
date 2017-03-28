@@ -22,7 +22,7 @@ public class ProductMenu20 {
 	@Action()
 	@MemberOrder(sequence = "1")
 	public ProductLine createProductLine(String name, ProductType type) {
-		return productLineRepo.createProductLine(name, type);
+		return productLineRepo.createProductLine(producerRepo.currentProducer() ,name, type);
 	}
 	
 	public List<ProductType> choices1CreateProductLine(){
@@ -34,6 +34,9 @@ public class ProductMenu20 {
 	public ProductType createProductType(String name) {
 		return productLineRepo.createProductType(name);
 	}
+	
+	@javax.inject.Inject
+	ProducerRepository producerRepo;
 
 	@javax.inject.Inject
 	ProductLineRepository productLineRepo;

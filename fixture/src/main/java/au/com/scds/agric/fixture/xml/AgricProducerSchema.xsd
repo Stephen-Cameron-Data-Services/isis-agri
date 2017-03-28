@@ -23,7 +23,11 @@
 
 	<complexType name="Client">
 		<complexContent>
-			<extension base="tns:Party"></extension>
+			<extension base="tns:Party">
+				<sequence>
+					<element name="order" type="tns:Order" minOccurs="0" maxOccurs="unbounded"></element>
+				</sequence>
+			</extension>
 		</complexContent>
 	</complexType>
 
@@ -128,9 +132,6 @@
 			</element>
 			<element name="product-type" type="tns:ProductType"
 				maxOccurs="1" minOccurs="0"></element>
-			<element name="batch" type="tns:Batch" minOccurs="1"
-				maxOccurs="unbounded">
-			</element>
 		</sequence>
 	</complexType>
 
@@ -202,27 +203,14 @@
 		<complexContent>
 			<extension base="tns:Sampled">
 				<sequence>
-					<element name="created-on" type="dateTime" minOccurs="1"
-						maxOccurs="1">
-					</element>
-					<element name="created-by" type="tns:Person" minOccurs="1"
-						maxOccurs="1">
-					</element>
-					<element name="scheduled-for" type="dateTime" minOccurs="0"
-						maxOccurs="1">
-					</element>
-					<element name="completed-on" type="dateTime" minOccurs="0"
-						maxOccurs="1">
-					</element>
-					<element name="completed-by" type="tns:Person" minOccurs="0"
-						maxOccurs="1">
-					</element>
-					<element name="formulation" type="tns:Formulation"
-						minOccurs="1" maxOccurs="1">
-					</element>
-					<element name="product-item" type="tns:ProductItem"
-						minOccurs="0" maxOccurs="unbounded">
-					</element>
+					<element name="created-on" type="dateTime" minOccurs="1" maxOccurs="1"></element>
+					<element name="created-by" type="tns:Person" minOccurs="1" maxOccurs="1"></element>
+					<element name="scheduled-for" type="dateTime" minOccurs="0" maxOccurs="1"></element>
+					<element name="completed-on" type="dateTime" minOccurs="0" maxOccurs="1"></element>
+					<element name="completed-by" type="tns:Person" minOccurs="0" maxOccurs="1"></element>
+					<element name="specification" type="tns:Specification" minOccurs="0" maxOccurs="1"></element>
+					<element name="batch-component" type="tns:BatchComponent" maxOccurs="unbounded" minOccurs="0"></element>
+					<element name="product-item" type="tns:ProductItem" minOccurs="0" maxOccurs="unbounded"></element>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -251,9 +239,6 @@
 				<sequence>
 					<element name="ingredient" type="tns:Ingredient" minOccurs="1"
 						maxOccurs="1">
-					</element>
-					<element name="parent-supply" type="tns:IngredientSupply"
-						minOccurs="1" maxOccurs="1">
 					</element>
 					<element name="quantity" type="float" maxOccurs="1"
 						minOccurs="1">
@@ -338,9 +323,6 @@
 				maxOccurs="unbounded" minOccurs="0">
 			</element>
 			<element name="test-suite" type="tns:TestSuite" maxOccurs="unbounded" minOccurs="0"></element>
-			<element name="result" type="tns:Result" minOccurs="0"
-				maxOccurs="unbounded">
-			</element>
 		</sequence>
 	</complexType>
 
@@ -414,25 +396,17 @@ quality assurance or food safety testing.
 		</complexContent>
 	</complexType>
 
-	<element name="clients" type="tns:Clients"></element>
+	<element name="clients">
+		<complexType>
+			<sequence>
+				<element name="client" type="tns:Client" minOccurs="0" maxOccurs="1"></element>
+			</sequence>
+		</complexType></element>
 
-	<complexType name="Clients">
-		<sequence>
-			<element name="client" type="tns:Client" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-	</complexType>
 
 	<element name="producer" type="tns:Producer"></element>
 
-	<element name="test-suites" type="tns:TestSuites"></element>
 
-	<complexType name="TestSuites">
-		<sequence>
-			<element name="test-suite" type="tns:TestSuite" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-	</complexType>
 
 	<complexType name="IngredientManufacturer">
 		<annotation>
@@ -524,4 +498,50 @@ quality assurance or food safety testing.
     		</sequence>
     	</complexType></element>
 
+
+    <complexType name="Specification">
+    	<sequence>
+    		<element name="name" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="SaleLine">
+    	<sequence>
+            <element name="product-pack" type="tns:ProductPack" minOccurs="0" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="Sale">
+    	<sequence>
+    		<element name="line" type="tns:SaleLine" minOccurs="0" maxOccurs="unbounded"></element>
+    		<element name="invoice" type="tns:Invoice" minOccurs="0" maxOccurs="1"></element>
+    		<element name="receipt" type="tns:Receipt" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Invoice"></complexType>
+
+    <complexType name="Receipt"></complexType>
+
+
+    <element name="formulations">
+    	<complexType>
+    		<sequence>
+    			<element name="formulation" type="tns:Formulation" minOccurs="0" maxOccurs="unbounded"></element>
+    		</sequence>
+    	</complexType></element>
+
+    <element name="batches">
+    	<complexType>
+    		<sequence>
+    			<element name="batch" type="tns:Batch" minOccurs="0" maxOccurs="unbounded"></element>
+    		</sequence>
+    	</complexType></element>
+
+    <element name="sales">
+    	<complexType>
+    		<sequence>
+    			<element name="sales" type="tns:Sale" minOccurs="0" maxOccurs="unbounded"></element>
+    		</sequence>
+    	</complexType></element>
 </schema>

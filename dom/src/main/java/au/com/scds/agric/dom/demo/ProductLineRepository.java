@@ -9,14 +9,17 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
+
+import au.com.scds.agric.dom.demo.data.Producer;
 import au.com.scds.agric.dom.demo.data.ProductLine;
 import au.com.scds.agric.dom.demo.data.ProductType;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = ProductLine.class)
 public class ProductLineRepository {
 
-	public ProductLine createProductLine(final String name, final ProductType type) {
+	public ProductLine createProductLine(final Producer producer, final String name, final ProductType type) {
 		final ProductLine productLine = new ProductLine();
+		productLine.setProducer(producer);
 		productLine.setName(name);
 		productLine.setProductType(type);
 		serviceRegistry.injectServicesInto(productLine);

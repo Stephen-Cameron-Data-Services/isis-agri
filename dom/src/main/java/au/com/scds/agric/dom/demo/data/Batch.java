@@ -7,6 +7,7 @@
 
 package au.com.scds.agric.dom.demo.data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.isis.applib.annotation.DomainObject;
+
+import au.com.scds.agric.dom.demo.data.BatchComponent;
+import au.com.scds.agric.dom.demo.data.Specification;
 
 /**
  * A batch of product, efficiently created in bulk for subdivision into
@@ -63,7 +67,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Batch", propOrder = { "createdOn", "createdBy", "scheduledFor", "completedOn", "completedBy",
-		"formulation", "productItems" })
+		"formulation","specification","batchComponents", "productItems" })
 @DomainObject(objectType = "Batch")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -72,7 +76,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 public class Batch extends Sampled {
 
 	@XmlTransient
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	protected ProductLine productLine;
 	@XmlElement(name = "created-on", required = true, type = String.class)
 	@XmlJavaTypeAdapter(Adapter1.class)
@@ -95,13 +99,20 @@ public class Batch extends Sampled {
 	@XmlElement(name = "completed-by")
 	@Column(allowsNull = "true")
 	protected Person completedBy;
-	@XmlElement(required = true)
+	@XmlElement()
 	@Column(allowsNull = "true")
 	protected Formulation formulation;
+	@XmlElement()
+	@Column(allowsNull = "true")	
+    protected Specification specification;
+    @XmlElement(name = "batch-components")
+	@Persistent(mappedBy = "batch")
+	@Order(column="batchorder_idx")
+    protected List<BatchComponent> batchComponents = new ArrayList<>();
 	@XmlElement(name = "product-item")
 	@Persistent(mappedBy = "batch")
 	@Order(column="batchorder_idx")
-	protected List<ProductItem> productItems;
+	protected List<ProductItem> productItems = new ArrayList<>();
 
 	public ProductLine getProductLine() {
 		return productLine;
@@ -236,6 +247,56 @@ public class Batch extends Sampled {
 	public void setFormulation(Formulation value) {
 		this.formulation = value;
 	}
+	
+    /**
+     * Gets the value of the specification property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Specification }
+     *     
+     */
+    public Specification getSpecification() {
+        return specification;
+    }
+
+    /**
+     * Sets the value of the specification property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Specification }
+     *     
+     */
+    public void setSpecification(Specification value) {
+        this.specification = value;
+    }
+
+    /**
+     * Gets the value of the batchComponent property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the batchComponent property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getBatchComponent().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link BatchComponent }
+     * 
+     * 
+     */
+    public List<BatchComponent> getBatchComponents() {
+        return this.batchComponents;
+    }
 
 	/**
 	 * Gets the value of the productItem property.

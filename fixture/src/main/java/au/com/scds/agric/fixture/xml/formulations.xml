@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:formulations xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+  <tns:formulation>
+    <tns:name>tns:name</tns:name>
+    <tns:description>tns:description</tns:description>
+    <tns:method>
+      <tns:description>tns:description</tns:description>
+      <tns:step>
+        <tns:description>tns:description</tns:description>
+        <tns:order>0</tns:order>
+      </tns:step>
+    </tns:method>
+    <tns:component>
+      <tns:ingredient>
+        <tns:name>tns:name</tns:name>
+        <tns:description>tns:description</tns:description>
+        <tns:specification>tns:specification</tns:specification>
+        <tns:supply>
+          <tns:manufacturer>
+            <tns:name>tns:name</tns:name>
+          </tns:manufacturer>
+          <tns:supplier>
+            <tns:name>tns:name</tns:name>
+          </tns:supplier>
+          <tns:quantity-initial>0.0</tns:quantity-initial>
+          <tns:quantity-remaining>tns:quantity-remaining</tns:quantity-remaining>
+        </tns:supply>
+      </tns:ingredient>
+      <tns:quantity>0.0</tns:quantity>
+      <tns:unit>tns:unit</tns:unit>
+    </tns:component>
+  </tns:formulation>
+</tns:formulations>

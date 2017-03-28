@@ -71,38 +71,6 @@ public class ProducerCreate extends FixtureScript {
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Producer pr = ((JAXBElement<Producer>) jaxbUnmarshaller.unmarshal(is)).getValue();
 			producer = wrap(producerMenu).create(pr.getName());
-			ProductLine pl = pr.getProductLines().get(0);
-			ProductType productType = wrap(productMenu).createProductType(pl.getProductType().getName());
-			ProducerMixin pmx = new ProducerMixin(producer);
-			wrap(pmx).addProductLine(pl.getProductType().getName(), productType);
-			Batch ba = pl.getBatches().get(0);
-			Batch batch = wrap(batchMenu).create(producer.getProductLines().get(0));
-			Person p1 = ba.getCreatedBy();
-			Person p2 = ba.getCompletedBy();
-			Person creator = wrap(personMenu).create(p1.getFirstName(), p1.getLastName());
-			Person completor = wrap(personMenu).create(p2.getFirstName(), p2.getLastName());
-			wrap(batch).setCreatedBy(creator);
-			wrap(batch).setCompletedBy(completor);
-			wrap(batch).setCreatedOn(ba.getCreatedOn());
-			wrap(batch).setScheduledFor(ba.getScheduledFor());
-			wrap(batch).setCompletedOn(ba.getCompletedOn());
-			Formulation fo = ba.getFormulation();
-			Formulation formulation = wrap(formulationMenu).create(fo.getName());
-			batch.setFormulation(formulation);
-			wrap(formulation).setDescription(fo.getDescription());
-			FormulationMethod fme = fo.getMethod();
-			FormulationMixin fmx = new FormulationMixin(formulation);
-			FormulationMethod formulationMethod = wrap(fmx).createMethod();
-			wrap(formulationMethod).setDescription(fme.getDescription());
-			FormulationComponent fmc = fo.getComponents().get(0);
-			Ingredient ingredient = wrap(fmx).createComponentIngredient(fmc.getIngredient().getName(),
-					fmc.getIngredient().getDescription(), fmc.getQuantity(), fmc.getUnit());
-			wrap(ingredient).setSpecification(fmc.getIngredient().getSpecification());
-			FormulationMethodMixin fmmx = new FormulationMethodMixin(formulationMethod);
-			wrap(fmmx).addStep(fme.getSteps().get(0).getDescription(), fme.getSteps().get(0).getOrder());
-			ProductItem pri = ba.getProductItems().get(0);
-			BatchMixin bmx = new BatchMixin(batch);
-			wrap(bmx).createProductItem(pri.getSerialNumber());
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}

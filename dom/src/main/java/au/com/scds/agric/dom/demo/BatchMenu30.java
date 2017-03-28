@@ -18,14 +18,20 @@ import au.com.scds.agric.dom.demo.data.ProductLine;
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
 @DomainServiceLayout(named = "Batch", menuOrder = "30")
 public class BatchMenu30 {
-
+	
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Batch create(ProductLine productLine) {
+	public Batch createBatch() {
+		return batchRepo.createBatch();
+	}
+
+	@Action()
+	@MemberOrder(sequence = "2")
+	public Batch createBatchForProductLine(ProductLine productLine) {
 		return batchRepo.createBatch(productLine);
 	}
 	
-	public List<ProductLine> choices0Create(){
+	public List<ProductLine> choices0CreateForProductLine(){
 		return productLineRepo.listAllProductLine();
 	}
 	

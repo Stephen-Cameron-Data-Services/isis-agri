@@ -50,8 +50,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Producer", propOrder = {
-	"name",
-    "productLines"
+	"name"
 })
 @DomainObject(objectType="Producer")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -63,7 +62,7 @@ public class Producer {
 	protected String name;
     @XmlElement(name = "product-line", required = true)
     @Persistent(mappedBy="producer")
-    protected List<ProductLine> productLines;
+    protected List<ProductLine> productLines = new ArrayList<>();
 
     public String getName() {
 		return name;
@@ -98,5 +97,4 @@ public class Producer {
     public List<ProductLine> getProductLines() {
         return this.productLines;
     }
-
 }

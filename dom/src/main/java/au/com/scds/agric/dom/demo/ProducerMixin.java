@@ -25,16 +25,15 @@ public class ProducerMixin {
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public ProductLine addProductLine(String name, ProductType type) {
-		ProductLine productLine = productLineRepo.createProductLine(name, type);
-		productLine.setProducer(this.producer);
+		ProductLine productLine = productLineRepo.createProductLine(this.producer, name, type);
 		this.producer.getProductLines().add(productLine);
 		return productLine;
 	}
-	
-	public List<ProductType> choices1AddProductLine(){
+
+	public List<ProductType> choices1AddProductLine() {
 		return productTypeRepo.listAll();
 	}
-	
+
 	@Inject
 	ProductLineRepository productLineRepo;
 	@Inject

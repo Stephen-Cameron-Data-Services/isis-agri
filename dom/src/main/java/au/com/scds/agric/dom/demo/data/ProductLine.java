@@ -68,7 +68,7 @@ public class ProductLine {
 	protected ProductType productType;
 	@XmlElement(name = "batch", required = true)
 	@Persistent(mappedBy = "productLine")
-	protected List<Batch> batches;
+	protected List<Batch> batches ;
 	
 	public Producer getProducer() {
 		return producer;

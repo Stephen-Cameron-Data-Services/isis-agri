@@ -17,6 +17,13 @@ import au.com.scds.agric.dom.simple.SimpleObject;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Batch.class)
 public class BatchRepository {
+	
+	public Batch createBatch() {
+		final Batch batch = new Batch();
+		serviceRegistry.injectServicesInto(batch);
+		repositoryService.persistAndFlush(batch);
+		return batch;
+	}
 
 	public Batch createBatch(ProductLine productLine) {
 		if (productLine == null)
@@ -50,5 +57,6 @@ public class BatchRepository {
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 
 }

@@ -13,12 +13,19 @@ import au.com.scds.agric.dom.demo.data.Producer;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Producer.class)
 public class ProducerRepository {
+	
+	private Producer producer;
+	
+	public Producer currentProducer(){
+		return producer;
+	}
 
 	public Producer createProducer(final String name) {
 		final Producer producer = new Producer();
 		producer.setName(name);
 		serviceRegistry.injectServicesInto(producer);
 		repositoryService.persistAndFlush(producer);
+		this.producer = producer;
 		return producer;
 	}
 	
