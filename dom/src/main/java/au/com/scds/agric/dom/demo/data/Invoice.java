@@ -5,18 +5,27 @@
 // Generated on: 2017.03.28 at 06:46:37 PM AEDT 
 //
 
-
 package au.com.scds.agric.dom.demo.data;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.isis.applib.annotation.DomainObject;
 
 /**
- * <p>Java class for Invoice complex type.
+ * <p>
+ * Java class for Invoice complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Invoice">
@@ -31,7 +40,20 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Invoice")
+@DomainObject(objectType = "Invoice")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Invoice {
 
+	@XmlTransient
+	@Column(allowsNull = "false")
+	protected Client customer;
 
+	public Client getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Client customer) {
+		this.customer = customer;
+	}
 }

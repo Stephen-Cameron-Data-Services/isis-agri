@@ -66,16 +66,35 @@ public class ProducerCreate extends FixtureScript {
 		try {
 			// import object graph from XML
 			// create and persist equivalent objects via menus.
-			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/Producer.xml");
+			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/producer.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Producer pr = ((JAXBElement<Producer>) jaxbUnmarshaller.unmarshal(is)).getValue();
 			producer = wrap(producerMenu).create(pr.getName());
+			wrap(producer).setName(pr.getName());
+			for(ProductLine _line : pr.getProductLines()){
+				ProductType type = wrap(productMenu).createProductType(_line.getProductType().getName());
+				ProductLine line = wrap(productMenu).createProductLine(_line.getName(), type);
+			}
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
-
+/**	
+	<?xml version="1.0" encoding="UTF-8"?>
+	<tns:producer 
+	xmlns:tns="http://www.example.org/AgricProducerSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+		<tns:name>tns:name</tns:name>
+		<tns:product-line>
+			<tns:name>tns:name</tns:name>
+			<tns:product-type>
+				<tns:name>tns:name</tns:name>
+			</tns:product-type>
+		</tns:product-line>
+	</tns:producer>
+*/
 	public Producer getProducer() {
 		return this.producer;
 	}

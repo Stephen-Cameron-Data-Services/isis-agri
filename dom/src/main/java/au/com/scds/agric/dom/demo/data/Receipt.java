@@ -8,9 +8,17 @@
 
 package au.com.scds.agric.dom.demo.data;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.isis.applib.annotation.DomainObject;
 
 
 /**
@@ -31,7 +39,21 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Receipt")
+@DomainObject(objectType = "Receipt")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Receipt {
 
 
+	@XmlTransient
+	@Column(allowsNull = "false")
+	protected Client customer;
+
+	public Client getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Client customer) {
+		this.customer = customer;
+	}
 }

@@ -10,9 +10,16 @@ package au.com.scds.agric.dom.demo.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.isis.applib.annotation.DomainObject;
 
 
 /**
@@ -38,44 +45,20 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Sale", propOrder = {
-    "line",
     "invoice",
-    "receipt"
+    "receipt",
+    "lines"
 })
+@DomainObject(objectType = "Sale")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Sale {
 
-    protected List<SaleLine> line;
     protected Invoice invoice;
     protected Receipt receipt;
+    protected List<SaleLine> lines;
 
-    /**
-     * Gets the value of the line property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the line property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getLine().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link SaleLine }
-     * 
-     * 
-     */
-    public List<SaleLine> getLine() {
-        if (line == null) {
-            line = new ArrayList<SaleLine>();
-        }
-        return this.line;
-    }
+
 
     /**
      * Gets the value of the invoice property.
@@ -125,4 +108,29 @@ public class Sale {
         this.receipt = value;
     }
 
+    /**
+     * Gets the value of the line property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the line property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLine().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link SaleLine }
+     * 
+     * 
+     */
+    public List<SaleLine> getLines() {
+        return this.lines;
+    }
 }

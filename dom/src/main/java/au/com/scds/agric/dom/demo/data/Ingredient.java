@@ -52,7 +52,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Ingredient", propOrder = { "name", "description", "specification", "supplies" })
+@XmlType(name = "Ingredient", propOrder = { "name", "description", "supplies" })
 @DomainObject(objectType="Ingredient")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -64,9 +64,6 @@ public class Ingredient {
 	@XmlElement(required = true)
 	@Column(allowsNull = "false")
 	protected String description;
-	@XmlElement(required = true)
-	@Column(allowsNull = "true")
-	protected String specification;
 	@Join()
 	protected List<IngredientSupply> supplies;
 
@@ -112,26 +109,6 @@ public class Ingredient {
 		this.description = value;
 	}
 
-	/**
-	 * Gets the value of the specification property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getSpecification() {
-		return specification;
-	}
-
-	/**
-	 * Sets the value of the specification property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setSpecification(String value) {
-		this.specification = value;
-	}
 
 	/**
 	 * Gets the value of the supply property.

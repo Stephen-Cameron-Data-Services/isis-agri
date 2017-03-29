@@ -12,7 +12,9 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.BatchComponent;
+import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.ProductLine;
+import au.com.scds.agric.dom.demo.data.SiUnit;
 import au.com.scds.agric.dom.simple.SimpleObject;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Batch.class)
@@ -44,10 +46,14 @@ public class BatchRepository {
 		return repositoryService.firstMatch(new QueryDefault<>(Batch.class, "findById", "id", id));
 	}
 	
-	public BatchComponent createComponent(Batch batch) {
+	public BatchComponent createComponent(Batch batch, Ingredient ingredient, float quantity, SiUnit unit) {
 		if (batch == null)
 			return null;
 		final BatchComponent component = new BatchComponent();
+		component.setBatch(batch);
+		component.setIngredient(ingredient);
+		component.setQuantity(quantity);
+		component.setUnit(unit);
 		serviceRegistry.injectServicesInto(component);
 		repositoryService.persistAndFlush(component);
 		return component;
@@ -57,6 +63,5 @@ public class BatchRepository {
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
-
 
 }

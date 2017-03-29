@@ -31,18 +31,18 @@ public class BatchMenu30 {
 		return batchRepo.createBatch(productLine);
 	}
 	
-	public List<ProductLine> choices0CreateForProductLine(){
+	public List<ProductLine> choices0CreateBatchForProductLine(){
 		return productLineRepo.listAllProductLine();
 	}
 	
 	@Action()
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "3")
 	public List<Batch> listAll() {
 		return batchRepo.listAll();
 	}
 
 	@Action()
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "4")
 	public Batch findById(final String id) {
 		return batchRepo.findById(id);
 	}

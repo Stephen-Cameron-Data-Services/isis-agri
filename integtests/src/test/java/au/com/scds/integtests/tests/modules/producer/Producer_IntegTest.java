@@ -66,37 +66,7 @@ public class Producer_IntegTest extends DomainAppIntegTest {
 			assertThat(producer.getProductLines().size()).isEqualTo(1);
 			ProductLine productLine = producer.getProductLines().get(0);
 			assertThat(productLine.getName()).isEqualTo("tns:name");
-			assertThat(productLine.getBatches().size()).isEqualTo(1);
-			Batch batch = productLine.getBatches().get(0);
-			Calendar cal = Calendar.getInstance();
-			cal.set(2001,11,31,12,0,0);
-			cal.set(Calendar.MILLISECOND,0);
-			assertThat(batch.getCreatedOn()).isEqualTo(cal.getTime());
-			assertThat(batch.getScheduledFor()).isEqualTo(cal.getTime());
-			assertThat(batch.getCompletedOn()).isEqualTo(cal.getTime());
-			assertThat(batch.getCreatedBy()).isNotNull();
-			assertThat(batch.getCreatedBy().getFirstName()).isEqualTo("tns:first-name");
-			assertThat(batch.getCreatedBy().getLastName()).isEqualTo("tns:last-name");
-			assertThat(batch.getCompletedBy()).isNotNull();
-			assertThat(batch.getCompletedBy().getFirstName()).isEqualTo("tns:first-name");
-			assertThat(batch.getCompletedBy().getLastName()).isEqualTo("tns:last-name");
-			assertThat(batch.getFormulation()).isNotNull();
-			assertThat(batch.getFormulation().getName()).isEqualTo("tns:name");
-			assertThat(batch.getFormulation().getDescription()).isEqualTo("tns:description");
-			assertThat(batch.getFormulation().getMethod()).isNotNull();
-			assertThat(batch.getFormulation().getMethod().getDescription()).isEqualTo("tns:description");
-			assertThat(batch.getFormulation().getMethod().getSteps().size()).isEqualTo(1);
-			assertThat(batch.getFormulation().getMethod().getSteps().get(0).getDescription()).isEqualTo("tns:description");
-			assertThat(batch.getFormulation().getMethod().getSteps().get(0).getOrder()).isEqualTo(0);
-			assertThat(batch.getFormulation().getComponents().size()).isEqualTo(1);
-			FormulationComponent component = batch.getFormulation().getComponents().get(0);
-			assertThat(component.getIngredient().getName()).isEqualTo("tns:name");
-			assertThat(component.getIngredient().getDescription()).isEqualTo("tns:description");
-			assertThat(component.getIngredient().getSpecification()).isEqualTo("tns:specification");
-			assertThat(component.getQuantity()).isEqualTo(1);
-			assertThat(component.getUnit()).isEqualTo("tns:unit");
-			assertThat(batch.getProductItems().size()).isEqualTo(1);
-			assertThat(batch.getProductItems().get(0).getSerialNumber()).isEqualTo("tns:serial-number");	
+			assertThat(productLine.getBatches().size()).isEqualTo(0);
 		}
 	}
 }

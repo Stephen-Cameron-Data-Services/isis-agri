@@ -5,21 +5,30 @@
 // Generated on: 2017.03.28 at 06:46:37 PM AEDT 
 //
 
-
 package au.com.scds.agric.dom.demo.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.isis.applib.annotation.DomainObject;
 
 /**
- * <p>Java class for SaleLine complex type.
+ * <p>
+ * Java class for SaleLine complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="SaleLine">
@@ -36,41 +45,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SaleLine", propOrder = {
-    "productPack"
-})
+@XmlType(name = "SaleLine", propOrder = { "productPacks" })
+@DomainObject(objectType = "SaleLine")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class SaleLine {
 
-    @XmlElement(name = "product-pack")
-    protected List<ProductPack> productPack;
+	@XmlElement(name = "product-pack")
+	@Persistent(mappedBy = "saleLine")
+	protected List<ProductPack> productPacks;
 
-    /**
-     * Gets the value of the productPack property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the productPack property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getProductPack().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ProductPack }
-     * 
-     * 
-     */
-    public List<ProductPack> getProductPack() {
-        if (productPack == null) {
-            productPack = new ArrayList<ProductPack>();
-        }
-        return this.productPack;
-    }
+	/**
+	 * Gets the value of the productPack property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the productPack property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getProductPack().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link ProductPack }
+	 * 
+	 * 
+	 */
+	public List<ProductPack> getProductPacks() {
+		return this.productPacks;
+	}
 
 }

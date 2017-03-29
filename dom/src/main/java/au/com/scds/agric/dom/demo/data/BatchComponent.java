@@ -16,6 +16,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -59,8 +60,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 public class BatchComponent
     extends Sampled
 {
-
-    @XmlElement(required = true)
+	@XmlTransient
+	@Column(allowsNull = "false")
+	protected Batch batch;
+	@XmlElement(required = true)
     @Column(allowsNull="true")
     protected Ingredient ingredient;
     @XmlElement(name = "parent-supply", required = true)
@@ -71,6 +74,14 @@ public class BatchComponent
     @XmlElement(required = true)
     @Column(allowsNull="true")
     protected SiUnit unit;
+    
+    public Batch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
 
     /**
      * Gets the value of the ingredient property.

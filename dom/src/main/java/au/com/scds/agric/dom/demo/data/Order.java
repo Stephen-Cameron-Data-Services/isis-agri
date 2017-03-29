@@ -55,9 +55,9 @@ import org.apache.isis.applib.annotation.DomainObject;
 @XmlType(name = "Order", propOrder = {
     "taken",
     "takenBy",
-    "orderLine",
-    "scheduledOrderLine",
-    "completedOrderLine"
+    "newOrderLines",
+    "scheduledOrderLines",
+    "completedOrderLines"
 })
 @DomainObject(objectType="Order")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -74,13 +74,13 @@ public class Order {
     protected Person takenBy;
     @XmlElement(name = "order-line", required = true)
     @Persistent(mappedBy="order")
-    protected List<NewOrderLine> orderLine;
+    protected List<NewOrderLine> newOrderLines;
     @XmlElement(name = "scheduled-order-line")
     @Persistent(mappedBy="order")
-    protected List<ScheduledOrderLine> scheduledOrderLine;
+    protected List<ScheduledOrderLine> scheduledOrderLines;
     @XmlElement(name = "completed-order-line")
     @Persistent(mappedBy="order")
-    protected List<CompletedOrderLine> completedOrderLine;
+    protected List<CompletedOrderLine> completedOrderLines;
 
     /**
      * Gets the value of the taken property.
@@ -152,8 +152,8 @@ public class Order {
      * 
      * 
      */
-    public List<NewOrderLine> getOrderLine() {
-        return this.orderLine;
+    public List<NewOrderLine> getNewOrderLines() {
+        return this.newOrderLines;
     }
 
     /**
@@ -178,8 +178,8 @@ public class Order {
      * 
      * 
      */
-    public List<ScheduledOrderLine> getScheduledOrderLine() {
-        return this.scheduledOrderLine;
+    public List<ScheduledOrderLine> getScheduledOrderLines() {
+        return this.scheduledOrderLines;
     }
 
     /**
@@ -205,7 +205,7 @@ public class Order {
      * 
      */
     public List<CompletedOrderLine> getCompletedOrderLine() {
-        return this.completedOrderLine;
+        return this.completedOrderLines;
     }
 
 }

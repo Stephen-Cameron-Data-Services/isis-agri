@@ -50,7 +50,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Producer", propOrder = {
-	"name"
+	"name", "productLines"
 })
 @DomainObject(objectType="Producer")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)

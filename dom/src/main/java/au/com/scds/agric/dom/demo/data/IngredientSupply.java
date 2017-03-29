@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.isis.applib.annotation.DomainObject;
 
 
+
 /**
  * A specific supply (or batch) of an Ingredient consumed
  * 				in the production of Batches of Product for sale.
@@ -54,7 +55,8 @@ import org.apache.isis.applib.annotation.DomainObject;
     "manufacturer",
     "supplier",
     "quantityInitial",
-    "quantityRemaining"
+    "quantityRemaining",
+    "unit"
 })
 @DomainObject(objectType="IngredientSupply")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -66,12 +68,15 @@ public class IngredientSupply
     protected IngredientManufacturer manufacturer;
 	@Column(allowsNull="true")
     protected IngredientSupplier supplier;
-    @XmlElement(name = "quantity-initial")
-    @Column(allowsNull="true")
+    @XmlElement(name = "quantity-initial", required = true)
+    @Column(allowsNull="false")
     protected float quantityInitial;
     @XmlElement(name = "quantity-remaining", required = true)
     @Column(allowsNull="false")
-    protected String quantityRemaining;
+    protected float quantityRemaining;
+    @XmlElement(required = true)
+    @Column(allowsNull="false")
+    protected SiUnit unit;
 
     /**
      * Gets the value of the manufacturer property.
@@ -136,29 +141,45 @@ public class IngredientSupply
     public void setQuantityInitial(float value) {
         this.quantityInitial = value;
     }
-
+    
     /**
      * Gets the value of the quantityRemaining property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getQuantityRemaining() {
+    public float getQuantityRemaining() {
         return quantityRemaining;
     }
 
     /**
      * Sets the value of the quantityRemaining property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
+     */
+    public void setQuantityRemaining(float value) {
+        this.quantityRemaining = value;
+    }
+
+    /**
+     * Gets the value of the unit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SiUnit }
      *     
      */
-    public void setQuantityRemaining(String value) {
-        this.quantityRemaining = value;
+    public SiUnit getUnit() {
+        return unit;
+    }
+
+    /**
+     * Sets the value of the unit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SiUnit }
+     *     
+     */
+    public void setUnit(SiUnit value) {
+        this.unit = value;
     }
 
 }

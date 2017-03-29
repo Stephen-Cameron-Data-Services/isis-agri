@@ -8,10 +8,17 @@
 
 package au.com.scds.agric.dom.demo.data;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.isis.applib.annotation.DomainObject;
 
 
 /**
@@ -37,9 +44,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Specification", propOrder = {
     "name"
 })
+@DomainObject(objectType="Specification")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Specification {
 
     @XmlElement(required = true)
+    @Column(allowsNull = "false")
     protected String name;
 
     /**

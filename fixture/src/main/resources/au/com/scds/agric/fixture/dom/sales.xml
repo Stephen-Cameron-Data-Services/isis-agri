@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:sales xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+  <tns:sale>
+    <tns:line>
+      <tns:product-pack>
+        <tns:product-item>
+          <tns:serial-number>tns:serial-number</tns:serial-number>
+        </tns:product-item>
+        <tns:delivery>
+          <tns:date>2001-12-31T12:00:00</tns:date>
+        </tns:delivery>
+      </tns:product-pack>
+    </tns:line>
+    <tns:invoice/>
+    <tns:receipt/>
+  </tns:sale>
+</tns:sales>

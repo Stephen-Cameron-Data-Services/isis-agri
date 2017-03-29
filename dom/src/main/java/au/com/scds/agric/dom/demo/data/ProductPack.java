@@ -20,6 +20,7 @@ import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -55,11 +56,15 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class ProductPack {
 
+	@XmlTransient()
+    @Column(allowsNull="true")
+    protected SaleLine saleLine;	
+	@XmlElement()
+    @Column(allowsNull="true")
+    protected Delivery delivery;
     @XmlElement(name = "product-item", required = true)
     @Persistent(mappedBy="productPack")
     protected List<ProductItem> productItems;
-    @Column(allowsNull="true")
-    protected Delivery delivery;
 
     /**
      * Gets the value of the productItem property.

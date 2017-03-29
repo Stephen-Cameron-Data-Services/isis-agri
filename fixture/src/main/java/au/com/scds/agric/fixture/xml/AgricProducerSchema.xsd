@@ -261,16 +261,11 @@
 		<complexContent>
 			<extension base="tns:Sampled">
 				<sequence>
-					<element name="manufacturer" type="tns:IngredientManufacturer"
-						maxOccurs="1" minOccurs="0">
-					</element>
-					<element name="supplier" type="tns:IngredientSupplier"
-						maxOccurs="1" minOccurs="0">
-					</element>
-					<element name="quantity-initial" type="float" minOccurs="1">
-					</element>
-					<element name="quantity-remaining" type="string" maxOccurs="1"
-						minOccurs="1"></element>
+					<element name="manufacturer" type="tns:IngredientManufacturer" maxOccurs="1" minOccurs="0"></element>
+					<element name="supplier" type="tns:IngredientSupplier" maxOccurs="1" minOccurs="0"></element>
+					<element name="quantity-initial" type="float" minOccurs="1"></element>
+					<element name="quantity-remaining" type="float" maxOccurs="1" minOccurs="1"></element>
+					<element name="unit" type="tns:SiUnit" maxOccurs="1" minOccurs="1"></element>
 				</sequence>
 
 			</extension>
@@ -297,9 +292,6 @@
 						Ingredient specification.
 					</documentation>
 				</annotation>
-			</element>
-			<element name="specification" type="string" maxOccurs="1"
-				minOccurs="1">
 			</element>
 			<element name="supply" type="tns:IngredientSupply" minOccurs="0"
 				maxOccurs="unbounded"></element>
@@ -541,7 +533,7 @@ quality assurance or food safety testing.
     <element name="sales">
     	<complexType>
     		<sequence>
-    			<element name="sales" type="tns:Sale" minOccurs="0" maxOccurs="unbounded"></element>
+    			<element name="sale" type="tns:Sale" minOccurs="0" maxOccurs="unbounded"></element>
     		</sequence>
     	</complexType></element>
 </schema>
