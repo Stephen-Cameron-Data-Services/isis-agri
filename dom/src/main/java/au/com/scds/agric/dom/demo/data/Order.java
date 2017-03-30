@@ -74,7 +74,7 @@ public class Order {
     @Column(allowsNull="true")
     protected Date taken;
     @XmlElement(name = "taken-by", required = true)
-    @Column(allowsNull="false")
+    @Column(allowsNull="true")
     protected Person takenBy;
     @XmlElement(name = "order-line", required = true)
     @Persistent(mappedBy="order")

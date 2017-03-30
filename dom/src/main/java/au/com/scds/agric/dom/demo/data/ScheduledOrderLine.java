@@ -58,7 +58,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @XmlSeeAlso({ CompletedOrderLine.class })
 @DomainObject(objectType="ScheduledOrderLine")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Inheritance(strategy = InheritanceStrategy.SUPERCLASS_TABLE)
 @Discriminator(strategy = DiscriminatorStrategy.VALUE_MAP, value = "SCHEDULED")
 public class ScheduledOrderLine extends NewOrderLine {
 	

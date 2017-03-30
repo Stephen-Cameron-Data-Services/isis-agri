@@ -47,8 +47,6 @@ import org.apache.isis.applib.annotation.DomainObject;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OrderLine", propOrder = { "productLine","productPacks" })
@@ -59,12 +57,11 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Discriminator(strategy = DiscriminatorStrategy.VALUE_MAP, column="type", value = "ABSTRACT")
 public abstract class OrderLine {
 
-
-
 	@XmlTransient
 	@Column(allowsNull = "false")
 	protected Order order;
     @XmlElement(name = "product-line", required = true)
+    @Column(allowsNull = "false")
     protected ProductLine productLine;
 	@XmlElement(name = "product-pack")
 	@Join()

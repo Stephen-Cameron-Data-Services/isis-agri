@@ -1,20 +1,15 @@
 package au.com.scds.agric.dom.demo;
 
-import java.util.List;
-
 import javax.inject.Inject;
-
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
-import org.apache.isis.applib.annotation.Programmatic;
-
 import au.com.scds.agric.dom.demo.data.Order;
 import au.com.scds.agric.dom.demo.data.OrderLine;
-import au.com.scds.agric.dom.demo.data.Producer;
 import au.com.scds.agric.dom.demo.data.ProductLine;
-import au.com.scds.agric.dom.demo.data.ProductType;
+import au.com.scds.agric.dom.demo.data.ScheduledOrderLine;
+import au.com.scds.agric.dom.demo.data.CompletedOrderLine;
 import au.com.scds.agric.dom.demo.data.NewOrderLine;
 
 @Mixin
@@ -25,24 +20,18 @@ public class OrderMixin {
 	public OrderMixin(Order order) {
 		this.order = order;
 	}
-
-	@Action()
-	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public Order addLineOfProductType(ProductType productType) {
-		//TODO guard against adding same twice
-		NewOrderLine orderLine = orderRepo.createNewOrderLine(this.order);
-		return this.order;
-	}
 	
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public Order addLineOfProductLine(ProductLine productLine) {
 		//TODO guard against adding same twice
-		NewOrderLine orderLine = orderRepo.createNewOrderLine(this.order);
+		NewOrderLine orderLine = orderRepo.createNewOrderLine(this.order, productLine);
+		this.order.getNewOrderLines().add(orderLine);
 		return this.order;
 	}
 	
-	@Programmatic
+	@Action()
+	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public OrderLine findLineOfProductLine(ProductLine productLine) {
 		for(OrderLine line : this.order.getNewOrderLines()){
 			if(line.getProductLine().equals(productLine)){
@@ -61,10 +50,21 @@ public class OrderMixin {
 		}
 		return null;
 	}
+	
+	@Action()
+	@ActionLayout(contributed = Contributed.AS_ACTION)
+	public ScheduledOrderLine scheduleOrderLine(NewOrderLine newOrderLine) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Action()
+	@ActionLayout(contributed = Contributed.AS_ACTION)
+	public CompletedOrderLine completeOrderLine(ScheduledOrderLine newOrderLine) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Inject
 	OrderRepository orderRepo;
-
-
-
 }

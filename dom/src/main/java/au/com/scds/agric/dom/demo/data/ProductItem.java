@@ -58,8 +58,10 @@ public class ProductItem
 	@XmlTransient
 	@Column(allowsNull="true")
 	protected Batch batch;
-
-    @XmlElement(name = "serial-number", required = true)
+	@XmlTransient
+	@Column(allowsNull="true")
+	protected ProductPack productPack;
+	@XmlElement(name = "serial-number", required = true)
     @Column(allowsNull="false")
     protected String serialNumber;
     @XmlElement(name = "product-line", required = true)
@@ -74,6 +76,13 @@ public class ProductItem
 		this.batch = batch;
 	}
 	
+    public ProductPack getProductPack() {
+		return productPack;
+	}
+
+	public void setProductPack(ProductPack productPack) {
+		this.productPack = productPack;
+	}
 
 
     /**

@@ -53,10 +53,10 @@
 
 	<complexType name="Order">
 		<sequence>
-			<element name="taken" type="dateTime" minOccurs="1"
+			<element name="taken" type="dateTime" minOccurs="0"
 				maxOccurs="1">
 			</element>
-			<element name="taken-by" type="tns:Person" minOccurs="1"
+			<element name="taken-by" type="tns:Person" minOccurs="0"
 				maxOccurs="1">
 			</element>
 			<element name="order-line" type="tns:NewOrderLine" minOccurs="1"
@@ -389,7 +389,7 @@ quality assurance or food safety testing.
 	<element name="clients">
 		<complexType>
 			<sequence>
-				<element name="client" type="tns:Client" minOccurs="0" maxOccurs="1"></element>
+				<element name="client" type="tns:Client" minOccurs="1" maxOccurs="unbounded"></element>
 			</sequence>
 		</complexType></element>
 

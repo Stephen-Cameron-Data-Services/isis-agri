@@ -11,10 +11,12 @@ package au.com.scds.agric.dom.demo.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -54,11 +56,12 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Sale {
 
+	@Column(allowsNull="true")
     protected Invoice invoice;
+	@Column(allowsNull="true")
     protected Receipt receipt;
+	@Persistent(mappedBy="sale")
     protected List<SaleLine> lines;
-
-
 
     /**
      * Gets the value of the invoice property.

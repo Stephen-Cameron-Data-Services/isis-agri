@@ -44,6 +44,7 @@ public class ClientsCreate extends FixtureScript {
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/clients.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			jaxbUnmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
 			Clients _clients = (Clients) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 
 			for (Client _c : _clients.getClient()) {
@@ -62,15 +63,16 @@ public class ClientsCreate extends FixtureScript {
 						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
 						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
 						wrap(orderMixin).addLineOfProductLine(productLine);
-						NewOrderLine newOrderLine = (NewOrderLine)wrap(orderMixin).findLineOfProductLine(productLine);
+						NewOrderLine newOrderLine = (NewOrderLine) wrap(orderMixin).findLineOfProductLine(productLine);
 						Person adder = wrap(personMenu).createPerson(_line.getAddedBy().getFirstName(),
 								_line.getAddedBy().getLastName());
 						newOrderLine.setAddedBy(adder);
 						newOrderLine.setAddedOn(_line.getAddedOn());
-						for(ProductPack _pack : _line.getProductPacks()){
+						for (ProductPack _pack : _line.getProductPacks()) {
 							ProductPack pack = wrap(productPackRepo).createProductPack(productLine);
-							for(ProductItem _item : _pack.getProductItems()){
-								ProductItem item = wrap(productItemRepo).createProductItem(productLine,_item.getSerialNumber());
+							for (ProductItem _item : _pack.getProductItems()) {
+								ProductItem item = wrap(productItemRepo).createProductItem(productLine,
+										_item.getSerialNumber());
 								pack.getProductItems().add(item);
 							}
 							newOrderLine.getProductPacks().add(pack);
@@ -82,19 +84,21 @@ public class ClientsCreate extends FixtureScript {
 						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
 						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
 						wrap(orderMixin).addLineOfProductLine(productLine);
-						NewOrderLine newOrderLine = (NewOrderLine)wrap(orderMixin).findLineOfProductLine(productLine);
+						NewOrderLine newOrderLine = (NewOrderLine) wrap(orderMixin).findLineOfProductLine(productLine);
 						Person adder = wrap(personMenu).createPerson(_line.getAddedBy().getFirstName(),
 								_line.getAddedBy().getLastName());
 						newOrderLine.setAddedBy(adder);
 						newOrderLine.setAddedOn(_line.getAddedOn());
-						for(ProductPack _pack : _line.getProductPacks()){
+						for (ProductPack _pack : _line.getProductPacks()) {
 							ProductPack pack = wrap(productPackRepo).createProductPack(productLine);
-							for(ProductItem _item : _pack.getProductItems()){
-								ProductItem item = wrap(productItemRepo).createProductItem(productLine,_item.getSerialNumber());
+							for (ProductItem _item : _pack.getProductItems()) {
+								ProductItem item = wrap(productItemRepo).createProductItem(productLine,
+										_item.getSerialNumber());
 								pack.getProductItems().add(item);
 							}
 							newOrderLine.getProductPacks().add(pack);
 						}
+						ScheduledOrderLine sheduledOrderLine = wrap(orderMixin).scheduleOrderLine(newOrderLine);
 					}
 					for (CompletedOrderLine _line : _o.getCompletedOrderLines()) {
 						ProductLine _pLine = _line.getProductLine();
@@ -102,19 +106,21 @@ public class ClientsCreate extends FixtureScript {
 						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
 						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
 						wrap(orderMixin).addLineOfProductLine(productLine);
-						NewOrderLine newOrderLine = (NewOrderLine)wrap(orderMixin).findLineOfProductLine(productLine);
+						ScheduledOrderLine scheduledOrderLine = (ScheduledOrderLine) wrap(orderMixin).findLineOfProductLine(productLine);
 						Person adder = wrap(personMenu).createPerson(_line.getAddedBy().getFirstName(),
 								_line.getAddedBy().getLastName());
-						newOrderLine.setAddedBy(adder);
-						newOrderLine.setAddedOn(_line.getAddedOn());
-						for(ProductPack _pack : _line.getProductPacks()){
+						scheduledOrderLine.setAddedBy(adder);
+						scheduledOrderLine.setAddedOn(_line.getAddedOn());
+						for (ProductPack _pack : _line.getProductPacks()) {
 							ProductPack pack = wrap(productPackRepo).createProductPack(productLine);
-							for(ProductItem _item : _pack.getProductItems()){
-								ProductItem item = wrap(productItemRepo).createProductItem(productLine,_item.getSerialNumber());
+							for (ProductItem _item : _pack.getProductItems()) {
+								ProductItem item = wrap(productItemRepo).createProductItem(productLine,
+										_item.getSerialNumber());
 								pack.getProductItems().add(item);
 							}
-							newOrderLine.getProductPacks().add(pack);
+							scheduledOrderLine.getProductPacks().add(pack);
 						}
+						CompletedOrderLine completedOrderLine = wrap(orderMixin).completeOrderLine(scheduledOrderLine);
 					}
 				}
 			}
@@ -125,109 +131,61 @@ public class ClientsCreate extends FixtureScript {
 
 	/*
 	 * 
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:clients xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
-  <tns:client>
-    <tns:name>tns:name</tns:name>
-    <tns:order>
-      <tns:taken>2001-12-31T12:00:00</tns:taken>
-      <tns:taken-by>
-        <tns:first-name>tns:first-name</tns:first-name>
-        <tns:last-name>tns:last-name</tns:last-name>
-      </tns:taken-by>
-      <tns:order-line xsi:type="tns:NewOrderLine">
-        <tns:product-line>
-          <tns:name>tns:name</tns:name>
-          <tns:product-type>
-            <tns:name>tns:name</tns:name>
-          </tns:product-type>
-        </tns:product-line>
-        <tns:product-pack>
-          <tns:product-line>
-            <tns:name>tns:name</tns:name>
-          </tns:product-line>
-          <tns:product-item>
-            <tns:serial-number>tns:serial-number</tns:serial-number>
-            <tns:product-line>
-              <tns:name>tns:name</tns:name>
-            </tns:product-line>
-          </tns:product-item>
-        </tns:product-pack>
-        <tns:added-on>2001-12-31T12:00:00</tns:added-on>
-        <tns:added-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:added-by>
-      </tns:order-line>
-      <tns:scheduled-order-line xsi:type="tns:ScheduledOrderLine">
-        <tns:product-line>
-          <tns:name>tns:name</tns:name>
-          <tns:product-type>
-            <tns:name>tns:name</tns:name>
-          </tns:product-type>
-        </tns:product-line>
-        <tns:product-pack>
-          <tns:product-line>
-            <tns:name>tns:name</tns:name>
-          </tns:product-line>
-          <tns:product-item>
-            <tns:serial-number>tns:serial-number</tns:serial-number>
-            <tns:product-line>
-              <tns:name>tns:name</tns:name>
-            </tns:product-line>
-          </tns:product-item>
-        </tns:product-pack>
-        <tns:added-on>2001-12-31T12:00:00</tns:added-on>
-        <tns:added-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:added-by>
-        <tns:scheduled-on>2001-12-31T12:00:00</tns:scheduled-on>
-        <tns:scheduled-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:scheduled-by>
-        <tns:scheduled-batch>tns:scheduled-batch</tns:scheduled-batch>
-      </tns:scheduled-order-line>
-      <tns:completed-order-line>
-        <tns:product-line>
-          <tns:name>tns:name</tns:name>
-          <tns:product-type>
-            <tns:name>tns:name</tns:name>
-          </tns:product-type>
-        </tns:product-line>
-        <tns:product-pack>
-          <tns:product-line>
-            <tns:name>tns:name</tns:name>
-          </tns:product-line>
-          <tns:product-item>
-            <tns:serial-number>tns:serial-number</tns:serial-number>
-            <tns:product-line>
-              <tns:name>tns:name</tns:name>
-            </tns:product-line>
-          </tns:product-item>
-        </tns:product-pack>
-        <tns:added-on>2001-12-31T12:00:00</tns:added-on>
-        <tns:added-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:added-by>
-        <tns:scheduled-on>2001-12-31T12:00:00</tns:scheduled-on>
-        <tns:scheduled-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:scheduled-by>
-        <tns:scheduled-batch>tns:scheduled-batch</tns:scheduled-batch>
-        <tns:completed>2001-12-31T12:00:00</tns:completed>
-        <tns:completed-by>
-          <tns:first-name>tns:first-name</tns:first-name>
-          <tns:last-name>tns:last-name</tns:last-name>
-        </tns:completed-by>
-      </tns:completed-order-line>
-    </tns:order>
-  </tns:client>
-</tns:clients>
-
+	 * <?xml version="1.0" encoding="UTF-8"?> <tns:clients
+	 * xmlns:tns="http://www.example.org/AgricProducerSchema"
+	 * xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=
+	 * "http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+	 * <tns:client> <tns:name>tns:name</tns:name> <tns:order>
+	 * <tns:taken>2001-12-31T12:00:00</tns:taken> <tns:taken-by>
+	 * <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:taken-by>
+	 * <tns:order-line xsi:type="tns:NewOrderLine"> <tns:product-line>
+	 * <tns:name>tns:name</tns:name> <tns:product-type>
+	 * <tns:name>tns:name</tns:name> </tns:product-type> </tns:product-line>
+	 * <tns:product-pack> <tns:product-line> <tns:name>tns:name</tns:name>
+	 * </tns:product-line> <tns:product-item>
+	 * <tns:serial-number>tns:serial-number</tns:serial-number>
+	 * <tns:product-line> <tns:name>tns:name</tns:name> </tns:product-line>
+	 * </tns:product-item> </tns:product-pack>
+	 * <tns:added-on>2001-12-31T12:00:00</tns:added-on> <tns:added-by>
+	 * <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:added-by>
+	 * </tns:order-line> <tns:scheduled-order-line
+	 * xsi:type="tns:ScheduledOrderLine"> <tns:product-line>
+	 * <tns:name>tns:name</tns:name> <tns:product-type>
+	 * <tns:name>tns:name</tns:name> </tns:product-type> </tns:product-line>
+	 * <tns:product-pack> <tns:product-line> <tns:name>tns:name</tns:name>
+	 * </tns:product-line> <tns:product-item>
+	 * <tns:serial-number>tns:serial-number</tns:serial-number>
+	 * <tns:product-line> <tns:name>tns:name</tns:name> </tns:product-line>
+	 * </tns:product-item> </tns:product-pack>
+	 * <tns:added-on>2001-12-31T12:00:00</tns:added-on> <tns:added-by>
+	 * <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:added-by>
+	 * <tns:scheduled-on>2001-12-31T12:00:00</tns:scheduled-on>
+	 * <tns:scheduled-by> <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:scheduled-by>
+	 * <tns:scheduled-batch>tns:scheduled-batch</tns:scheduled-batch>
+	 * </tns:scheduled-order-line> <tns:completed-order-line> <tns:product-line>
+	 * <tns:name>tns:name</tns:name> <tns:product-type>
+	 * <tns:name>tns:name</tns:name> </tns:product-type> </tns:product-line>
+	 * <tns:product-pack> <tns:product-line> <tns:name>tns:name</tns:name>
+	 * </tns:product-line> <tns:product-item>
+	 * <tns:serial-number>tns:serial-number</tns:serial-number>
+	 * <tns:product-line> <tns:name>tns:name</tns:name> </tns:product-line>
+	 * </tns:product-item> </tns:product-pack>
+	 * <tns:added-on>2001-12-31T12:00:00</tns:added-on> <tns:added-by>
+	 * <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:added-by>
+	 * <tns:scheduled-on>2001-12-31T12:00:00</tns:scheduled-on>
+	 * <tns:scheduled-by> <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:scheduled-by>
+	 * <tns:scheduled-batch>tns:scheduled-batch</tns:scheduled-batch>
+	 * <tns:completed>2001-12-31T12:00:00</tns:completed> <tns:completed-by>
+	 * <tns:first-name>tns:first-name</tns:first-name>
+	 * <tns:last-name>tns:last-name</tns:last-name> </tns:completed-by>
+	 * </tns:completed-order-line> </tns:order> </tns:client> </tns:clients>
+	 * 
 	 * 
 	 */
 
