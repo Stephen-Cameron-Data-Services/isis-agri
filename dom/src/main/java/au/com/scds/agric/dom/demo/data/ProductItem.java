@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
-
 /**
  * The basic unit in which form a Product is sold to the
  * 				final retail consumers as (container,package).
@@ -47,6 +46,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProductItem", propOrder = {
+	"productLine",
     "serialNumber"
 })
 @DomainObject(objectType="ProductItem")
@@ -58,12 +58,13 @@ public class ProductItem
 	@XmlTransient
 	@Column(allowsNull="true")
 	protected Batch batch;
-	@XmlTransient
-	@Column(allowsNull="true")
-    protected ProductPack productPack;
+
     @XmlElement(name = "serial-number", required = true)
-    @Column(allowsNull="true")
+    @Column(allowsNull="false")
     protected String serialNumber;
+    @XmlElement(name = "product-line", required = true)
+    @Column(allowsNull="false")
+    protected ProductLine productLine;
 
 	public Batch getBatch() {
 		return batch;
@@ -73,15 +74,9 @@ public class ProductItem
 		this.batch = batch;
 	}
 	
-    public ProductPack getProductPack() {
-		return productPack;
-	}
 
-	public void setProductPack(ProductPack productPack) {
-		this.productPack = productPack;
-	}
 
-	/**
+    /**
      * Gets the value of the serialNumber property.
      * 
      * @return
@@ -103,6 +98,30 @@ public class ProductItem
      */
     public void setSerialNumber(String value) {
         this.serialNumber = value;
+    }
+
+    /**
+     * Gets the value of the productLine property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ProductLine }
+     *     
+     */
+    public ProductLine getProductLine() {
+        return productLine;
+    }
+
+    /**
+     * Sets the value of the productLine property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ProductLine }
+     *     
+     */
+    public void setProductLine(ProductLine value) {
+        this.productLine = value;
     }
 
 }

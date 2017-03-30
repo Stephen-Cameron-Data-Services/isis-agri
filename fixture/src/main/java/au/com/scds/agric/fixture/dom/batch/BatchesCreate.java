@@ -55,8 +55,8 @@ public class BatchesCreate extends FixtureScript{
 				//properties
 				Person _person1 = _batch.getCreatedBy();
 				Person _person2 = _batch.getCompletedBy();
-				Person creator = wrap(personMenu).create(_person1.getFirstName(), _person1.getLastName());
-				Person completor = wrap(personMenu).create(_person2.getFirstName(), _person2.getLastName());
+				Person creator = wrap(personMenu).createPerson(_person1.getFirstName(), _person1.getLastName());
+				Person completor = wrap(personMenu).createPerson(_person2.getFirstName(), _person2.getLastName());
 				wrap(batch).setCreatedBy(creator);
 				wrap(batch).setCompletedBy(completor);
 				wrap(batch).setCreatedOn(_batch.getCreatedOn());

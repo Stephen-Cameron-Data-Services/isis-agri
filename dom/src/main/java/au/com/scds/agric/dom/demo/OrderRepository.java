@@ -10,6 +10,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.NewOrderLine;
 import au.com.scds.agric.dom.demo.data.Order;
+import au.com.scds.agric.dom.demo.data.OrderLine;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Order.class)
 public class OrderRepository {
@@ -30,9 +31,9 @@ public class OrderRepository {
 		return order;
 	}
 	
-	public NewOrderLine createNewOrderLine(/*String id*/) {
+	public NewOrderLine createNewOrderLine(Order order) {
 		final NewOrderLine line = new NewOrderLine();
-		//line.setId(id);
+		line.setOrder(order);
 		serviceRegistry.injectServicesInto(line);
 		repositoryService.persistAndFlush(line);
 		return line;
@@ -42,6 +43,4 @@ public class OrderRepository {
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
-
-
 }

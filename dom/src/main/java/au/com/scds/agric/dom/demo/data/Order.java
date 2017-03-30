@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -64,7 +65,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Order {
 
-    @XmlElement(required = true, type = String.class)
+	@XmlTransient
+	@Column(allowsNull="false")
+	protected Client client;
+	@XmlElement(required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     @Column(allowsNull="true")
@@ -74,13 +78,22 @@ public class Order {
     protected Person takenBy;
     @XmlElement(name = "order-line", required = true)
     @Persistent(mappedBy="order")
-    protected List<NewOrderLine> newOrderLines;
+    protected List<NewOrderLine> newOrderLines = new ArrayList<>();
     @XmlElement(name = "scheduled-order-line")
     @Persistent(mappedBy="order")
-    protected List<ScheduledOrderLine> scheduledOrderLines;
+    protected List<ScheduledOrderLine> scheduledOrderLines = new ArrayList<>();
     @XmlElement(name = "completed-order-line")
     @Persistent(mappedBy="order")
-    protected List<CompletedOrderLine> completedOrderLines;
+    protected List<CompletedOrderLine> completedOrderLines = new ArrayList<>();
+
+    
+    public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
     /**
      * Gets the value of the taken property.
@@ -204,7 +217,7 @@ public class Order {
      * 
      * 
      */
-    public List<CompletedOrderLine> getCompletedOrderLine() {
+    public List<CompletedOrderLine> getCompletedOrderLines() {
         return this.completedOrderLines;
     }
 

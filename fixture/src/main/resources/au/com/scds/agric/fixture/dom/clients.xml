@@ -9,9 +9,18 @@
         <tns:last-name>tns:last-name</tns:last-name>
       </tns:taken-by>
       <tns:order-line xsi:type="tns:NewOrderLine">
+        <tns:product-line>
+          <tns:name>tns:name</tns:name>
+          <tns:product-type>
+            <tns:name>tns:name</tns:name>
+          </tns:product-type>
+        </tns:product-line>
         <tns:product-pack>
           <tns:product-item>
             <tns:serial-number>tns:serial-number</tns:serial-number>
+            <tns:product-line>
+              <tns:name>tns:name</tns:name>
+            </tns:product-line>
           </tns:product-item>
           <tns:delivery>
             <tns:date>2001-12-31T12:00:00</tns:date>
@@ -24,9 +33,18 @@
         </tns:added-by>
       </tns:order-line>
       <tns:scheduled-order-line xsi:type="tns:ScheduledOrderLine">
+        <tns:product-line>
+          <tns:name>tns:name</tns:name>
+          <tns:product-type>
+            <tns:name>tns:name</tns:name>
+          </tns:product-type>
+        </tns:product-line>
         <tns:product-pack>
           <tns:product-item>
             <tns:serial-number>tns:serial-number</tns:serial-number>
+            <tns:product-line>
+              <tns:name>tns:name</tns:name>
+            </tns:product-line>
           </tns:product-item>
           <tns:delivery>
             <tns:date>2001-12-31T12:00:00</tns:date>
@@ -45,9 +63,18 @@
         <tns:scheduled-batch>tns:scheduled-batch</tns:scheduled-batch>
       </tns:scheduled-order-line>
       <tns:completed-order-line>
+        <tns:product-line>
+          <tns:name>tns:name</tns:name>
+          <tns:product-type>
+            <tns:name>tns:name</tns:name>
+          </tns:product-type>
+        </tns:product-line>
         <tns:product-pack>
           <tns:product-item>
             <tns:serial-number>tns:serial-number</tns:serial-number>
+            <tns:product-line>
+              <tns:name>tns:name</tns:name>
+            </tns:product-line>
           </tns:product-item>
           <tns:delivery>
             <tns:date>2001-12-31T12:00:00</tns:date>

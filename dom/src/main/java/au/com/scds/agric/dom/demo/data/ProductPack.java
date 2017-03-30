@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.isis.applib.annotation.DomainObject;
 
 
+
 /**
  * <p>Java class for ProductPack complex type.
  * 
@@ -48,8 +49,8 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProductPack", propOrder = {
-    "productItems",
-    "delivery"
+	"productLine",
+    "productItems"
 })
 @DomainObject(objectType="ProductPack")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -58,14 +59,46 @@ public class ProductPack {
 
 	@XmlTransient()
     @Column(allowsNull="true")
-    protected SaleLine saleLine;	
-	@XmlElement()
-    @Column(allowsNull="true")
-    protected Delivery delivery;
+    protected SaleLine saleLine;
+    @XmlElement(name = "product-line", required = true)
+    @Column(allowsNull="false")
+    protected ProductLine productLine;	
     @XmlElement(name = "product-item", required = true)
     @Persistent(mappedBy="productPack")
     protected List<ProductItem> productItems;
 
+    public SaleLine getSaleLine() {
+		return saleLine;
+	}
+
+	public void setSaleLine(SaleLine saleLine) {
+		this.saleLine = saleLine;
+	}
+
+    /**
+     * Gets the value of the productLine property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ProductLine }
+     *     
+     */
+    public ProductLine getProductLine() {
+        return productLine;
+    }
+
+    /**
+     * Sets the value of the productLine property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ProductLine }
+     *     
+     */
+    public void setProductLine(ProductLine value) {
+        this.productLine = value;
+    }
+    
     /**
      * Gets the value of the productItem property.
      * 
@@ -90,30 +123,6 @@ public class ProductPack {
      */
     public List<ProductItem> getProductItems() {
         return this.productItems;
-    }
-
-    /**
-     * Gets the value of the delivery property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Delivery }
-     *     
-     */
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    /**
-     * Sets the value of the delivery property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Delivery }
-     *     
-     */
-    public void setDelivery(Delivery value) {
-        this.delivery = value;
     }
 
 }

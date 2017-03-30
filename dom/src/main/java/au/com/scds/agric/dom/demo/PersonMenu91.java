@@ -22,7 +22,7 @@ public class PersonMenu91 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Person create(String firstname, String lastname) {
+	public Person createPerson(String firstname, String lastname) {
 		return personRepo.createPerson(firstname, lastname);
 	}
 

@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
+
 /**
  * <p>
  * Java class for OrderLine complex type.
@@ -50,20 +51,40 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "OrderLine", propOrder = { "productPacks" })
+@XmlType(name = "OrderLine", propOrder = { "productLine","productPacks" })
 @XmlSeeAlso({ NewOrderLine.class })
 @DomainObject(objectType="OrderLine")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy = DiscriminatorStrategy.VALUE_MAP, column="type", value = "ABSTRACT")
 public abstract class OrderLine {
-	
+
+
+
 	@XmlTransient
 	@Column(allowsNull = "false")
 	protected Order order;
+    @XmlElement(name = "product-line", required = true)
+    protected ProductLine productLine;
 	@XmlElement(name = "product-pack")
 	@Join()
-	protected List<ProductPack> productPacks;
+	protected List<ProductPack> productPacks = new ArrayList<>();
+	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
+	public ProductLine getProductLine() {
+		return productLine;
+	}
+
+	public void setProductLine(ProductLine productLine) {
+		this.productLine = productLine;
+	}
 
 	/**
 	 * Gets the value of the productPack property.

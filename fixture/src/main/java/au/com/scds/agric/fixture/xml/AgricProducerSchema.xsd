@@ -158,18 +158,15 @@
 
 	<complexType name="OrderLine">
 		<sequence>
-			<element name="product-pack" type="tns:ProductPack"
-				maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
+			<element name="product-pack" type="tns:ProductPack" maxOccurs="unbounded" minOccurs="0"></element>
 		</sequence>
 	</complexType>
 
 	<complexType name="ProductPack">
 		<sequence>
-			<element name="product-item" type="tns:ProductItem"
-				minOccurs="1" maxOccurs="unbounded"></element>
-			<element name="delivery" type="tns:Delivery" minOccurs="0"
-				maxOccurs="1">
-			</element>
+			<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
+			<element name="product-item" type="tns:ProductItem" minOccurs="1" maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
@@ -188,7 +185,8 @@
 		<complexContent>
 			<extension base="tns:Sampled">
 				<sequence>
-					<element name="serial-number" type="string"></element>
+					<element name="serial-number" type="string" maxOccurs="1" minOccurs="1"></element>
+					<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
 				</sequence>
 			</extension>
 		</complexContent>

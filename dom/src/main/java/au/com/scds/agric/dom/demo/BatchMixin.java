@@ -25,7 +25,7 @@ public class BatchMixin {
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public Batch createProductItem(String serialNumber) {
-		ProductItem item = productItemRepo.createProductItem(serialNumber);
+		ProductItem item = productItemRepo.createProductItem(this.batch.getProductLine(), serialNumber);
 		item.setBatch(this.batch);
 		this.batch.getProductItems().add(item);
 		return this.batch;

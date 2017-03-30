@@ -10,18 +10,18 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.ProductItem;
 import au.com.scds.agric.dom.demo.data.ProductLine;
+import au.com.scds.agric.dom.demo.data.ProductPack;
 import au.com.scds.agric.dom.demo.data.ProductType;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = ProductItem.class)
-public class ProductItemRepository {
+public class ProductPackRepository {
 
-	public ProductItem createProductItem(ProductLine productLine, String serialNumber) {
-		final ProductItem productItem = new ProductItem();
-		productItem.setProductLine(productLine);
-		productItem.setSerialNumber(serialNumber);
-		serviceRegistry.injectServicesInto(productItem);
-		repositoryService.persistAndFlush(productItem);
-		return productItem;
+	public ProductPack createProductPack(ProductLine productLine) {
+		final ProductPack productPack = new ProductPack();
+		productPack.setProductLine(productLine);
+		serviceRegistry.injectServicesInto(productPack);
+		repositoryService.persistAndFlush(productPack);
+		return productPack;
 	}
 	
 	public List<ProductItem> listAllProductItems() {
