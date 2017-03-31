@@ -53,7 +53,8 @@ import org.apache.isis.applib.annotation.DomainObject;
 public class OrderLine {
 	
 	@XmlTransient
-	@Column(allowsNull="false")
+	//want to disconnect
+	@Column(allowsNull="true")
 	protected Order order;
     @XmlElement(name = "product-line", required = true)
     @Column(allowsNull="false")

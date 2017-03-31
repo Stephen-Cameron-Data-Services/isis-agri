@@ -51,6 +51,8 @@ public class OrderRepository {
 		scheduled.setOrder(orderLine.getOrder());
 		scheduled.setOrderLine(orderLine);
 		serviceRegistry.injectServicesInto(scheduled);
+		//now wrapped so unlink
+		orderLine.setOrder(null);
 		repositoryService.persistAndFlush(scheduled);
 		return scheduled;
 	}

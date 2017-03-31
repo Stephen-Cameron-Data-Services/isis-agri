@@ -1,0 +1,6 @@
+
+
+= FOOD PRODUCTION & MANUFACTURING MANAGEMENT APPLICATION
+
+image::https://raw.github.com/Stephen-Cameron-Data-Services/isis-agri/master/dom/Agric.png[link="https://raw.github.com/Stephen-Cameron-Data-Services/isis-agri/master/dom/Agric.png"]
+

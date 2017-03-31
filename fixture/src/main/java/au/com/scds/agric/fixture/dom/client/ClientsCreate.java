@@ -93,7 +93,7 @@ public class ClientsCreate extends FixtureScript {
 						newOrderLine.setAddedBy(adder);
 						newOrderLine.setAddedOn(_wrapped.getAddedOn());
 						ScheduledOrderLine scheduled = wrap(orderMixin).scheduleOrderLine(newOrderLine);
-						//CompletedOrderLine completed = wrap(orderMixin).completeOrderLine(scheduled);
+						CompletedOrderLine completed = wrap(orderMixin).completeOrderLine(scheduled);
 					}
 				}
 			}
