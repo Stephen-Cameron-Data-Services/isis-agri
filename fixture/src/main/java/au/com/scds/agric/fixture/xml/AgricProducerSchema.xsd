@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/AgricProducerSchema"
-	xmlns:tns="http://www.example.org/AgricProducerSchema"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-	elementFormDefault="qualified" jaxb:version="2.1">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/AgricProducerSchema" xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" elementFormDefault="qualified" jaxb:version="2.1">
 	<annotation>
 		<appinfo>
 			<jaxb:globalBindings>
-				<jaxb:javaType name="java.util.Date" xmlType="dateTime"
-					parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDateTime"
-					printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDateTime" />
-				<jaxb:javaType name="java.util.Date" xmlType="date"
-					parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDate"
-					printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDate" />
+				<jaxb:javaType name="java.util.Date" xmlType="dateTime" parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDateTime" printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDateTime" />
+				<jaxb:javaType name="java.util.Date" xmlType="date" parseMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.parseDate" printMethod="au.com.scds.agric.fixture.xml.DataTypeAdapter.printDate" />
 			</jaxb:globalBindings>
 		</appinfo>
 	</annotation>
 	<complexType name="Party">
 		<sequence>
-			<element name="name" type="string"></element>
+			<element name="name" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 	</complexType>
 
@@ -39,8 +32,7 @@
 		</annotation>
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="1"></element>
-			<element name="product-line" type="tns:ProductLine"
-				minOccurs="1" maxOccurs="unbounded">
+			<element name="product-line" type="tns:ProductLine" minOccurs="1" maxOccurs="unbounded">
 			</element>
 		</sequence>
 	</complexType>
@@ -53,38 +45,16 @@
 
 	<complexType name="Order">
 		<sequence>
-			<element name="taken" type="dateTime" minOccurs="0"
-				maxOccurs="1">
+			<element name="taken" type="dateTime" minOccurs="0" maxOccurs="1">
 			</element>
-			<element name="taken-by" type="tns:Person" minOccurs="0"
-				maxOccurs="1">
+			<element name="taken-by" type="tns:Person" minOccurs="0" maxOccurs="1">
 			</element>
-			<element name="order-line" type="tns:NewOrderLine" minOccurs="1"
-				maxOccurs="unbounded">
+			<element name="order-line" type="tns:OrderLine" minOccurs="0" maxOccurs="unbounded"></element>
+			<element name="scheduled-order-line" type="tns:ScheduledOrderLine" minOccurs="0" maxOccurs="unbounded">
 			</element>
-			<element name="scheduled-order-line" type="tns:ScheduledOrderLine"
-				minOccurs="0" maxOccurs="unbounded">
-			</element>
-			<element name="completed-order-line" type="tns:CompletedOrderLine"
-				minOccurs="0" maxOccurs="unbounded">
+			<element name="completed-order-line" type="tns:CompletedOrderLine" minOccurs="0" maxOccurs="unbounded">
 			</element>
 		</sequence>
-	</complexType>
-
-	<complexType name="NewOrderLine">
-		<annotation>
-			<documentation>A New OrderLine, just created but not yet scheduled
-			</documentation>
-		</annotation>
-		<complexContent>
-			<extension base="tns:OrderLine">
-				<sequence>
-					<element name="added-on" type="dateTime"></element>
-					<element name="added-by" type="tns:Person" minOccurs="1"
-						maxOccurs="1"></element>
-				</sequence>
-			</extension>
-		</complexContent>
 	</complexType>
 
 	<complexType name="ScheduledOrderLine">
@@ -93,33 +63,26 @@
 				part of a specific Batch
 			</documentation>
 		</annotation>
-		<complexContent>
-			<extension base="tns:NewOrderLine">
-				<sequence>
-					<element name="scheduled-on" type="dateTime"></element>
-					<element name="scheduled-by" type="tns:Person">
-					</element>
-					<element name="scheduled-batch" type="string"></element>
-				</sequence>
-			</extension>
-		</complexContent>
+		<sequence>
+			<element name="order-line" type="tns:OrderLine" minOccurs="1" maxOccurs="1"></element>
+			<element name="scheduled-on" type="dateTime" maxOccurs="1" minOccurs="0"></element>
+			<element name="scheduled-by" type="tns:Person" maxOccurs="1" minOccurs="0"></element>
+			<element name="orderline-batch-portion" type="tns:OrderLineBatch" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
 	</complexType>
 
 	<complexType name="CompletedOrderLine">
-		<complexContent>
-			<extension base="tns:ScheduledOrderLine">
-				<sequence>
-					<element name="completed" type="dateTime"></element>
-					<element name="completed-by" type="tns:Person"></element>
-				</sequence>
-			</extension>
-		</complexContent>
+		<sequence>
+			<element name="order-line" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="completed" type="dateTime" maxOccurs="1" minOccurs="0"></element>
+			<element name="completed-by" type="tns:Person" maxOccurs="1" minOccurs="0"></element>
+			<element name="product-pack" type="tns:ProductPack" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
 	</complexType>
 
 	<complexType name="PurchaseOrder">
 		<sequence>
-			<element name="supply" type="tns:IngredientSupply" minOccurs="1"
-				maxOccurs="unbounded"></element>
+			<element name="supply" type="tns:IngredientSupply" minOccurs="1" maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
@@ -130,8 +93,7 @@
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="product-type" type="tns:ProductType"
-				maxOccurs="1" minOccurs="0"></element>
+			<element name="product-type" type="tns:ProductType" maxOccurs="1" minOccurs="0"></element>
 		</sequence>
 	</complexType>
 
@@ -145,13 +107,10 @@
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="description" type="string" maxOccurs="1"
-				minOccurs="1">
+			<element name="description" type="string" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="method" type="tns:FormulationMethod"
-				maxOccurs="1" minOccurs="1"></element>
-			<element name="component" type="tns:FormulationComponent"
-				maxOccurs="unbounded" minOccurs="1">
+			<element name="method" type="tns:FormulationMethod" maxOccurs="1" minOccurs="1"></element>
+			<element name="component" type="tns:FormulationComponent" maxOccurs="unbounded" minOccurs="1">
 			</element>
 		</sequence>
 	</complexType>
@@ -159,7 +118,8 @@
 	<complexType name="OrderLine">
 		<sequence>
 			<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
-			<element name="product-pack" type="tns:ProductPack" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="added-on" type="dateTime" maxOccurs="1" minOccurs="1"></element>
+			<element name="added-by" type="tns:Person" minOccurs="1" maxOccurs="1"></element>
 		</sequence>
 	</complexType>
 
@@ -208,6 +168,7 @@
 					<element name="completed-by" type="tns:Person" minOccurs="0" maxOccurs="1"></element>
 					<element name="specification" type="tns:Specification" minOccurs="0" maxOccurs="1"></element>
 					<element name="batch-component" type="tns:BatchComponent" maxOccurs="unbounded" minOccurs="0"></element>
+					<element name="orderline-portion" type="tns:OrderLineBatch" maxOccurs="unbounded" minOccurs="0"></element>
 					<element name="product-item" type="tns:ProductItem" minOccurs="0" maxOccurs="unbounded"></element>
 				</sequence>
 			</extension>
@@ -220,10 +181,8 @@
 			</documentation>
 		</annotation>
 		<sequence>
-			<element name="first-name" type="string" minOccurs="1"
-				maxOccurs="1"></element>
-			<element name="last-name" type="string" minOccurs="1"
-				maxOccurs="1"></element>
+			<element name="first-name" type="string" minOccurs="1" maxOccurs="1"></element>
+			<element name="last-name" type="string" minOccurs="1" maxOccurs="1"></element>
 		</sequence>
 	</complexType>
 
@@ -235,14 +194,11 @@
 		<complexContent>
 			<extension base="tns:Sampled">
 				<sequence>
-					<element name="ingredient" type="tns:Ingredient" minOccurs="1"
-						maxOccurs="1">
+					<element name="ingredient" type="tns:Ingredient" minOccurs="1" maxOccurs="1">
 					</element>
-					<element name="quantity" type="float" maxOccurs="1"
-						minOccurs="1">
+					<element name="quantity" type="float" maxOccurs="1" minOccurs="1">
 					</element>
-					<element name="unit" type="tns:SiUnit" maxOccurs="1"
-						minOccurs="1"></element>
+					<element name="unit" type="tns:SiUnit" maxOccurs="1" minOccurs="1"></element>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -279,8 +235,7 @@
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="description" type="string" maxOccurs="1"
-				minOccurs="1">
+			<element name="description" type="string" maxOccurs="1" minOccurs="1">
 				<annotation>
 					<documentation>
 						A well defined thing used in the production of
@@ -291,8 +246,7 @@
 					</documentation>
 				</annotation>
 			</element>
-			<element name="supply" type="tns:IngredientSupply" minOccurs="0"
-				maxOccurs="unbounded"></element>
+			<element name="supply" type="tns:IngredientSupply" minOccurs="0" maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
@@ -303,14 +257,11 @@
 			</documentation>
 		</annotation>
 		<sequence>
-			<element name="sampled" type="tns:Sampled" maxOccurs="1"
-				minOccurs="1">
+			<element name="sampled" type="tns:Sampled" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="test" type="tns:TestSingle"
-				maxOccurs="unbounded" minOccurs="0">
+			<element name="test" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0">
 			</element>
-			<element name="test-group" type="tns:TestGroup"
-				maxOccurs="unbounded" minOccurs="0">
+			<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0">
 			</element>
 			<element name="test-suite" type="tns:TestSuite" maxOccurs="unbounded" minOccurs="0"></element>
 		</sequence>
@@ -327,8 +278,7 @@
 		<complexContent>
 			<extension base="tns:Test">
 				<sequence>
-					<element name="test" type="tns:TestSingle"
-						maxOccurs="unbounded" minOccurs="0">
+					<element name="test" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0">
 					</element>
 					<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0"></element>
 				</sequence>
@@ -338,10 +288,10 @@
 
 
 	<complexType name="Test">
-        <annotation>
-        	<documentation>A specific test to perform on a Sample</documentation>
-        </annotation>
-        <sequence>
+		<annotation>
+			<documentation>A specific test to perform on a Sample</documentation>
+		</annotation>
+		<sequence>
 			<element name="test-name" type="string"></element>
 		</sequence>
 	</complexType>
@@ -355,7 +305,7 @@
 	<complexType name="Sampled">
 		<annotation>
 			<documentation>A food product, batch, ingredient etc that is sampled for the purpose of
-quality assurance or food safety testing.
+				quality assurance or food safety testing.
 			</documentation>
 		</annotation>
 		<sequence>
@@ -369,17 +319,15 @@ quality assurance or food safety testing.
 	</complexType>
 
 	<complexType name="TestGroup">
-        <annotation>
-        	<documentation>A logical grouping of Tests and/or Test-Groups to perform on a Sample</documentation>
-        </annotation>
-        <complexContent>
+		<annotation>
+			<documentation>A logical grouping of Tests and/or Test-Groups to perform on a Sample</documentation>
+		</annotation>
+		<complexContent>
 			<extension base="tns:Test">
 				<sequence>
-					<element name="test" type="tns:TestSingle"
-						minOccurs="0" maxOccurs="unbounded">
+					<element name="test" type="tns:TestSingle" minOccurs="0" maxOccurs="unbounded">
 					</element>
-					<element name="test-group" type="tns:TestGroup"
-						maxOccurs="unbounded" minOccurs="0">
+					<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0">
 					</element>
 				</sequence>
 			</extension>
@@ -391,7 +339,8 @@ quality assurance or food safety testing.
 			<sequence>
 				<element name="client" type="tns:Client" minOccurs="1" maxOccurs="unbounded"></element>
 			</sequence>
-		</complexType></element>
+		</complexType>
+	</element>
 
 
 	<element name="producer" type="tns:Producer"></element>
@@ -419,11 +368,9 @@ quality assurance or food safety testing.
 
 	<complexType name="FormulationComponent">
 		<sequence>
-			<element name="ingredient" type="tns:Ingredient" maxOccurs="1"
-				minOccurs="1">
+			<element name="ingredient" type="tns:Ingredient" maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="quantity" type="float" maxOccurs="1"
-				minOccurs="1"></element>
+			<element name="quantity" type="float" maxOccurs="1" minOccurs="1"></element>
 			<element name="unit" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 	</complexType>
@@ -436,8 +383,7 @@ quality assurance or food safety testing.
 			</documentation>
 		</annotation>
 		<sequence>
-			<element name="description" type="string" maxOccurs="1"
-				minOccurs="1">
+			<element name="description" type="string" maxOccurs="1" minOccurs="1">
 				<annotation>
 					<documentation>
 						A description of the Formulation Method, or the
@@ -445,8 +391,7 @@ quality assurance or food safety testing.
 					</documentation>
 				</annotation>
 			</element>
-			<element name="step" type="tns:FormulationStep" minOccurs="0"
-				maxOccurs="unbounded"></element>
+			<element name="step" type="tns:FormulationStep" minOccurs="0" maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
 
@@ -481,57 +426,70 @@ quality assurance or food safety testing.
 		</complexContent>
 	</complexType>
 
-    <element name="samples">
-    	<complexType>
-    		<sequence>
-    			<element name="sample" type="tns:Sample" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType></element>
+	<element name="samples">
+		<complexType>
+			<sequence>
+				<element name="sample" type="tns:Sample" maxOccurs="unbounded" minOccurs="1"></element>
+			</sequence>
+		</complexType>
+	</element>
 
 
-    <complexType name="Specification">
-    	<sequence>
-    		<element name="name" type="string"></element>
-    	</sequence>
-    </complexType>
+	<complexType name="Specification">
+		<sequence>
+			<element name="name" type="string"></element>
+		</sequence>
+	</complexType>
 
-    <complexType name="SaleLine">
-    	<sequence>
-            <element name="product-pack" type="tns:ProductPack" minOccurs="0" maxOccurs="unbounded"></element>
-        </sequence>
-    </complexType>
+	<complexType name="SaleLine">
+		<sequence>
+			<element name="product-pack" type="tns:ProductPack" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
 
-    <complexType name="Sale">
-    	<sequence>
-    		<element name="line" type="tns:SaleLine" minOccurs="0" maxOccurs="unbounded"></element>
-    		<element name="invoice" type="tns:Invoice" minOccurs="0" maxOccurs="1"></element>
-    		<element name="receipt" type="tns:Receipt" minOccurs="0" maxOccurs="1"></element>
-    	</sequence>
-    </complexType>
+	<complexType name="Sale">
+		<sequence>
+			<element name="line" type="tns:SaleLine" minOccurs="0" maxOccurs="unbounded"></element>
+			<element name="invoice" type="tns:Invoice" minOccurs="0" maxOccurs="1"></element>
+			<element name="receipt" type="tns:Receipt" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
 
-    <complexType name="Invoice"></complexType>
+	<complexType name="Invoice"></complexType>
 
-    <complexType name="Receipt"></complexType>
+	<complexType name="Receipt"></complexType>
 
 
-    <element name="formulations">
-    	<complexType>
-    		<sequence>
-    			<element name="formulation" type="tns:Formulation" minOccurs="0" maxOccurs="unbounded"></element>
-    		</sequence>
-    	</complexType></element>
+	<element name="formulations">
+		<complexType>
+			<sequence>
+				<element name="formulation" type="tns:Formulation" minOccurs="0" maxOccurs="unbounded"></element>
+			</sequence>
+		</complexType>
+	</element>
 
-    <element name="batches">
-    	<complexType>
-    		<sequence>
-    			<element name="batch" type="tns:Batch" minOccurs="0" maxOccurs="unbounded"></element>
-    		</sequence>
-    	</complexType></element>
+	<element name="batches">
+		<complexType>
+			<sequence>
+				<element name="batch" type="tns:Batch" minOccurs="0" maxOccurs="unbounded"></element>
+			</sequence>
+		</complexType>
+	</element>
 
-    <element name="sales">
-    	<complexType>
-    		<sequence>
-    			<element name="sale" type="tns:Sale" minOccurs="0" maxOccurs="unbounded"></element>
-    		</sequence>
-    	</complexType></element>
+	<element name="sales">
+		<complexType>
+			<sequence>
+				<element name="sale" type="tns:Sale" minOccurs="0" maxOccurs="unbounded"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="OrderLineBatch">
+		<sequence>
+			<element name="orderline" type="tns:ScheduledOrderLine" maxOccurs="1" minOccurs="0"></element>
+			<element name="batch" type="tns:Batch" minOccurs="0" maxOccurs="1"></element>
+			<element name="percentage-of-batch" type="float" maxOccurs="1" minOccurs="1"></element>
+		</sequence>
+
+	</complexType>
 </schema>

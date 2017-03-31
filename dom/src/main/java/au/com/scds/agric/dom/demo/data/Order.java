@@ -56,7 +56,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @XmlType(name = "Order", propOrder = {
     "taken",
     "takenBy",
-    "newOrderLines",
+    "orderLines",
     "scheduledOrderLines",
     "completedOrderLines"
 })
@@ -78,7 +78,7 @@ public class Order {
     protected Person takenBy;
     @XmlElement(name = "order-line", required = true)
     @Persistent(mappedBy="order")
-    protected List<NewOrderLine> newOrderLines = new ArrayList<>();
+    protected List<OrderLine> orderLines = new ArrayList<>();
     @XmlElement(name = "scheduled-order-line")
     @Persistent(mappedBy="order")
     protected List<ScheduledOrderLine> scheduledOrderLines = new ArrayList<>();
@@ -165,8 +165,8 @@ public class Order {
      * 
      * 
      */
-    public List<NewOrderLine> getNewOrderLines() {
-        return this.newOrderLines;
+    public List<OrderLine> getOrderLines() {
+        return this.orderLines;
     }
 
     /**

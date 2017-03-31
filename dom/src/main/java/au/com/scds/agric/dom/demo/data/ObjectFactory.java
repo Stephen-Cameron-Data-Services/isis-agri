@@ -194,14 +194,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NewOrderLine }
-     * 
-     */
-    public NewOrderLine createNewOrderLine() {
-        return new NewOrderLine();
-    }
-
-    /**
      * Create an instance of {@link BatchComponent }
      * 
      */

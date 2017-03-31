@@ -15,19 +15,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * A category of Product Lines produced by the Producer.
- * 			
- * 
- * <p>Java class for ProductType complex type.
+ * <p>Java class for OrderLineBatch complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ProductType">
+ * &lt;complexType name="OrderLineBatch">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="batch" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="percentage-of-batch" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,36 +35,55 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ProductType", propOrder = {
-    "name"
+@XmlType(name = "OrderLineBatch", propOrder = {
+    "batch",
+    "percentageOfBatch"
 })
-public class ProductType {
+public class OrderLineBatch {
 
     @XmlElement(required = true)
-    protected String name;
+    protected String batch;
+    @XmlElement(name = "percentage-of-batch")
+    protected float percentageOfBatch;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the batch property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getBatch() {
+        return batch;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the batch property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setBatch(String value) {
+        this.batch = value;
+    }
+
+    /**
+     * Gets the value of the percentageOfBatch property.
+     * 
+     */
+    public float getPercentageOfBatch() {
+        return percentageOfBatch;
+    }
+
+    /**
+     * Sets the value of the percentageOfBatch property.
+     * 
+     */
+    public void setPercentageOfBatch(float value) {
+        this.percentageOfBatch = value;
     }
 
 }

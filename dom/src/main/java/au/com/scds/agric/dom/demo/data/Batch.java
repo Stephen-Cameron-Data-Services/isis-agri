@@ -113,6 +113,11 @@ public class Batch extends Sampled {
 	@Persistent(mappedBy = "batch")
 	@Order(column="batchorder_idx")
 	protected List<ProductItem> productItems = new ArrayList<>();
+	@XmlTransient
+	@Persistent(mappedBy = "batch")
+	@Order(column="batchorder_idx")
+	protected List<OrderLineBatch> batchOrderLines = new ArrayList<>();
+
 
 	public ProductLine getProductLine() {
 		return productLine;
@@ -325,10 +330,8 @@ public class Batch extends Sampled {
 		return this.productItems;
 	}
 
-	protected void setProductItems(List<ProductItem> productItems) {
-		this.productItems = productItems;
+	public List<OrderLineBatch> getBatchOrderLines() {
+		return this.batchOrderLines;
 	}
-
-
 
 }

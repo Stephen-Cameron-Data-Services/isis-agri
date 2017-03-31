@@ -1,14 +1,14 @@
 <!-- Tufts VUE 3.2.2 concept-map (Agric.vue) 2017-03-30 -->
 <!-- Tufts VUE: http://vue.tufts.edu/ -->
 <!-- Do Not Remove: VUE mapping @version(1.1) jar:file:/D:/apps/VUE/VUE.jar!/tufts/vue/resources/lw_mapping_1_1.xml -->
-<!-- Do Not Remove: Saved date Thu Mar 30 11:00:53 EST 2017 by stevec on platform Windows 8 6.2 in JVM 1.7.0_21-b11 -->
+<!-- Do Not Remove: Saved date Thu Mar 30 12:08:46 EST 2017 by stevec on platform Windows 8 6.2 in JVM 1.7.0_21-b11 -->
 <!-- Do Not Remove: Saving version @(#)VUE: built May 23 2013 at 2146 by tomadm on Linux 2.6.18-348.2.1.el5 i386 JVM 1.7.0_21-b11(bits=32) -->
 <?xml version="1.0" encoding="US-ASCII"?>
 <LW-MAP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="none" ID="0" label="Agric.vue"
     created="1469577191108" x="0.0" y="0.0" width="1.4E-45"
     height="1.4E-45" strokeWidth="0.0" autoSized="false">
-    <resource referenceCreated="1490832053814" size="54914"
+    <resource referenceCreated="1490836126100" size="54959"
         spec="D:\git\Stephen-Cameron-Data-Services\isis-agri\dom\Agric.vue"
         type="1" xsi:type="URLResource">
         <title>Agric.vue</title>
@@ -1024,6 +1024,20 @@
         <point2 x="380.10922" y="226.5625"/>
         <ID1 xsi:type="node">12</ID1>
         <ID2 xsi:type="node">128</ID2>
+    </child>
+    <child ID="137" label="is-of" layerID="1" created="1490836057569"
+        x="332.8426" y="136.5" width="175.87097" height="164.25"
+        strokeWidth="1.0" autoSized="false" controlCount="1"
+        arrowState="2" xsi:type="link">
+        <strokeColor>#4C4C4C</strokeColor>
+        <textColor>#4C4C4C</textColor>
+        <font>Arial-plain-12</font>
+        <URIString>http://vue.tufts.edu/rdf/resource/1cc1f9a6c0a8000200be8eba29508200</URIString>
+        <point1 x="508.21356" y="137.0"/>
+        <point2 x="333.3426" y="300.25"/>
+        <ID1 xsi:type="node">52</ID1>
+        <ID2 xsi:type="node">12</ID2>
+        <ctrlPoint0 x="483.4375" y="209.84375" xsi:type="point"/>
     </child>
     <layer ID="1" label="Layer 1" created="1469577191108" x="0.0"
         y="0.0" width="1.4E-45" height="1.4E-45" strokeWidth="0.0" autoSized="false">
