@@ -45,7 +45,7 @@ public class ClientsCreate extends FixtureScript {
 			Clients _clients = (Clients) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 
 			for (Client _c : _clients.getClient()) {
-				Client client = wrap(clientMenu).createClient(_c.getName());
+				client = wrap(clientMenu).createClient(_c.getName());
 				if (!_c.getOrders().isEmpty()) {
 					Order _o = _c.getOrders().get(0);
 					Order order = wrap(clientMenu).createOrder(client);

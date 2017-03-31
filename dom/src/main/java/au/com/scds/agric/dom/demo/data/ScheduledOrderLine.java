@@ -16,6 +16,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -86,7 +87,7 @@ public class ScheduledOrderLine {
     @XmlElement(name = "orderline-batch-portion")
     @Persistent(mappedBy="orderLine")
     protected List<OrderLineBatch> scheduledBatchPortions = new ArrayList<>();
-
+    
     public Order getOrder() {
 		return order;
 	}
@@ -192,5 +193,28 @@ public class ScheduledOrderLine {
     public List<OrderLineBatch> getScheduledBatchPortions() {
         return this.scheduledBatchPortions;
     }
+    
+    /**
+     * 
+     * Expose properties from wrapped OrderLine
+     *
+     */
+    
+    @NotPersistent
+	public ProductLine getProductLine() {
+		return getOrderLine().getProductLine();
+	}
+
+    @NotPersistent
+	public Date getAddedOn() {
+		return getOrderLine().getAddedOn();
+	}
+
+    @NotPersistent
+	public Person getAddedBy() {
+    	return getOrderLine().getAddedBy();
+	}
+    
+    
 
 }

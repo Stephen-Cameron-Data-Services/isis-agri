@@ -17,6 +17,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.Join;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -54,7 +55,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CompletedOrderLine", propOrder = {
     "orderLine",
-    "completed",
+    "completedOn",
     "completedBy",
     "productPacks"
 })
@@ -69,11 +70,11 @@ public class CompletedOrderLine {
 	@XmlElement(name = "order-line", required = true)
     @Column(allowsNull="false")
     protected OrderLine orderLine;
-    @XmlElement(type = String.class)
+    @XmlElement(name = "completed-on", type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     @Column(allowsNull="true")
-    protected Date completed;
+    protected Date completedOn;
     @XmlElement(name = "completed-by")
     @Column(allowsNull="true")
     protected Person completedBy;
@@ -122,7 +123,7 @@ public class CompletedOrderLine {
      *     
      */
     public Date getCompleted() {
-        return completed;
+        return completedOn;
     }
 
     /**
@@ -134,7 +135,7 @@ public class CompletedOrderLine {
      *     
      */
     public void setCompleted(Date value) {
-        this.completed = value;
+        this.completedOn = value;
     }
 
     /**
@@ -186,5 +187,26 @@ public class CompletedOrderLine {
     public List<ProductPack> getProductPacks() {
         return this.productPacks;
     }
+    
+    /**
+     * 
+     * Expose properties from wrapped OrderLine
+     *
+     */
+    
+    @NotPersistent
+	public ProductLine getProductLine() {
+		return getOrderLine().getProductLine();
+	}
+
+    @NotPersistent
+	public Date getAddedOn() {
+		return getOrderLine().getAddedOn();
+	}
+
+    @NotPersistent
+	public Person getAddedBy() {
+    	return getOrderLine().getAddedBy();
+	}
 
 }

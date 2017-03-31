@@ -35,6 +35,7 @@ public class ClientRepository {
 		order.setClient(client);
 		serviceRegistry.injectServicesInto(order);
 		repositoryService.persistAndFlush(order);
+		client.getOrders().add(order);
 		return order;
 	}
 
