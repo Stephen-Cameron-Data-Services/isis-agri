@@ -18,6 +18,8 @@ import au.com.scds.agric.dom.demo.data.ProductType;
 public class ProductLineRepository {
 
 	public ProductLine createProductLine(final Producer producer, final String name, final ProductType type) {
+		if (name == null)
+			return null;
 		final ProductLine productLine = new ProductLine();
 		productLine.setProducer(producer);
 		productLine.setName(name);
@@ -26,7 +28,7 @@ public class ProductLineRepository {
 		repositoryService.persistAndFlush(productLine);
 		return productLine;
 	}
-	
+
 	public List<ProductLine> listAllProductLine() {
 		return repositoryService.allInstances(ProductLine.class);
 	}
@@ -34,7 +36,7 @@ public class ProductLineRepository {
 	public ProductLine findProductLineById(String id) {
 		return repositoryService.firstMatch(new QueryDefault<>(ProductLine.class, "findById", "id", id));
 	}
-	
+
 	public ProductType createProductType(String name) {
 		final ProductType ProductType = new ProductType();
 		ProductType.setName(name);
@@ -46,7 +48,7 @@ public class ProductLineRepository {
 	public List<ProductType> listAllProductTypes() {
 		return repositoryService.allInstances(ProductType.class);
 	}
-	
+
 	public ProductType findProductTypeById(String id) {
 		return repositoryService.firstMatch(new QueryDefault<>(ProductType.class, "findById", "id", id));
 	}

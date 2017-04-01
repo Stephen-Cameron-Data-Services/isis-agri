@@ -9,6 +9,8 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.OrderLine;
+import au.com.scds.agric.dom.demo.data.OrderLineBatch;
+import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.CompletedOrderLine;
 import au.com.scds.agric.dom.demo.data.Order;
 import au.com.scds.agric.dom.demo.data.ProductLine;
@@ -74,10 +76,23 @@ public class OrderRepository {
 		return completed;
 	}
 	
+	public OrderLineBatch createOrderLineBatch(ScheduledOrderLine scheduled, Batch batch, Float value) {
+		if(scheduled == null)
+			return null;
+		final OrderLineBatch orderLineBatch = new OrderLineBatch();
+		orderLineBatch.setScheduledOrderLine(scheduled);
+		orderLineBatch.setBatch(batch);
+		orderLineBatch.setPercentageOfBatch(value);
+		serviceRegistry.injectServicesInto(orderLineBatch);
+		repositoryService.persistAndFlush(orderLineBatch);
+		return orderLineBatch;
+	}
+	
 	@javax.inject.Inject
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 
 
 

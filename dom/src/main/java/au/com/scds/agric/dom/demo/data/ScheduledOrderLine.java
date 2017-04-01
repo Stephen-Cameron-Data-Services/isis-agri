@@ -85,7 +85,7 @@ public class ScheduledOrderLine {
     @Column(allowsNull="true")
     protected Person scheduledBy;
     @XmlElement(name = "orderline-batch-portion")
-    @Persistent(mappedBy="orderLine")
+    @Persistent(mappedBy="scheduledOrderLine")
     protected List<OrderLineBatch> scheduledBatchPortions = new ArrayList<>();
     
     public Order getOrder() {

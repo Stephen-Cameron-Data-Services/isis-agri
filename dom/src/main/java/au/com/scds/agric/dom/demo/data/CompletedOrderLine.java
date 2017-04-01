@@ -122,7 +122,7 @@ public class CompletedOrderLine {
      *     {@link String }
      *     
      */
-    public Date getCompleted() {
+    public Date getCompletedOn() {
         return completedOn;
     }
 
@@ -134,7 +134,7 @@ public class CompletedOrderLine {
      *     {@link String }
      *     
      */
-    public void setCompleted(Date value) {
+    public void setCompletedOn(Date value) {
         this.completedOn = value;
     }
 

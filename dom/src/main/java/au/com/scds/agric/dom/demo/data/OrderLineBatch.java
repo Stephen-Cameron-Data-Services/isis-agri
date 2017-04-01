@@ -9,11 +9,17 @@
 package au.com.scds.agric.dom.demo.data;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.isis.applib.annotation.DomainObject;
 
 
 /**
@@ -41,11 +47,14 @@ import javax.xml.bind.annotation.XmlType;
     "batch",
     "percentageOfBatch"
 })
+@DomainObject(objectType="OrderLineBatch")
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class OrderLineBatch {
 
 	@XmlTransient
 	@Column(allowsNull="false")
-	protected OrderLine orderLine;
+	protected ScheduledOrderLine scheduledOrderLine;
 	@XmlElement
     @Column(allowsNull="false")
     protected Batch batch;
@@ -53,12 +62,12 @@ public class OrderLineBatch {
     @Column(allowsNull="false")
     protected float percentageOfBatch;
 
-	public OrderLine getOrderLine() {
-		return orderLine;
+	public ScheduledOrderLine getScheduledOrderLine() {
+		return scheduledOrderLine;
 	}
 
-	public void setOrderLine(OrderLine orderLine) {
-		this.orderLine = orderLine;
+	public void setScheduledOrderLine(ScheduledOrderLine scheduledOrderLine) {
+		this.scheduledOrderLine = scheduledOrderLine;
 	}
 	
     /**

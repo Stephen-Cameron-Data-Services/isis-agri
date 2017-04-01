@@ -1,5 +1,6 @@
 package au.com.scds.agric.dom.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
@@ -58,10 +59,18 @@ public class BatchRepository {
 		repositoryService.persistAndFlush(component);
 		return component;
 	}
+	
+	public List<Batch> listAvailableBatchesOfProductLine(ProductLine productLine) {
+		// TODO Auto-generated method stub
+		List<Batch> temp = new ArrayList<>();
+		temp.add(createBatch(productLine));
+		return temp;
+	}
 
 	@javax.inject.Inject
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 
 }

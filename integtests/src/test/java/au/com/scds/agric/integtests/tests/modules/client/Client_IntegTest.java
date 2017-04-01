@@ -1,3 +1,4 @@
+
 package au.com.scds.agric.integtests.tests.modules.client;
 
 import javax.inject.Inject;
@@ -18,9 +19,6 @@ import au.com.scds.agric.integtests.tests.DomainAppIntegTest;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class Client_IntegTest extends DomainAppIntegTest {
 
@@ -85,15 +83,18 @@ public class Client_IntegTest extends DomainAppIntegTest {
 			assertThat(line2.getAddedBy().getFirstName()).isEqualTo("tns:first-name3");
 			assertThat(line2.getAddedBy().getLastName()).isEqualTo("tns:last-name3");
 			assertThat(line2.getScheduledOn()).isNotNull();
-			assertThat(line2.getScheduledOn()).isEqualTo("2001-12-31T12:00:04");
+			assertThat(line2.getScheduledOn()).isEqualTo("2001-12-31T12:00:03");
 			assertThat(line2.getScheduledOn()).isNotNull();
-			assertThat(line2.getScheduledBy().getFirstName()).isEqualTo("tns:first-name4");
-			assertThat(line2.getScheduledBy().getLastName()).isEqualTo("tns:last-name4");			
+			assertThat(line2.getScheduledBy().getFirstName()).isEqualTo("tns:first-name3");
+			assertThat(line2.getScheduledBy().getLastName()).isEqualTo("tns:last-name3");			
 			assertThat(line2.getScheduledBatchPortions().isEmpty()).isFalse();
 			OrderLineBatch lineBatch = line2.getScheduledBatchPortions().get(0);
 			assertThat(lineBatch).isNotNull();
 			assertThat(lineBatch.getBatch()).isNotNull();
-			assertThat(lineBatch.getPercentageOfBatch()).isEqualTo(0.0);
+			assertThat(lineBatch.getPercentageOfBatch()).isEqualTo(100.0F);
+			//check other side of relationship M-N
+			assertThat(lineBatch.getBatch().getBatchOrderLines().isEmpty()).isFalse();
+			assertThat(lineBatch.getBatch().getBatchOrderLines().get(0).getScheduledOrderLine()).isEqualTo(line2);
 			
 			assertThat(order.getCompletedOrderLines().isEmpty()).isFalse();
 			assertThat(order.getCompletedOrderLines().size()).isEqualTo(1);
@@ -107,9 +108,9 @@ public class Client_IntegTest extends DomainAppIntegTest {
 			assertThat(line3.getAddedBy()).isNotNull();
 			assertThat(line3.getAddedBy().getFirstName()).isEqualTo("tns:first-name4");
 			assertThat(line3.getAddedBy().getLastName()).isEqualTo("tns:last-name4");
-			assertThat(line3.getCompleted()).isNotNull();
-			assertThat(line3.getCompleted()).isEqualTo("2001-12-31T12:00:04");
-			assertThat(line3.getCompleted()).isNotNull();
+			assertThat(line3.getCompletedOn()).isNotNull();
+			assertThat(line3.getCompletedOn()).isEqualTo("2001-12-31T12:00:04");
+			assertThat(line3.getCompletedOn()).isNotNull();
 			assertThat(line3.getCompletedBy().getFirstName()).isEqualTo("tns:first-name4");
 			assertThat(line3.getCompletedBy().getLastName()).isEqualTo("tns:last-name4");
 			assertThat(line3.getProductPacks().isEmpty()).isFalse();
