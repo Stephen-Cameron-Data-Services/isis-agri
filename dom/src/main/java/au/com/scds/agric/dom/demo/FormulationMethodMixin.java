@@ -10,6 +10,7 @@ import au.com.scds.agric.dom.demo.data.Formulation;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
 import au.com.scds.agric.dom.demo.data.FormulationMethod;
 import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.SiUnit;
 
 @Mixin
 public class FormulationMethodMixin {
@@ -27,10 +28,8 @@ public class FormulationMethodMixin {
 		return this.method;
 	}
 	
-
-	@Inject
-	IngredientRepository ingredientRepo;
-	
 	@Inject
 	FormulationRepository formulationRepo;
+
+
 }

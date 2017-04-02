@@ -10,6 +10,7 @@ import au.com.scds.agric.dom.demo.data.Formulation;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
 import au.com.scds.agric.dom.demo.data.FormulationMethod;
 import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.SiUnit;
 
 @Mixin
 public class FormulationMixin {
@@ -29,25 +30,25 @@ public class FormulationMixin {
 	
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public FormulationMethod createMethod() {
-		FormulationMethod method = formulationRepo.createFormulationMethod();
+	public FormulationMethod createMethod(String name) {
+		FormulationMethod method = formulationRepo.createFormulationMethod(name);
 		this.formulation.setMethod(method);
 		return method;
 	}
 	
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public Formulation addComponentIngredient(Ingredient ingredient, Float quantity, String units) {
-		FormulationComponent component = formulationRepo.createFormulationComponent(this.formulation, ingredient, quantity, units);
+	public Formulation addComponentIngredient(Ingredient ingredient, Float quantity, SiUnit unit) {
+		FormulationComponent component = formulationRepo.createFormulationComponent(this.formulation, ingredient, quantity, unit);
 		this.formulation.getComponents().add(component);
 		return this.formulation;
 	}
 	
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public Ingredient createComponentIngredient(String ingredientName, String ingredientDescription, Float quantity, String units) {
+	public Ingredient createComponentIngredient(String ingredientName, String ingredientDescription, Float quantity, SiUnit  unit) {
 		Ingredient ingredient = ingredientRepo.createIngredient(ingredientName, ingredientDescription);
-		addComponentIngredient(ingredient, quantity, units);
+		addComponentIngredient(ingredient, quantity, unit);
 		return ingredient;
 	}
 	

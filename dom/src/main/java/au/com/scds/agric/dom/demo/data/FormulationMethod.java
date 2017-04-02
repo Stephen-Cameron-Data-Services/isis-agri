@@ -52,18 +52,29 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "FormulationMethod", propOrder = { "description", "steps" })
+@XmlType(name = "FormulationMethod", propOrder = { "name", "description", "steps" })
 @DomainObject(objectType="FormulationMethod")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class FormulationMethod {
 
 	@XmlElement(required = true)
+	@Column(allowsNull = "false")
+	protected String name;
+	@XmlElement(required = true)
 	@Column(allowsNull = "true")
 	protected String description;
 	@XmlElement(name = "step")
 	@Persistent(mappedBy = "formulationMethod")
 	protected List<FormulationStep> steps;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * Gets the value of the description property.
@@ -112,5 +123,7 @@ public class FormulationMethod {
 	public List<FormulationStep> getSteps() {
 		return this.steps;
 	}
+
+	
 
 }

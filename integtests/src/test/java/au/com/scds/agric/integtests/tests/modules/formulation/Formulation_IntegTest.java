@@ -47,5 +47,44 @@ public class Formulation_IntegTest extends DomainAppIntegTest {
 			//assertThat(batch.getFormulation().getMethod().getSteps().get(0).getOrder()).isEqualTo(0);
 			//assertThat(batch.getFormulation().getComponents().size()).isEqualTo(1);	
 		}
+		
+		/*
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:formulations xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+<tns:formulation>
+<tns:name>tns:name</tns:name>
+<tns:description>tns:description</tns:description>
+<tns:method>
+  <tns:name>tns:name</tns:name>
+  <tns:description>tns:description</tns:description>
+  <tns:step>
+    <tns:description>tns:description</tns:description>
+    <tns:order>0</tns:order>
+  </tns:step>
+</tns:method>
+<tns:component>
+  <tns:ingredient>
+    <tns:name>tns:name</tns:name>
+    <tns:description>tns:description</tns:description>
+    <tns:supply>
+      <tns:manufacturer>
+        <tns:name>tns:name</tns:name>
+      </tns:manufacturer>
+      <tns:supplier>
+        <tns:name>tns:name</tns:name>
+      </tns:supplier>
+      <tns:quantity-initial>0.0</tns:quantity-initial>
+      <tns:quantity-remaining>0.0</tns:quantity-remaining>
+      <tns:unit>
+        <tns:name>tns:name</tns:name>
+      </tns:unit>
+    </tns:supply>
+  </tns:ingredient>
+  <tns:quantity>0.0</tns:quantity>
+  <tns:unit>tns:unit</tns:unit>
+</tns:component>
+</tns:formulation>
+</tns:formulations>
+		 */
 	}
 }

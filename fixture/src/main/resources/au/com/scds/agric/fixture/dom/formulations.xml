@@ -4,6 +4,7 @@
     <tns:name>tns:name</tns:name>
     <tns:description>tns:description</tns:description>
     <tns:method>
+      <tns:name>tns:name</tns:name>
       <tns:description>tns:description</tns:description>
       <tns:step>
         <tns:description>tns:description</tns:description>

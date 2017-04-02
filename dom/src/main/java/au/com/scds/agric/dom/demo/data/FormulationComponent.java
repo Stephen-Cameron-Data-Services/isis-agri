@@ -54,6 +54,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class FormulationComponent {
+	
 	@XmlTransient
 	@Column(allowsNull="false")
 	protected Formulation formulation;
@@ -65,7 +66,7 @@ public class FormulationComponent {
     protected Float quantity;
     @XmlElement(required = true)
     @Column(allowsNull="true")
-    protected String unit;
+    protected SiUnit unit;
     
     
     public Formulation getFormulation() {
@@ -132,7 +133,7 @@ public class FormulationComponent {
      *     {@link String }
      *     
      */
-    public String getUnit() {
+    public SiUnit getUnit() {
         return unit;
     }
 
@@ -144,8 +145,8 @@ public class FormulationComponent {
      *     {@link String }
      *     
      */
-    public void setUnit(String value) {
-        this.unit = value;
+    public void setUnit(SiUnit unit) {
+        this.unit = unit;
     }
 
 }

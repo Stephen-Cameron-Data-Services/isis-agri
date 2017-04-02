@@ -14,6 +14,7 @@ import au.com.scds.agric.dom.demo.data.FormulationComponent;
 import au.com.scds.agric.dom.demo.data.FormulationMethod;
 import au.com.scds.agric.dom.demo.data.FormulationStep;
 import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.SiUnit;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Formulation.class)
 public class FormulationRepository {
@@ -34,8 +35,16 @@ public class FormulationRepository {
 		return formulation;
 	}
 
+	public FormulationMethod createFormulationMethod(String name) {
+		final FormulationMethod method = new FormulationMethod();
+		method.setName(name);
+		serviceRegistry.injectServicesInto(method);
+		repositoryService.persistAndFlush(method);
+		return method;
+	}
+
 	public FormulationComponent createFormulationComponent(Formulation formulation, Ingredient ingredient,
-			Float quantity, String units) {
+			Float quantity, SiUnit unit) {
 		if (formulation == null || ingredient == null) {
 			return null;
 		}
@@ -43,12 +52,12 @@ public class FormulationRepository {
 		component.setFormulation(formulation);
 		component.setIngredient(ingredient);
 		component.setQuantity(quantity);
-		component.setUnit(units);
+		component.setUnit(unit);
 		serviceRegistry.injectServicesInto(component);
 		repositoryService.persistAndFlush(component);
 		return component;
 	}
-	
+
 	public FormulationStep createMethodStep(FormulationMethod method, String description, Integer order) {
 		if (method == null || description == null || order == null) {
 			return null;
@@ -56,24 +65,25 @@ public class FormulationRepository {
 		final FormulationStep step = new FormulationStep();
 		step.setFormulationMethod(method);
 		step.setDescription(description);
-		step.setOrder(order);
 		serviceRegistry.injectServicesInto(step);
 		repositoryService.persistAndFlush(step);
-		method.getSteps().add(step);
+		if (method.getSteps().isEmpty() || order > method.getSteps().size()) {
+			// add
+			method.getSteps().add(step);
+			step.setOrder(method.getSteps().size());
+		} else {
+			// insert
+			method.getSteps().add(order - 1, step);
+			for (int i = order; i < method.getSteps().size(); i++) {
+				method.getSteps().get(i).setOrder(i + 1);
+			}
+		}
 		return step;
-	}
-
-	public FormulationMethod createFormulationMethod() {
-		final FormulationMethod method = new FormulationMethod();
-		serviceRegistry.injectServicesInto(method);
-		repositoryService.persistAndFlush(method);
-		return method;
 	}
 
 	@javax.inject.Inject
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
-
 
 }
