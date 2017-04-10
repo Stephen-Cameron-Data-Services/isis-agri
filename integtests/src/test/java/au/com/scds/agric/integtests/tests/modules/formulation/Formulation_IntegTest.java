@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import au.com.scds.agric.dom.demo.FormulationMenu80;
 import au.com.scds.agric.dom.demo.data.Formulation;
+import au.com.scds.agric.dom.demo.data.FormulationComponent;
+import au.com.scds.agric.dom.demo.data.FormulationMethod;
+import au.com.scds.agric.dom.demo.data.FormulationStep;
+import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.IngredientSupply;
 import au.com.scds.agric.fixture.dom.formulation.FormulationsCreate;
 import au.com.scds.agric.integtests.tests.DomainAppIntegTest;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
@@ -38,53 +43,76 @@ public class Formulation_IntegTest extends DomainAppIntegTest {
 		@Test
 		public void accessible() throws Exception {
 			assertThat(formulation).isNotNull();
-			//assertThat(batch.getFormulation().getName()).isEqualTo("tns:name");
-			//assertThat(batch.getFormulation().getDescription()).isEqualTo("tns:description");
-			//assertThat(batch.getFormulation().getMethod()).isNotNull();
-			//assertThat(batch.getFormulation().getMethod().getDescription()).isEqualTo("tns:description");
-			//assertThat(batch.getFormulation().getMethod().getSteps().size()).isEqualTo(1);
-			//assertThat(batch.getFormulation().getMethod().getSteps().get(0).getDescription()).isEqualTo("tns:description");
-			//assertThat(batch.getFormulation().getMethod().getSteps().get(0).getOrder()).isEqualTo(0);
-			//assertThat(batch.getFormulation().getComponents().size()).isEqualTo(1);	
+			assertThat(formulation.getName()).isEqualTo("tns:name");
+			assertThat(formulation.getMethod()).isNotNull();
+			FormulationMethod method = formulation.getMethod();
+			assertThat(method.getName()).isEqualTo("tns:name");
+			assertThat(method.getDescription()).isEqualTo("tns:description");
+			for(FormulationStep step : method.getSteps()){
+				assertThat(step).isNotNull();
+				assertThat(step.getDescription()).isEqualTo("tns:description");
+				assertThat(step.getOrder()).isEqualTo(1);
+			}
+			for(FormulationComponent component : formulation.getComponents()){
+				Ingredient ingredient = component.getIngredient();
+				assertThat(ingredient).isNotNull();
+				assertThat(ingredient.getName()).isEqualTo("tns:name");
+				assertThat(ingredient.getDescription()).isEqualTo("tns:description");
+				for(IngredientSupply supply : ingredient.getSupplies()){
+					assertThat(supply.getSupplier()).isNotNull();
+					assertThat(supply.getSupplier().getName()).isEqualTo("tns:name");
+					assertThat(supply.getManufacturer()).isNotNull();
+					assertThat(supply.getQuantityInitial()).isEqualTo(0.0F);
+					assertThat(supply.getQuantityRemaining()).isEqualTo(0.0F);
+					assertThat(supply.getUnit()).isNotNull();
+					assertThat(supply.getUnit().getName()).isEqualTo("tns:name");
+				}
+				assertThat(component.getQuantity()).isEqualTo(0.0F);
+				assertThat(component.getUnit()).isNotNull();
+				assertThat(component.getUnit().getName()).isEqualTo("tns:name");
+			}	
 		}
 		
 		/*
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:formulations xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
-<tns:formulation>
-<tns:name>tns:name</tns:name>
-<tns:description>tns:description</tns:description>
-<tns:method>
-  <tns:name>tns:name</tns:name>
-  <tns:description>tns:description</tns:description>
-  <tns:step>
-    <tns:description>tns:description</tns:description>
-    <tns:order>0</tns:order>
-  </tns:step>
-</tns:method>
-<tns:component>
-  <tns:ingredient>
-    <tns:name>tns:name</tns:name>
-    <tns:description>tns:description</tns:description>
-    <tns:supply>
-      <tns:manufacturer>
-        <tns:name>tns:name</tns:name>
-      </tns:manufacturer>
-      <tns:supplier>
-        <tns:name>tns:name</tns:name>
-      </tns:supplier>
-      <tns:quantity-initial>0.0</tns:quantity-initial>
-      <tns:quantity-remaining>0.0</tns:quantity-remaining>
-      <tns:unit>
-        <tns:name>tns:name</tns:name>
-      </tns:unit>
-    </tns:supply>
-  </tns:ingredient>
-  <tns:quantity>0.0</tns:quantity>
-  <tns:unit>tns:unit</tns:unit>
-</tns:component>
-</tns:formulation>
+	<tns:formulation>
+		<tns:name>tns:name</tns:name>
+		<tns:description>tns:description</tns:description>
+		<tns:method>
+			<tns:name>tns:name</tns:name>
+			<tns:description>tns:description</tns:description>
+			<tns:step>
+				<tns:description>tns:description</tns:description>
+				<tns:order>0</tns:order>
+			</tns:step>
+		</tns:method>
+		<tns:component>
+			<tns:ingredient>
+				<tns:name>tns:name</tns:name>
+				<tns:description>tns:description</tns:description>
+				<tns:supply>
+					<tns:manufacturer>
+						<tns:name>tns:name</tns:name>
+					</tns:manufacturer>
+					<tns:supplier>
+						<tns:name>tns:name</tns:name>
+					</tns:supplier>
+					<tns:quantity-initial>0.0</tns:quantity-initial>
+					<tns:quantity-remaining>0.0</tns:quantity-remaining>
+					<tns:unit>
+						<tns:name>tns:name</tns:name>
+					</tns:unit>
+				</tns:supply>
+			</tns:ingredient>
+			<tns:quantity>0.0</tns:quantity>
+			<tns:unit>
+				<tns:name>tns:name</tns:name>
+			</tns:unit>
+		</tns:component>
+	</tns:formulation>
 </tns:formulations>
+
 		 */
 	}
 }

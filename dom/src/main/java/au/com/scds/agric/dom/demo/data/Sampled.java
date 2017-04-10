@@ -63,7 +63,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 public abstract class Sampled {
 
 	@Join()
-    protected List<Sample> samples;
+    protected List<Sample> samples = new ArrayList<>();
 
     /**
      * Gets the value of the sample property.

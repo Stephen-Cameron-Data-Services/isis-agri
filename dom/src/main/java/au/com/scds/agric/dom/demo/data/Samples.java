@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Samples {
 
     @XmlElement(required = true)
-    protected List<Sample> sample;
+    protected List<Sample2> sample;
 
     /**
      * Gets the value of the sample property.
@@ -68,9 +68,9 @@ public class Samples {
      * 
      * 
      */
-    public List<Sample> getSample() {
+    public List<Sample2> getSample() {
         if (sample == null) {
-            sample = new ArrayList<Sample>();
+            sample = new ArrayList<Sample2>();
         }
         return this.sample;
     }

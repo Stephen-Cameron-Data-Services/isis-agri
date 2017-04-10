@@ -111,6 +111,14 @@ public class ObjectFactory {
     public Sample createSample() {
         return new Sample();
     }
+    
+    /**
+     * Create an instance of {@link Sample2 }
+     * 
+     */
+    public Sample2 createSample2() {
+        return new Sample2();
+    }
 
     /**
      * Create an instance of {@link Sales }
@@ -263,6 +271,14 @@ public class ObjectFactory {
      */
     public ProductType createProductType() {
         return new ProductType();
+    }
+    
+    /**
+     * Create an instance of {@link TestMultiple }
+     * 
+     */
+    public TestMultiple createTestMultiple() {
+        return new TestMultiple();
     }
 
     /**

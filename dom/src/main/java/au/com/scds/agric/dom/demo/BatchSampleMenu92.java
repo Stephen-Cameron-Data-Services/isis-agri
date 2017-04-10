@@ -1,5 +1,6 @@
 package au.com.scds.agric.dom.demo;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
@@ -20,11 +21,25 @@ import au.com.scds.agric.dom.demo.data.Sample;
 public class BatchSampleMenu92 {
 
 	@Action()
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "1")
 	public Sample createBatchSample(Batch batch) {
 		return sampleRepo.createSample(batch);
+	}
+	
+	@Action()
+	@MemberOrder(sequence = "2")
+	public List<Sample> listAll() {
+		return sampleRepo.listAllBatchSamples();
+	}
+
+	@Action()
+	@MemberOrder(sequence = "3")
+	public Sample findById(final String id) {
+		return sampleRepo.findById(id);
 	}
 
 	@javax.inject.Inject
 	SampleRepository sampleRepo;
+
+
 }

@@ -32,9 +32,14 @@ public class SampleRepository {
 	public Sample findById(final String id) {
 		return repositoryService.firstMatch(new QueryDefault<>(Sample.class, "findById", "id", id));
 	}
+	
+	public List<Sample> listAllBatchSamples() {
+		return repositoryService.allInstances(Sample.class);
+	}
 
 	@javax.inject.Inject
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 }

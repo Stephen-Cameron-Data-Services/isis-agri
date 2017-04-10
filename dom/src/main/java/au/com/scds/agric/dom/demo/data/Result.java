@@ -52,13 +52,32 @@ public class Result {
 
 	@XmlTransient
 	@Column(allowsNull = "false")
-	protected Sample sample;
+	private Sample sample;
+	@XmlTransient
+	@Column(allowsNull = "false")
+	private TestMultiple sampleTest;
 	@XmlElement(required = true)
 	@Column(allowsNull = "false")
-	protected TestSingle test;
+	private TestSingle test;
 	@XmlElement(name = "test-result", required = true)
 	@Column(allowsNull = "false")
-	protected String testResult;
+	private String testResult;
+	
+	public Sample getSample() {
+		return sample;
+	}
+
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
+
+	public TestMultiple getSampleTest() {
+		return sampleTest;
+	}
+
+	public void setSampleTest(TestMultiple sampleTest) {
+		this.sampleTest = sampleTest;
+	}
 
 	/**
 	 * Gets the value of the test property.

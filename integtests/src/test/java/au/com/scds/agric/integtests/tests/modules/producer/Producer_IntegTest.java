@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package au.com.scds.integtests.tests.modules.producer;
+package au.com.scds.agric.integtests.tests.modules.producer;
 
 import javax.inject.Inject;
 import org.junit.Before;

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:samples xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
+  <tns:sample>
+    <tns:sampled xsi:type="tns:Sampled"/>
+    <tns:test-single>
+      <tns:test-name>tns:test-name</tns:test-name>
+      <tns:result>
+        <tns:test-result>tns:test-result</tns:test-result>
+      </tns:result>
+    </tns:test-single>
+    <tns:test-group>
+      <tns:test-name>tns:test-name</tns:test-name>
+      <tns:test>
+        <tns:test-name>tns:test-name</tns:test-name>
+        <tns:result>
+          <tns:test-result>tns:test-result</tns:test-result>
+        </tns:result>
+      </tns:test>
+      <tns:test-group/>
+    </tns:test-group>
+    <tns:test-suite>
+      <tns:test-name>tns:test-name</tns:test-name>
+      <tns:test>
+        <tns:test-name>tns:test-name</tns:test-name>
+        <tns:result>
+          <tns:test-result>tns:test-result</tns:test-result>
+        </tns:result>
+      </tns:test>
+      <tns:test-group>
+        <tns:test-name>tns:test-name</tns:test-name>
+        <tns:test>
+          <tns:test-name>tns:test-name</tns:test-name>
+          <tns:result>
+            <tns:test-result>tns:test-result</tns:test-result>
+          </tns:result>
+        </tns:test>
+        <tns:test-group/>
+      </tns:test-group>
+    </tns:test-suite>
+  </tns:sample>
+</tns:samples>

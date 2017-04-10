@@ -19,20 +19,20 @@ import au.com.scds.agric.dom.demo.data.SiUnit;
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Formulation.class)
 public class FormulationRepository {
 
-	public List<Formulation> listAll() {
-		return repositoryService.allInstances(Formulation.class);
-	}
-
-	public List<Formulation> findById(final String id) {
-		return repositoryService.allMatches(new QueryDefault<>(Formulation.class, "findById", "id", id));
-	}
-
 	public Formulation createFormulation(String name) {
 		final Formulation formulation = new Formulation();
 		formulation.setName(name);
 		serviceRegistry.injectServicesInto(formulation);
 		repositoryService.persistAndFlush(formulation);
 		return formulation;
+	}
+	
+	public List<Formulation> listAll() {
+		return repositoryService.allInstances(Formulation.class);
+	}
+
+	public List<Formulation> findById(final String id) {
+		return repositoryService.allMatches(new QueryDefault<>(Formulation.class, "findById", "id", id));
 	}
 
 	public FormulationMethod createFormulationMethod(String name) {
@@ -70,7 +70,7 @@ public class FormulationRepository {
 		if (method.getSteps().isEmpty() || order > method.getSteps().size()) {
 			// add
 			method.getSteps().add(step);
-			step.setOrder(method.getSteps().size());
+			step.setOrder(1);
 		} else {
 			// insert
 			method.getSteps().add(order - 1, step);

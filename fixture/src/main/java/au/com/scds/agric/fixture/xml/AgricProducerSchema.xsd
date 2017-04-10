@@ -257,13 +257,8 @@
 			</documentation>
 		</annotation>
 		<sequence>
-			<element name="sampled" type="tns:Sampled" maxOccurs="1" minOccurs="1">
-			</element>
-			<element name="test" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0">
-			</element>
-			<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0">
-			</element>
-			<element name="test-suite" type="tns:TestSuite" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="sampled" type="tns:Sampled" maxOccurs="1" minOccurs="1"></element>
+			<element name="test" type="tns:TestMultiple" maxOccurs="unbounded" minOccurs="0"></element>
 		</sequence>
 	</complexType>
 
@@ -427,7 +422,7 @@
 	<element name="samples">
 		<complexType>
 			<sequence>
-				<element name="sample" type="tns:Sample" maxOccurs="unbounded" minOccurs="1"></element>
+				<element name="sample" type="tns:Sample2" maxOccurs="unbounded" minOccurs="1"></element>
 			</sequence>
 		</complexType>
 	</element>
@@ -489,5 +484,25 @@
 			<element name="percentage-of-batch" type="float" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 
+	</complexType>
+
+
+	<complexType name="TestMultiple">
+		<sequence>
+			<element name="multiple" type="int" maxOccurs="1" minOccurs="1"></element>
+			<choice>
+				<element name="test" type="tns:Test" maxOccurs="1" minOccurs="1"></element>
+			</choice>
+			<element name="result" type="tns:Result" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Sample2">
+		<sequence>
+			<element name="sampled" type="tns:Sampled" maxOccurs="1" minOccurs="1"></element>
+			<element name="test-single" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="test-suite" type="tns:TestSuite" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
 	</complexType>
 </schema>

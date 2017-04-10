@@ -16,6 +16,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -44,11 +45,16 @@ import org.apache.isis.applib.annotation.DomainObject;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Test", propOrder = { "testName" })
+@XmlSeeAlso({
+    TestSuite.class,
+    TestGroup.class,
+    TestSingle.class
+})
 @DomainObject(objectType = "Test")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Discriminator(column = "type")
-public abstract class Test {
+public class Test {
 
 	@XmlElement(name = "test-name", required = true)
 	@Column(allowsNull = "false")

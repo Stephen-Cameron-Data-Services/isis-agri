@@ -46,7 +46,7 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TestGroup", propOrder = { "tests", "testGroups" })
+@XmlType(name = "TestGroup", propOrder = { "tests" })
 @DomainObject(objectType = "TestGroup")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.SUPERCLASS_TABLE)
@@ -54,62 +54,9 @@ import org.apache.isis.applib.annotation.DomainObject;
 public class TestGroup extends Test {
 
 	@Join
-	protected List<TestSingle> tests;
-	@XmlElement(name = "test-group")
-	@Join
-	protected List<TestGroup> testGroups;
+	protected List<TestSingle> tests = new ArrayList<>();
 
-	/**
-	 * Gets the value of the test property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the test property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getTest().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list
-	 * {@link TestSingle }
-	 * 
-	 * 
-	 */
 	public List<TestSingle> getTests() {
 		return this.tests;
-	}
-
-	/**
-	 * Gets the value of the testGroup property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the testGroup property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getTestGroup().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link TestGroup
-	 * }
-	 * 
-	 * 
-	 */
-	public List<TestGroup> getTestGroups() {
-		return this.testGroups;
 	}
 }

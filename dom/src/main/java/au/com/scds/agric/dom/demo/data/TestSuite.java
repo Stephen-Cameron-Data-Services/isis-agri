@@ -5,7 +5,6 @@
 // Generated on: 2017.03.01 at 08:39:06 PM AEDT 
 //
 
-
 package au.com.scds.agric.dom.demo.data;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.List;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -23,11 +23,13 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
-
 /**
- * <p>Java class for TestSuite complex type.
+ * <p>
+ * Java class for TestSuite complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="TestSuite">
@@ -47,48 +49,18 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TestSuite", propOrder = {
-    "testOrTestGroup"
-})
-@DomainObject(objectType="TestSuite")
+@XmlType(name = "TestSuite", propOrder = { "tests" })
+@DomainObject(objectType = "TestSuite")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class TestSuite {
+public class TestSuite extends Test {
 
-    @XmlElements({
-        @XmlElement(name = "test", type = Test.class),
-        @XmlElement(name = "test-group", type = TestGroup.class)
-    })
-    protected List<Object> testOrTestGroup;
+	@XmlElements({ @XmlElement(name = "test", type = Test.class),
+			@XmlElement(name = "test-group", type = TestGroup.class) })
+	@Join
+	protected List<Test> tests = new ArrayList<>();
 
-    /**
-     * Gets the value of the testOrTestGroup property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the testOrTestGroup property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTestOrTestGroup().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Test }
-     * {@link TestGroup }
-     * 
-     * 
-     */
-    public List<Object> getTestOrTestGroup() {
-        if (testOrTestGroup == null) {
-            testOrTestGroup = new ArrayList<Object>();
-        }
-        return this.testOrTestGroup;
-    }
-
+	public List<Test> getTests() {
+		return this.tests;
+	}
 }
