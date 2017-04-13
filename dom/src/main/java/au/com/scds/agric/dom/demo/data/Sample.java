@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.fixturescripts.FixtureResult;
 
 /**
  * A sample of a sampled item (product, batch, ingredient etc.) taken for
@@ -103,5 +104,7 @@ public class Sample {
 	public List<TestMultiple> getTests() {
 		return this.tests;
 	}
+
+
 
 }

@@ -49,18 +49,69 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TestSuite", propOrder = { "tests" })
+@XmlType(name = "TestSuite", propOrder = { "tests", "testGroups" })
 @DomainObject(objectType = "TestSuite")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class TestSuite extends Test {
+	
+    @XmlElement(name = "test-single")
+    @Join
+    protected List<TestSingle> tests = new ArrayList<>();
+    @XmlElement(name = "test-group")
+    @Join
+    protected List<TestGroup> testGroups = new ArrayList<>();
 
-	@XmlElements({ @XmlElement(name = "test", type = Test.class),
-			@XmlElement(name = "test-group", type = TestGroup.class) })
-	@Join
-	protected List<Test> tests = new ArrayList<>();
 
-	public List<Test> getTests() {
-		return this.tests;
-	}
+    /**
+     * Gets the value of the testSingle property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the testSingle property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getTestSingle().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link TestSingle }
+     * 
+     * 
+     */
+    public List<TestSingle> getTests() {
+        return this.tests;
+    }
+
+    /**
+     * Gets the value of the testGroup property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the testGroup property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getTestGroup().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link TestGroup }
+     * 
+     * 
+     */
+    public List<TestGroup> getTestGroups() {
+        return this.testGroups;
+    }
 }

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import au.com.scds.agric.dom.demo.SaleMenu40;
+import au.com.scds.agric.dom.demo.SampleMixin;
 import au.com.scds.agric.dom.demo.BatchSampleMenu92;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.data.Sale;
@@ -51,11 +52,11 @@ public class Sample_IntegTest extends DomainAppIntegTest {
 		public void accessible() throws Exception {
 			assertThat(sample).isNotNull();
 			assertThat(sample.getSampled()).isNotNull();
-			assertThat(sample.getResults().isEmpty()).isFalse();
-			assertThat(sample.getResults().get(0).getTest().getTestName()).isEqualTo("tns:test-name");
-			assertThat(sample.getResults().get(0).getTestResult()).isEqualTo("tns:test-result");
+			assertThat(sample.getTests().isEmpty()).isFalse();
+			assertThat(sample.getTests().size()).isEqualTo(3);
+			SampleMixin sampleMixin = new SampleMixin(sample);
+			assertThat(sampleMixin.getResults().isEmpty()).isFalse();
+			assertThat(sampleMixin.getResults().size()).isEqualTo(4);
 		}
 	}
-
-
 }

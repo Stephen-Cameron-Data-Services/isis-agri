@@ -54,13 +54,13 @@ public class Result {
 	@Column(allowsNull = "false")
 	private Sample sample;
 	@XmlTransient
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	private TestMultiple sampleTest;
 	@XmlElement(required = true)
 	@Column(allowsNull = "false")
 	private TestSingle test;
 	@XmlElement(name = "test-result", required = true)
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	private String testResult;
 	
 	public Sample getSample() {

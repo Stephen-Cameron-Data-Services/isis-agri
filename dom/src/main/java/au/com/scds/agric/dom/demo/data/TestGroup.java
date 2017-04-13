@@ -53,9 +53,10 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Discriminator(value="GROUP")
 public class TestGroup extends Test {
 
-	@Join
-	protected List<TestSingle> tests = new ArrayList<>();
-
+    @XmlElement(name = "test-single")
+    @Join
+    protected List<TestSingle> tests;
+	
 	public List<TestSingle> getTests() {
 		return this.tests;
 	}

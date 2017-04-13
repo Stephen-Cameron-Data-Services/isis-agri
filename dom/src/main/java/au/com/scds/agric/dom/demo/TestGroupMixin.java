@@ -19,7 +19,7 @@ public class TestGroupMixin {
 	
 	@Action
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public TestGroup addTest(TestSingle test){
+	public TestGroup addTestSingle(TestSingle test){
 		this.group.getTests().add(test);
 		return this.group;
 	}

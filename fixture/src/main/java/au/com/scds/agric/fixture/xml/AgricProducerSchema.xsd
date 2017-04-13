@@ -273,7 +273,7 @@
 		<complexContent>
 			<extension base="tns:Test">
 				<sequence>
-					<element name="test" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0">
+					<element name="test-single" type="tns:TestSingle" maxOccurs="unbounded" minOccurs="0">
 					</element>
 					<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0"></element>
 				</sequence>
@@ -293,7 +293,7 @@
 
 	<complexType name="Result">
 		<sequence>
-			<element name="test-result" type="string" maxOccurs="1" minOccurs="1"></element>
+			<element name="test-result" type="string" maxOccurs="1" minOccurs="0"></element>
 		</sequence>
 	</complexType>
 
@@ -320,9 +320,7 @@
 		<complexContent>
 			<extension base="tns:Test">
 				<sequence>
-					<element name="test" type="tns:TestSingle" minOccurs="0" maxOccurs="unbounded">
-					</element>
-					<element name="test-group" type="tns:TestGroup" maxOccurs="unbounded" minOccurs="0">
+					<element name="test-single" type="tns:TestSingle" minOccurs="0" maxOccurs="unbounded">
 					</element>
 				</sequence>
 			</extension>

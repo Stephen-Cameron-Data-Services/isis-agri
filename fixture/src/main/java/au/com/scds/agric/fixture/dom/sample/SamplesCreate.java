@@ -22,7 +22,9 @@ import au.com.scds.agric.dom.demo.ResultRepository;
 import au.com.scds.agric.dom.demo.SampleMixin;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
 import au.com.scds.agric.dom.demo.SupplierMenu96;
+import au.com.scds.agric.dom.demo.TestGroupMixin;
 import au.com.scds.agric.dom.demo.TestRepository;
+import au.com.scds.agric.dom.demo.TestSuiteMixin;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.BatchComponent;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
@@ -36,6 +38,7 @@ import au.com.scds.agric.dom.demo.data.Sample2;
 import au.com.scds.agric.dom.demo.data.Samples;
 import au.com.scds.agric.dom.demo.data.SiUnit;
 import au.com.scds.agric.dom.demo.data.Specification;
+import au.com.scds.agric.dom.demo.data.Test;
 import au.com.scds.agric.dom.demo.data.TestGroup;
 import au.com.scds.agric.dom.demo.data.TestSingle;
 import au.com.scds.agric.dom.demo.data.TestSuite;
@@ -44,7 +47,7 @@ import au.com.scds.agric.dom.demo.data.IngredientManufacturer;
 import au.com.scds.agric.dom.demo.data.IngredientSupplier;
 import au.com.scds.agric.dom.demo.data.IngredientSupply;
 
-public class SamplesCreate extends FixtureScript{
+public class SamplesCreate extends FixtureScript {
 
 	public SamplesCreate() {
 		withDiscoverability(Discoverability.DISCOVERABLE);
@@ -62,77 +65,53 @@ public class SamplesCreate extends FixtureScript{
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Samples _samples = (Samples) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
-			for(Sample2 _sample : _samples.getSample() )
-			{
-				//dummy batch to 'sample'
+			for (Sample2 _sample : _samples.getSample()) {
+				// dummy batch to 'sample'
 				Batch batch = wrap(batchMenu).createBatch();
 				Sample sample = wrap(sampleMenu).createBatchSample(batch);
-				SampleMixin smx = new SampleMixin(sample);
-				for(TestSingle _test : _sample.getTests()){
+				SampleMixin sampleMixin = new SampleMixin(sample);
+				for (TestSingle _test : _sample.getTestSingle()) {
 					TestSingle test = testRepo.createTestSingle(_test.getTestName());
-					wrap(smx).addTestSingle(test);
-					wrap(smx).createResult(test, _test.getResult().getTestResult());
+					wrap(sampleMixin).addTestSingle(test, 1);
 				}
-				for(TestGroup _test : _sample.getTestGroups()){
-					TestGroup test = testRepo.createTestGroup(_test.getTestName());
-					wrap(smx).addTestGroup(test);
-					//wrap(smx).createResult(test, _test.getResult().getTestResult());
+				for (TestGroup _test : _sample.getTestGroup()) {
+					TestGroup testGroup = testRepo.createTestGroup(_test.getTestName());
+					TestGroupMixin tgx = new TestGroupMixin(testGroup);
+					for (TestSingle _t : _test.getTests()) {
+						TestSingle subtest = testRepo.createTestSingle(_test.getTestName());
+						wrap(tgx).addTestSingle(subtest);
+					}
+					wrap(sampleMixin).addTestGroup(testGroup, 1);
 				}
-				for(TestSuite _test : _sample.getTestSuites()){
-					TestSuite test = testRepo.createTestSuite(_test.getTestName());
-					wrap(smx).addTestSuite(test);
-					//wrap(smx).createResult(test, _test.getResult().getTestResult());
+				for (TestSuite _test : _sample.getTestSuite()) {
+					TestSuite testSuite = testRepo.createTestSuite(_test.getTestName());
+					TestSuiteMixin tsx = new TestSuiteMixin(testSuite);
+					for (TestSingle _t : _test.getTests()) {
+						TestSingle testSingle = testRepo.createTestSingle(_t.getTestName());
+						wrap(tsx).addTestSingle(testSingle);
+					}
+					for (TestGroup _tg : _test.getTestGroups()) {
+						TestGroup testGroup = testRepo.createTestGroup(_tg.getTestName());
+						TestGroupMixin tgx = new TestGroupMixin(testGroup);
+						for (TestSingle _t : _tg.getTests()) {
+							TestSingle subtest = testRepo.createTestSingle(_t.getTestName());
+							wrap(tgx).addTestSingle(subtest);
+						}
+						wrap(tsx).addTestGroup(testGroup);
+					}
+					wrap(sampleMixin).addTestSuite(testSuite, 1);
 				}
 			}
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
+
+	/**
 	
-	/**				 		
-	<?xml version="1.0" encoding="UTF-8"?>
-	<tns:samples xmlns:tns="http://www.example.org/AgricProducerSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/AgricProducerSchema AgricProducerSchema.xsd ">
-	  <tns:sample>
-	    <tns:batch xsi:type="tns:Batch"/>
-	    <tns:test>
-	      <tns:test-name>tns:test-name</tns:test-name>
-	      <tns:result>
-	        <tns:test-result>tns:test-result</tns:test-result>
-	      </tns:result>
-	    </tns:test>
-	    <tns:test-group>
-	      <tns:test-name>tns:test-name</tns:test-name>
-	      <tns:test>
-	        <tns:test-name>tns:test-name</tns:test-name>
-	        <tns:result>
-	          <tns:test-result>tns:test-result</tns:test-result>
-	        </tns:result>
-	      </tns:test>
-	      <tns:test-group/>
-	    </tns:test-group>
-	    <tns:test-suite>
-	      <tns:test-name>tns:test-name</tns:test-name>
-	      <tns:test>
-	        <tns:test-name>tns:test-name</tns:test-name>
-	        <tns:result>
-	          <tns:test-result>tns:test-result</tns:test-result>
-	        </tns:result>
-	      </tns:test>
-	      <tns:test-group>
-	        <tns:test-name>tns:test-name</tns:test-name>
-	        <tns:test>
-	          <tns:test-name>tns:test-name</tns:test-name>
-	          <tns:result>
-	            <tns:test-result>tns:test-result</tns:test-result>
-	          </tns:result>
-	        </tns:test>
-	        <tns:test-group/>
-	      </tns:test-group>
-	    </tns:test-suite>
-	  </tns:sample>
-	</tns:samples>
-	*/
-		
+	
+	 */
+
 	public Sample getBatch() {
 		return this.sample;
 	}

@@ -20,7 +20,7 @@ public class TestSuiteMixin {
 	
 	@Action
 	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public TestSuite addTest(TestSingle test){
+	public TestSuite addTestSingle(TestSingle test){
 		this.suite.getTests().add(test);
 		return this.suite;
 	}
@@ -28,7 +28,7 @@ public class TestSuiteMixin {
 	@Action
 	@ActionLayout(contributed = Contributed.AS_ACTION)
 	public TestSuite addTestGroup(TestGroup group){
-		this.suite.getTests().add(group);
+		this.suite.getTestGroups().add(group);
 		return this.suite;
 	}
 }

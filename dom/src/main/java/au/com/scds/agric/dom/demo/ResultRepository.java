@@ -10,16 +10,30 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.Result;
 import au.com.scds.agric.dom.demo.data.Sample;
+import au.com.scds.agric.dom.demo.data.TestMultiple;
 import au.com.scds.agric.dom.demo.data.TestSingle;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Result.class)
 public class ResultRepository {
 
 	public Result createResult(Sample sample, TestSingle test, String testResult) {
-		if (sample == null || test == null || testResult == null)
+		if (sample == null || test == null)
 			return null;
 		final Result result = new Result();
 		result.setSample(sample);
+		result.setTest(test);
+		result.setTestResult(testResult);
+		serviceRegistry.injectServicesInto(result);
+		repositoryService.persistAndFlush(result);
+		return result;
+	}
+	
+	public Result createResult(Sample sample, TestMultiple multiple, TestSingle test, String testResult) {
+		if (sample == null || test == null)
+			return null;
+		final Result result = new Result();
+		result.setSample(sample);
+		result.setSampleTest(multiple);
 		result.setTest(test);
 		result.setTestResult(testResult);
 		serviceRegistry.injectServicesInto(result);
@@ -39,4 +53,5 @@ public class ResultRepository {
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 }
