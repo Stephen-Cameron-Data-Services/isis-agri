@@ -1,5 +1,3 @@
-package au.com.scds.agric.dom.demo.data;
-//copied
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -18,6 +16,9 @@ package au.com.scds.agric.dom.demo.data;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+package au.com.scds.agric.dom.demo.data;
+
 import java.util.Calendar;
 import java.util.Date;
 

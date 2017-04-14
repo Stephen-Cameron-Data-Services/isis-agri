@@ -68,7 +68,7 @@ public class SamplesCreate extends FixtureScript {
 			for (Sample2 _sample : _samples.getSample()) {
 				// dummy batch to 'sample'
 				Batch batch = wrap(batchMenu).createBatch();
-				Sample sample = wrap(sampleMenu).createBatchSample(batch);
+				sample = wrap(sampleMenu).createBatchSample(batch);
 				SampleMixin sampleMixin = new SampleMixin(sample);
 				for (TestSingle _test : _sample.getTestSingle()) {
 					TestSingle test = testRepo.createTestSingle(_test.getTestName());
@@ -112,7 +112,7 @@ public class SamplesCreate extends FixtureScript {
 	
 	 */
 
-	public Sample getBatch() {
+	public Sample getSample() {
 		return this.sample;
 	}
 
