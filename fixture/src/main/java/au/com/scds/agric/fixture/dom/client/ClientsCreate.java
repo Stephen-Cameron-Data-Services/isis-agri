@@ -9,13 +9,14 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
-import au.com.scds.agric.dom.demo.ClientMenu100;
+import au.com.scds.agric.dom.demo.ClientMenu90;
 import au.com.scds.agric.dom.demo.OrderMixin;
-import au.com.scds.agric.dom.demo.PersonMenu91;
+import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProductItemRepository;
 import au.com.scds.agric.dom.demo.ProductLineRepository;
-import au.com.scds.agric.dom.demo.ProductMenu20;
+import au.com.scds.agric.dom.demo.ProductLineMenu20;
 import au.com.scds.agric.dom.demo.ProductPackRepository;
+import au.com.scds.agric.dom.demo.ProductTypeMenu21;
 import au.com.scds.agric.dom.demo.ScheduledOrderLineMixin;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.Client;
@@ -65,8 +66,8 @@ public class ClientsCreate extends FixtureScript {
 					for (OrderLine _line : _o.getOrderLines()) {
 						ProductLine _pLine = _line.getProductLine();
 						ProductType _pType = _pLine.getProductType();
-						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
+						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
 						wrap(orderMixin).createOrderLine(productLine);
 						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
 						Person adder = wrap(personMenu).createPerson(_line.getAddedBy().getFirstName(),
@@ -78,8 +79,8 @@ public class ClientsCreate extends FixtureScript {
 						OrderLine _wrapped = _line.getOrderLine();
 						ProductLine _pLine = _wrapped.getProductLine();
 						ProductType _pType = _pLine.getProductType();
-						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
+						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
 						// create an orderline
 						wrap(orderMixin).createOrderLine(productLine);
 						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
@@ -103,8 +104,8 @@ public class ClientsCreate extends FixtureScript {
 						OrderLine _wrapped = _line.getOrderLine();
 						ProductLine _pLine = _wrapped.getProductLine();
 						ProductType _pType = _pLine.getProductType();
-						ProductType productType = wrap(productMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productMenu).createProductLine(_pLine.getName(), productType);
+						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
 						wrap(orderMixin).createOrderLine(productLine);
 						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
 						Person adder = wrap(personMenu).createPerson(_wrapped.getAddedBy().getFirstName(),
@@ -184,11 +185,13 @@ public class ClientsCreate extends FixtureScript {
 	}
 
 	@javax.inject.Inject
-	private PersonMenu91 personMenu;
+	private PersonMenu210 personMenu;
 	@javax.inject.Inject
-	private ClientMenu100 clientMenu;
+	private ClientMenu90 clientMenu;
 	@javax.inject.Inject
-	private ProductMenu20 productMenu;
+	private ProductLineMenu20 productLineMenu;
+	@javax.inject.Inject
+	private ProductTypeMenu21 productTypeMenu;
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject

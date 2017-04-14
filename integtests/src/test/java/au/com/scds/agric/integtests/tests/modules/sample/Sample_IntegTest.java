@@ -4,9 +4,9 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import au.com.scds.agric.dom.demo.SaleMenu40;
+import au.com.scds.agric.dom.demo.SaleMenu100;
 import au.com.scds.agric.dom.demo.SampleMixin;
-import au.com.scds.agric.dom.demo.BatchSampleMenu92;
+import au.com.scds.agric.dom.demo.BatchSampleMenu82;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.data.Sale;
 import au.com.scds.agric.dom.demo.data.Sample;
@@ -33,7 +33,7 @@ public class Sample_IntegTest extends DomainAppIntegTest {
 	@Inject
 	TransactionService transactionService;
 	@Inject
-	BatchSampleMenu92 batchSampleMenu;
+	BatchSampleMenu82 batchSampleMenu;
 
 	Sample sample;
 

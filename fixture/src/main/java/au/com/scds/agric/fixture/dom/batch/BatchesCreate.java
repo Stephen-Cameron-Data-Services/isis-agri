@@ -9,15 +9,14 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import com.google.common.base.Supplier;
-
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.BatchMixin;
-import au.com.scds.agric.dom.demo.FormulationMenu80;
-import au.com.scds.agric.dom.demo.IngredientMenu81;
-import au.com.scds.agric.dom.demo.PersonMenu91;
+import au.com.scds.agric.dom.demo.FormulationMenu40;
+import au.com.scds.agric.dom.demo.IngredientMenu50;
+import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
-import au.com.scds.agric.dom.demo.SupplierMenu96;
+import au.com.scds.agric.dom.demo.SupplierMenu220;
+import au.com.scds.agric.dom.demo.SuppliesMenu60;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.BatchComponent;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
@@ -65,7 +64,7 @@ public class BatchesCreate extends FixtureScript{
 				//specification
 				Specification spec = wrap(formulationMenu).createSpecification(_batch.getSpecification().getName());
 				wrap(batch).setSpecification(spec);
-				BatchMixin bmx = new BatchMixin(batch);
+				BatchMixin.AddComponent bmx = new BatchMixin.AddComponent(batch);
 				//batch components
 				for(BatchComponent _c : _batch.getBatchComponents()){
 					Ingredient ingredient = wrap(ingredientMenu).createIngredient(_c.getIngredient().getName(), _c.getIngredient().getDescription());
@@ -80,16 +79,17 @@ public class BatchesCreate extends FixtureScript{
 								wrap(supplierMenu).createIngredientSupplier(_s.getSupplier().getName());
 							}
 							SiUnit unit = unitRepo.createSiUnit(_s.getUnit().getName());
-							IngredientSupply supply = wrap(supplierMenu).createIngredientSupply(ingredient, supplier, _s.getQuantityInitial(), unit);
+							IngredientSupply supply = wrap(suppliesMenu).createIngredientSupply(ingredient, supplier, _s.getQuantityInitial(), unit);
 							wrap(supply).setQuantityRemaining(_s.getQuantityInitial());
 							ingredient.getSupplies().add(supply);
 						}
 					}
-					BatchComponent component = wrap(bmx).addComponent(ingredient,_c.getQuantity(),_c.getUnit());
+					wrap(bmx).$$(ingredient,_c.getQuantity(),_c.getUnit());
 				}
 				//product items
 				ProductItem _productItem = batch.getProductItems().get(0);
-				wrap(bmx).createProductItem(_productItem.getSerialNumber());
+				BatchMixin.AddProductItem bmapi = new BatchMixin.AddProductItem(batch);
+				wrap(bmapi).$$(_productItem.getSerialNumber());
 				ec.addResult(this, batch);
 				this.batch = batch;
 				
@@ -147,13 +147,15 @@ public class BatchesCreate extends FixtureScript{
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject
-	private PersonMenu91 personMenu;
+	private PersonMenu210 personMenu;
 	@javax.inject.Inject
-	private FormulationMenu80 formulationMenu;
+	private FormulationMenu40 formulationMenu;
 	@javax.inject.Inject
-	private IngredientMenu81 ingredientMenu;	
+	private IngredientMenu50 ingredientMenu;	
 	@javax.inject.Inject
-	private SupplierMenu96 supplierMenu;
+	private SupplierMenu220 supplierMenu;
+	@javax.inject.Inject
+	private SuppliesMenu60 suppliesMenu;
 	@javax.inject.Inject
 	private SiUnitRepository unitRepo;
 }

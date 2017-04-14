@@ -40,7 +40,7 @@ import au.com.scds.agric.dom.demo.data.Person;
 import au.com.scds.agric.dom.demo.data.Producer;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Producer", menuOrder = "10")
+@DomainServiceLayout(named = "Producers", menuOrder = "10")
 public class ProducerMenu10 {
 
 	@Action()
@@ -55,11 +55,11 @@ public class ProducerMenu10 {
 		return producerRepo.listAll();
 	}
 
-	@Action()
+	/*@Action()
 	@MemberOrder(sequence = "3")
 	public Producer findById(final String id) {
 		return producerRepo.findById(id);
-	}
+	}*/
 
 	@javax.inject.Inject
 	ProducerRepository producerRepo;

@@ -19,8 +19,8 @@ import au.com.scds.agric.dom.demo.data.TestSingle;
 import au.com.scds.agric.dom.demo.data.TestSuite;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Tests", menuOrder = "98")
-public class TestMenu98 {
+@DomainServiceLayout(named = "Tests", menuOrder = "70")
+public class TestMenu70 {
 
 	@Action()
 	@MemberOrder(sequence = "1")

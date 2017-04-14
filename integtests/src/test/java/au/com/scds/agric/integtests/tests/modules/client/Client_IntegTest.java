@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import au.com.scds.agric.dom.demo.ClientMenu100;
+import au.com.scds.agric.dom.demo.ClientMenu90;
 import au.com.scds.agric.dom.demo.data.Client;
 import au.com.scds.agric.dom.demo.data.CompletedOrderLine;
 import au.com.scds.agric.dom.demo.data.Order;
@@ -27,7 +27,7 @@ public class Client_IntegTest extends DomainAppIntegTest {
 	@Inject
 	TransactionService transactionService;
 	@Inject
-	ClientMenu100 clientMenu;
+	ClientMenu90 clientMenu;
 	
 	Client client;
 

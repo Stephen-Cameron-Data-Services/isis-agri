@@ -24,7 +24,10 @@ SOFTWARE.
 
 package au.com.scds.agric.dom.demo;
 
+import java.util.Calendar;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
@@ -33,22 +36,65 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 import au.com.scds.agric.dom.demo.data.Batch;
-import au.com.scds.agric.dom.demo.data.BatchComponent;
-import au.com.scds.agric.dom.demo.data.IngredientSupply;
-import au.com.scds.agric.dom.demo.data.Producer;
-import au.com.scds.agric.dom.demo.data.ProductItem;
-import au.com.scds.agric.dom.demo.data.Sample;
+import au.com.scds.agric.dom.demo.data.Formulation;
+import au.com.scds.agric.dom.demo.data.FormulationMethod;
+import au.com.scds.agric.dom.demo.data.ProductLine;
+import au.com.scds.agric.dom.demo.data.Specification;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Sample", menuOrder = "93")
-public class BatchComponentSampleMenu93 {
+@DomainServiceLayout(named = "Formulations", menuOrder = "40")
+public class FormulationMenu40 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Sample createSample(BatchComponent component) {
-		return sampleRepo.createSample(component);
+	public Formulation createFormulation(String name) {
+		return formulationRepo.createFormulation(name);
 	}
 
-	@javax.inject.Inject
-	SampleRepository sampleRepo;
+	@Action()
+	@MemberOrder(sequence = "2")
+	public Formulation copyFormulation(Formulation copied, String name) {
+		return null;
+	}
+
+	@Action()
+	@MemberOrder(sequence = "3")
+	public List<Formulation> listAllFormulations() {
+		return formulationRepo.listAll();
+	}
+	
+	@Action()
+	@MemberOrder(sequence = "10")
+	public FormulationMethod createFormulationMethod(String name) {
+		return formulationRepo.createFormulationMethod(name);
+	}
+	
+	@Action()
+	@MemberOrder(sequence = "50")
+	public Specification createSpecification(String name) {
+		return specificationRepo.createSpecification(name);
+	}
+	
+	@Action()
+	@MemberOrder(sequence = "51")
+	public Specification copySpecification(Specification copied, String name) {
+		return null;
+	}
+
+	@Action()
+	@MemberOrder(sequence = "52")
+	public List<Specification> listAllSpecifications() {
+		return specificationRepo.listAll();
+	}
+
+	@Inject
+	FormulationRepository formulationRepo;
+
+	@Inject
+	SpecificationRepository specificationRepo;
+
+
+
+
+
 }

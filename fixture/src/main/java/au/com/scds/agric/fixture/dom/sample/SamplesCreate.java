@@ -3,49 +3,27 @@ package au.com.scds.agric.fixture.dom.sample;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import com.google.common.base.Supplier;
-
 import au.com.scds.agric.dom.demo.BatchMenu30;
-import au.com.scds.agric.dom.demo.BatchMixin;
-import au.com.scds.agric.dom.demo.BatchSampleMenu92;
-import au.com.scds.agric.dom.demo.FormulationMenu80;
-import au.com.scds.agric.dom.demo.IngredientMenu81;
-import au.com.scds.agric.dom.demo.PersonMenu91;
-import au.com.scds.agric.dom.demo.ResultRepository;
+import au.com.scds.agric.dom.demo.BatchSampleMenu82;
 import au.com.scds.agric.dom.demo.SampleMixin;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
-import au.com.scds.agric.dom.demo.SupplierMenu96;
 import au.com.scds.agric.dom.demo.TestGroupMixin;
 import au.com.scds.agric.dom.demo.TestRepository;
 import au.com.scds.agric.dom.demo.TestSuiteMixin;
 import au.com.scds.agric.dom.demo.data.Batch;
-import au.com.scds.agric.dom.demo.data.BatchComponent;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
-import au.com.scds.agric.dom.demo.data.Person;
-import au.com.scds.agric.dom.demo.data.Batches;
-import au.com.scds.agric.dom.demo.data.Formulations;
-import au.com.scds.agric.dom.demo.data.ProductItem;
-import au.com.scds.agric.dom.demo.data.Result;
 import au.com.scds.agric.dom.demo.data.Sample;
 import au.com.scds.agric.dom.demo.data.Sample2;
 import au.com.scds.agric.dom.demo.data.Samples;
-import au.com.scds.agric.dom.demo.data.SiUnit;
-import au.com.scds.agric.dom.demo.data.Specification;
-import au.com.scds.agric.dom.demo.data.Test;
 import au.com.scds.agric.dom.demo.data.TestGroup;
 import au.com.scds.agric.dom.demo.data.TestSingle;
 import au.com.scds.agric.dom.demo.data.TestSuite;
-import au.com.scds.agric.dom.demo.data.Ingredient;
-import au.com.scds.agric.dom.demo.data.IngredientManufacturer;
-import au.com.scds.agric.dom.demo.data.IngredientSupplier;
-import au.com.scds.agric.dom.demo.data.IngredientSupply;
 
 public class SamplesCreate extends FixtureScript {
 
@@ -119,7 +97,7 @@ public class SamplesCreate extends FixtureScript {
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject
-	private BatchSampleMenu92 sampleMenu;
+	private BatchSampleMenu82 sampleMenu;
 	@javax.inject.Inject
 	private TestRepository testRepo;
 	@javax.inject.Inject

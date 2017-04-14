@@ -45,6 +45,10 @@ public class ProducerMixin {
 	public ProducerMixin(Producer producer) {
 		this.producer = producer;
 	}
+	
+	private String title(){
+		return this.producer.getName();
+	}
 
 	@Action()
 	@ActionLayout(contributed = Contributed.AS_ACTION)
@@ -55,7 +59,7 @@ public class ProducerMixin {
 	}
 
 	public List<ProductType> choices1AddProductLine() {
-		return productTypeRepo.listAll();
+		return productTypeRepo.listAllProductTypes();
 	}
 
 	@Inject

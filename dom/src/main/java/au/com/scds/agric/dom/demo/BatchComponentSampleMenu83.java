@@ -26,48 +26,29 @@ package au.com.scds.agric.dom.demo;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.registry.ServiceRegistry2;
-import org.apache.isis.applib.services.repository.RepositoryService;
 
+import au.com.scds.agric.dom.demo.data.Batch;
+import au.com.scds.agric.dom.demo.data.BatchComponent;
+import au.com.scds.agric.dom.demo.data.IngredientSupply;
 import au.com.scds.agric.dom.demo.data.Producer;
-import au.com.scds.agric.dom.demo.data.ProductLine;
-import au.com.scds.agric.dom.demo.data.ProductType;
+import au.com.scds.agric.dom.demo.data.ProductItem;
+import au.com.scds.agric.dom.demo.data.Sample;
 
-@DomainService(nature = NatureOfService.DOMAIN, repositoryFor = ProductLine.class)
-public class ProductLineRepository {
+@DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
+@DomainServiceLayout(named = "Samples", menuOrder = "83")
+public class BatchComponentSampleMenu83 {
 
-	public ProductLine createProductLine(final Producer producer, final String name, final ProductType type) {
-		if (name == null)
-			return null;
-		final ProductLine productLine = new ProductLine();
-		productLine.setProducer(producer);
-		productLine.setName(name);
-		productLine.setProductType(type);
-		serviceRegistry.injectServicesInto(productLine);
-		repositoryService.persistAndFlush(productLine);
-		return productLine;
+	@Action()
+	@MemberOrder(sequence = "1")
+	public Sample createSample(BatchComponent component) {
+		return sampleRepo.createSample(component);
 	}
 
-	public List<ProductLine> listAllProductLine() {
-		return repositoryService.allInstances(ProductLine.class);
-	}
-
-	public ProductLine findProductLineById(String id) {
-		return repositoryService.firstMatch(new QueryDefault<>(ProductLine.class, "findById", "id", id));
-	}
-
-
-	@Inject
-	RepositoryService repositoryService;
-	@Inject
-	ServiceRegistry2 serviceRegistry;
-	public List<ProductLine> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@javax.inject.Inject
+	SampleRepository sampleRepo;
 }

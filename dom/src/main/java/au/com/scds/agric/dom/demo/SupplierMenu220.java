@@ -24,7 +24,6 @@ SOFTWARE.
 
 package au.com.scds.agric.dom.demo;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.isis.applib.annotation.Action;
@@ -32,37 +31,49 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.registry.ServiceRegistry2;
+import org.apache.isis.applib.services.repository.RepositoryService;
 
-import au.com.scds.agric.dom.demo.data.Batch;
-import au.com.scds.agric.dom.demo.data.BatchComponent;
+import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.IngredientManufacturer;
+import au.com.scds.agric.dom.demo.data.IngredientSupplier;
 import au.com.scds.agric.dom.demo.data.IngredientSupply;
-import au.com.scds.agric.dom.demo.data.Producer;
-import au.com.scds.agric.dom.demo.data.ProductItem;
-import au.com.scds.agric.dom.demo.data.Sample;
+import au.com.scds.agric.dom.demo.data.IngredientSupplier;
+import au.com.scds.agric.dom.demo.data.ProductType;
+import au.com.scds.agric.dom.demo.data.SiUnit;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Sample", menuOrder = "92")
-public class BatchSampleMenu92 {
-
+@DomainServiceLayout(named = "Admin", menuOrder = "220")
+public class SupplierMenu220 {
+	
 	@Action()
-	@MemberOrder(sequence = "1")
-	public Sample createBatchSample(Batch batch) {
-		return sampleRepo.createSample(batch);
+	@MemberOrder(sequence = "4")
+	public IngredientSupplier createIngredientSupplier(String name) {
+		return supplierRepo.createIngredientSupplier(name);
 	}
 
 	@Action()
-	@MemberOrder(sequence = "2")
-	public List<Sample> listAll() {
-		return sampleRepo.listAllBatchSamples();
+	@MemberOrder(sequence = "5")
+	public List<IngredientSupplier> listAllIngredientSupplier() {
+		return supplierRepo.listAllIngredientSupplier();
+	}
+	
+	
+	@Action()
+	@MemberOrder(sequence = "7")
+	public IngredientManufacturer createIngredientManufacturer(String name) {
+		return supplierRepo.createIngredientManufacturer(name);
 	}
 
 	@Action()
-	@MemberOrder(sequence = "3")
-	public Sample findById(final String id) {
-		return sampleRepo.findById(id);
+	@MemberOrder(sequence = "8")
+	public List<IngredientManufacturer> listAllIngredientManufacturer() {
+		return supplierRepo.listAllIngredientManufacturer();
 	}
 
 	@javax.inject.Inject
-	SampleRepository sampleRepo;
-
+	SupplierRepository supplierRepo;
+	@javax.inject.Inject
+	IngredientRepository ingredientRepo;
 }

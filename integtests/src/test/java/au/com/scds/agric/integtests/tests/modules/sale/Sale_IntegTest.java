@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import au.com.scds.agric.dom.demo.SaleMenu40;
+import au.com.scds.agric.dom.demo.SaleMenu100;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.data.Sale;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
@@ -28,7 +28,7 @@ public class Sale_IntegTest extends DomainAppIntegTest {
 	@Inject
 	TransactionService transactionService;
 	@Inject
-	SaleMenu40 saleMenu;
+	SaleMenu100 saleMenu;
 	
 	Sale Sale;
 

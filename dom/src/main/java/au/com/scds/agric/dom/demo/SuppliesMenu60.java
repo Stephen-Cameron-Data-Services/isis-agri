@@ -44,8 +44,8 @@ import au.com.scds.agric.dom.demo.data.ProductType;
 import au.com.scds.agric.dom.demo.data.SiUnit;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Supplier", menuOrder = "96")
-public class SupplierMenu96 {
+@DomainServiceLayout(named = "Supplies", menuOrder = "60")
+public class SuppliesMenu60 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
@@ -58,7 +58,7 @@ public class SupplierMenu96 {
 	}
 
 	public List<IngredientSupplier> choices1CreateIngredientSupply() {
-		return listAllIngredientSupplier();
+		return supplierRepo.listAllIngredientSupplier();
 	}
 
 	@Action()
@@ -73,34 +73,10 @@ public class SupplierMenu96 {
 		return supplierRepo.findIngredientSupplyById(id);
 	}
 
-	@Action()
-	@MemberOrder(sequence = "4")
-	public IngredientSupplier createIngredientSupplier(String name) {
-		return supplierRepo.createIngredientSupplier(name);
-	}
-
-	@Action()
-	@MemberOrder(sequence = "5")
-	public List<IngredientSupplier> listAllIngredientSupplier() {
-		return supplierRepo.listAllIngredientSupplier();
-	}
-	
-	
-	@Action()
-	@MemberOrder(sequence = "7")
-	public IngredientManufacturer createIngredientManufacturer(String name) {
-		return supplierRepo.createIngredientManufacturer(name);
-	}
-
-	@Action()
-	@MemberOrder(sequence = "8")
-	public List<IngredientManufacturer> listAllIngredientManufacturer() {
-		return supplierRepo.listAllIngredientManufacturer();
-	}
-
 	
 	@javax.inject.Inject
 	SupplierRepository supplierRepo;
 	@javax.inject.Inject
 	IngredientRepository ingredientRepo;
+
 }

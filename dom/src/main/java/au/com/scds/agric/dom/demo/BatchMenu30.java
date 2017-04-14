@@ -40,7 +40,7 @@ import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.ProductLine;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
-@DomainServiceLayout(named = "Batch", menuOrder = "30")
+@DomainServiceLayout(named = "Batches", menuOrder = "30")
 public class BatchMenu30 {
 	
 	@Action()

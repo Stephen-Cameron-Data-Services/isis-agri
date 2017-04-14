@@ -37,34 +37,48 @@ import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.ProductItem;
 import au.com.scds.agric.dom.demo.data.SiUnit;
 
-@Mixin
 public class BatchMixin {
 
-	private final Batch batch;
+	@Mixin
+	public static class AddProductItem {
 
-	public BatchMixin(Batch batch) {
-		this.batch = batch;
+		private final Batch batch;
+
+		public AddProductItem(Batch batch) {
+			this.batch = batch;
+		}
+
+		@Action()
+		@ActionLayout(contributed = Contributed.AS_ACTION)
+		public void $$(String serialNumber) {
+			ProductItem item = productItemRepo.createProductItem(this.batch.getProductLine(), serialNumber);
+			item.setBatch(this.batch);
+			this.batch.getProductItems().add(item);
+			return;
+		}
+
+		@Inject
+		ProductItemRepository productItemRepo;
 	}
+	
+	@Mixin
+	public static class AddComponent{
 
-	@Action()
-	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public Batch createProductItem(String serialNumber) {
-		ProductItem item = productItemRepo.createProductItem(this.batch.getProductLine(), serialNumber);
-		item.setBatch(this.batch);
-		this.batch.getProductItems().add(item);
-		return this.batch;
+		private final Batch batch;
+
+		public AddComponent(Batch batch) {
+			this.batch = batch;
+		}
+
+		@Action()
+		@ActionLayout(contributed = Contributed.AS_ACTION)
+		public void $$(Ingredient ingredient, float quantity, SiUnit unit) {
+			BatchComponent component = batchRepo.createComponent(this.batch, ingredient, quantity, unit);
+			this.batch.getBatchComponents().add(component);
+			return;
+		}
+
+		@Inject
+		BatchRepository batchRepo;
 	}
-
-	@Action()
-	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public BatchComponent addComponent(Ingredient ingredient, float quantity, SiUnit unit) {
-		BatchComponent component = batchRepo.createComponent(this.batch, ingredient, quantity, unit);
-		this.batch.getBatchComponents().add(component);
-		return component;
-	}
-
-	@javax.inject.Inject
-	BatchRepository batchRepo;
-	@javax.inject.Inject
-	ProductItemRepository productItemRepo;
 }

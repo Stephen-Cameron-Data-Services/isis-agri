@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
-MIT License
+<!-- MIT License Copyright (c) 2017 Alexander Stephen Cameron (http://stephencamerondataservices.com.au/) Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
 
-Copyright (c) 2017 Alexander Stephen Cameron (http://stephencamerondataservices.com.au/)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
--->
-
-<grid
-	xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd"
-	xmlns="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:ns2="http://isis.apache.org/applib/layout/component"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:ns2="http://isis.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<row>
-		<col span="12" unreferencedActions="true" >
-			<ns2:domainObject bookmarking="AS_ROOT"/>
+		<col span="12" unreferencedActions="true">
+			<ns2:domainObject bookmarking="AS_ROOT" />
 		</col>
 	</row>
 	<row>
@@ -38,12 +14,43 @@ SOFTWARE.
 				<tab name="General">
 					<row>
 						<col span="5">
-							<ns2:fieldSet name="General" id="general"
-								unreferencedProperties="true">
+							<ns2:fieldSet name="General" id="general" unreferencedProperties="true">
 								<ns2:property id="dummy" />
 							</ns2:fieldSet>
 						</col>
 						<col span="7" unreferencedCollections="true">
+						</col>
+					</row>
+				</tab>
+				<tab name="Components">
+					<row>
+						<col span="12">
+							<ns2:collection defaultView="table" id="batchComponents">
+								<ns2:action id="AddComponent" />
+							</ns2:collection>
+						</col>
+					</row>
+				</tab>
+				<tab name="Orders">
+					<row>
+						<col span="12">
+							<ns2:collection defaultView="table" id="batchOrderLines" />
+						</col>
+					</row>
+				</tab>
+				<tab name="Product">
+					<row>
+						<col span="12">
+							<ns2:collection defaultView="table" id="productItems" >
+								<ns2:action id="AddProductItem"/>
+							</ns2:collection>
+						</col>
+					</row>
+				</tab>
+				<tab name="Samples">
+					<row>
+						<col span="12">
+							<ns2:collection defaultView="table" id="samples" />
 						</col>
 					</row>
 				</tab>
@@ -56,8 +63,7 @@ SOFTWARE.
 								<ns2:action id="downloadJdoMetadata" position="PANEL_DROPDOWN" />
 								<ns2:action id="rebuildMetamodel" position="PANEL_DROPDOWN" />
 								<ns2:property id="datanucleusIdLong" hidden="ALL_TABLES" />
-								<ns2:property id="datanucleusVersionTimestamp"
-									hidden="ALL_TABLES" />
+								<ns2:property id="datanucleusVersionTimestamp" hidden="ALL_TABLES" />
 								<ns2:property id="datanucleusVersionLong" hidden="ALL_TABLES" />
 							</ns2:fieldSet>
 						</col>

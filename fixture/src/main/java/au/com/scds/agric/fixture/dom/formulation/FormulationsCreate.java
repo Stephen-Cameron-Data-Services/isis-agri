@@ -13,12 +13,12 @@ import org.apache.isis.applib.fixturescripts.FixtureScript.Discoverability;
 import org.apache.isis.applib.fixturescripts.FixtureScript.ExecutionContext;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
-import au.com.scds.agric.dom.demo.FormulationMenu80;
+import au.com.scds.agric.dom.demo.FormulationMenu40;
 import au.com.scds.agric.dom.demo.FormulationMethodMixin;
 import au.com.scds.agric.dom.demo.FormulationMixin;
-import au.com.scds.agric.dom.demo.IngredientMenu81;
-import au.com.scds.agric.dom.demo.PersonMenu91;
-import au.com.scds.agric.dom.demo.ProductMenu20;
+import au.com.scds.agric.dom.demo.IngredientMenu50;
+import au.com.scds.agric.dom.demo.PersonMenu210;
+import au.com.scds.agric.dom.demo.ProductLineMenu20;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
 import au.com.scds.agric.dom.demo.data.Formulation;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
@@ -79,15 +79,15 @@ public class FormulationsCreate extends FixtureScript {
 	}
 
 	@javax.inject.Inject
-	private FormulationMenu80 formulationMenu;
+	private FormulationMenu40 formulationMenu;
 	@javax.inject.Inject
-	private ProductMenu20 productMenu;
+	private ProductLineMenu20 productMenu;
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject
-	private IngredientMenu81 ingredientMenu;
+	private IngredientMenu50 ingredientMenu;
 	@javax.inject.Inject
-	private PersonMenu91 personMenu;
+	private PersonMenu210 personMenu;
 	@javax.inject.Inject
 	private SiUnitRepository unitRepo;
 }

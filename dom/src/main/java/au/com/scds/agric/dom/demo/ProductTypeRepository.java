@@ -48,11 +48,11 @@ public class ProductTypeRepository {
 		return productType;
 	}
 	
-	public List<ProductType> listAll() {
+	public List<ProductType> listAllProductTypes() {
 		return repositoryService.allInstances(ProductType.class);
 	}
 	
-	public ProductType findById(final String id) {
+	public ProductType findProductTypeById(final String id) {
 		return repositoryService.firstMatch(new QueryDefault<>(ProductType.class, "findById", "id", id));
 	}
 
@@ -60,6 +60,5 @@ public class ProductTypeRepository {
 	RepositoryService repositoryService;
 	@Inject
 	ServiceRegistry2 serviceRegistry;
-
 
 }

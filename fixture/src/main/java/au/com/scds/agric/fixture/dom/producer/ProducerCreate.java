@@ -23,13 +23,14 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.BatchMixin;
-import au.com.scds.agric.dom.demo.FormulationMenu80;
+import au.com.scds.agric.dom.demo.FormulationMenu40;
 import au.com.scds.agric.dom.demo.FormulationMethodMixin;
 import au.com.scds.agric.dom.demo.FormulationMixin;
-import au.com.scds.agric.dom.demo.PersonMenu91;
+import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.ProducerMixin;
-import au.com.scds.agric.dom.demo.ProductMenu20;
+import au.com.scds.agric.dom.demo.ProductLineMenu20;
+import au.com.scds.agric.dom.demo.ProductTypeMenu21;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.Formulation;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
@@ -73,8 +74,8 @@ public class ProducerCreate extends FixtureScript {
 			producer = wrap(producerMenu).create(pr.getName());
 			wrap(producer).setName(pr.getName());
 			for(ProductLine _line : pr.getProductLines()){
-				ProductType type = wrap(productMenu).createProductType(_line.getProductType().getName());
-				ProductLine line = wrap(productMenu).createProductLine(_line.getName(), type);
+				ProductType type = wrap(productTypeMenu).createProductType(_line.getProductType().getName());
+				ProductLine line = wrap(productLineMenu).createProductLine(_line.getName(), type);
 			}
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -102,11 +103,13 @@ public class ProducerCreate extends FixtureScript {
 	@javax.inject.Inject
 	private ProducerMenu10 producerMenu;
 	@javax.inject.Inject
-	private ProductMenu20 productMenu;
+	private ProductLineMenu20 productLineMenu;
+	@javax.inject.Inject
+	private ProductTypeMenu21 productTypeMenu;
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject
-	private PersonMenu91 personMenu;
+	private PersonMenu210 personMenu;
 	@javax.inject.Inject
-	private FormulationMenu80 formulationMenu;
+	private FormulationMenu40 formulationMenu;
 }

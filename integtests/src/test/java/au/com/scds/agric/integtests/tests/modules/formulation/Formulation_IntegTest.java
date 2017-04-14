@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 
-import au.com.scds.agric.dom.demo.FormulationMenu80;
+import au.com.scds.agric.dom.demo.FormulationMenu40;
 import au.com.scds.agric.dom.demo.data.Formulation;
 import au.com.scds.agric.dom.demo.data.FormulationComponent;
 import au.com.scds.agric.dom.demo.data.FormulationMethod;
@@ -25,7 +25,7 @@ public class Formulation_IntegTest extends DomainAppIntegTest {
 	@Inject
 	TransactionService transactionService;
 	@Inject
-	FormulationMenu80 formulationMenu;
+	FormulationMenu40 formulationMenu;
 	
 	Formulation formulation;
 
