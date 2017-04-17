@@ -36,21 +36,16 @@ import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import au.com.scds.agric.dom.demo.data.Batch;
+import au.com.scds.agric.dom.demo.data.Batch2;
 import au.com.scds.agric.dom.demo.data.BatchComponent;
 import au.com.scds.agric.dom.demo.data.Ingredient;
+import au.com.scds.agric.dom.demo.data.IngredientSupply;
 import au.com.scds.agric.dom.demo.data.ProductLine;
 import au.com.scds.agric.dom.demo.data.SiUnit;
 import au.com.scds.agric.dom.simple.SimpleObject;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Batch.class)
 public class BatchRepository {
-	
-	public Batch createBatch() {
-		final Batch batch = new Batch();
-		serviceRegistry.injectServicesInto(batch);
-		repositoryService.persistAndFlush(batch);
-		return batch;
-	}
 
 	public Batch createBatch(ProductLine productLine) {
 		if (productLine == null)
@@ -71,12 +66,13 @@ public class BatchRepository {
 		return repositoryService.firstMatch(new QueryDefault<>(Batch.class, "findById", "id", id));
 	}
 	
-	public BatchComponent createComponent(Batch batch, Ingredient ingredient, float quantity, SiUnit unit) {
+	public BatchComponent createComponent(Batch batch, IngredientSupply supply, Ingredient ingredient, float quantity, SiUnit unit) {
 		if (batch == null)
 			return null;
 		final BatchComponent component = new BatchComponent();
 		component.setBatch(batch);
 		component.setIngredient(ingredient);
+		component.setParentSupply(supply);
 		component.setQuantity(quantity);
 		component.setUnit(unit);
 		serviceRegistry.injectServicesInto(component);
@@ -95,6 +91,7 @@ public class BatchRepository {
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
 
 
 }

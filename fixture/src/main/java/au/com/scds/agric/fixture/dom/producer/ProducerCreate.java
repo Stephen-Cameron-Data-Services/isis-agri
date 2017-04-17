@@ -22,10 +22,8 @@ package au.com.scds.agric.fixture.dom.producer;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
-import au.com.scds.agric.dom.demo.BatchMixin;
 import au.com.scds.agric.dom.demo.FormulationMenu40;
-import au.com.scds.agric.dom.demo.FormulationMethodMixin;
-import au.com.scds.agric.dom.demo.FormulationMixin;
+import au.com.scds.agric.dom.demo.FormulationMixins;
 import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.ProducerMixin;
@@ -49,6 +47,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
 import org.apache.isis.applib.fixturescripts.FixtureResult;
 import com.google.common.collect.Lists;
@@ -70,7 +69,8 @@ public class ProducerCreate extends FixtureScript {
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/producer.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Producer pr = ((JAXBElement<Producer>) jaxbUnmarshaller.unmarshal(is)).getValue();
+			jaxbUnmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
+			Producer pr = (Producer) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 			producer = wrap(producerMenu).create(pr.getName());
 			wrap(producer).setName(pr.getName());
 			for(ProductLine _line : pr.getProductLines()){

@@ -45,17 +45,11 @@ public class BatchMenu30 {
 	
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Batch createBatch() {
-		return batchRepo.createBatch();
-	}
-
-	@Action()
-	@MemberOrder(sequence = "2")
-	public Batch createBatchForProductLine(ProductLine productLine) {
-		return batchRepo.createBatch(productLine);
+	public Batch createBatch(ProductLine line) {
+		return batchRepo.createBatch(line);
 	}
 	
-	public List<ProductLine> choices0CreateBatchForProductLine(){
+	public List<ProductLine> choices0CreateBatch(){
 		return productLineRepo.listAllProductLine();
 	}
 	
@@ -70,6 +64,9 @@ public class BatchMenu30 {
 	public Batch findById(final String id) {
 		return batchRepo.findById(id);
 	}
+	
+
+
 
 	@Inject
 	BatchRepository batchRepo;

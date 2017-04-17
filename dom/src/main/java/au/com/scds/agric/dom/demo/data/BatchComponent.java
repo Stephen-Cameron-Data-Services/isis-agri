@@ -83,7 +83,7 @@ public class BatchComponent
     @Column(allowsNull="true")
     protected Ingredient ingredient;
     @XmlElement(name = "parent-supply", required = true)
-    @Column(allowsNull="false")
+    @Column(allowsNull="true")
     protected IngredientSupply parentSupply;
     @Column(allowsNull="true")
     protected float quantity;

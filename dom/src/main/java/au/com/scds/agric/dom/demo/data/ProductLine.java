@@ -65,7 +65,6 @@ import org.apache.isis.applib.annotation.DomainObject;
  * &lt;/complexType>
  * </pre>
  * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProductLine", propOrder = { "name", "productType", "batches" })
@@ -81,7 +80,7 @@ public class ProductLine {
 	@Column(allowsNull = "false")
 	protected String name;
 	@XmlElement(name = "product-type")
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	protected ProductType productType;
 	@XmlElement(name = "batch", required = true)
 	@Persistent(mappedBy = "productLine")

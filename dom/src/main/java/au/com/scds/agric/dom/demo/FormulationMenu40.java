@@ -34,6 +34,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.Formulation;
@@ -47,13 +48,13 @@ public class FormulationMenu40 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Formulation createFormulation(String name) {
+	public Formulation createFormulation(@ParameterLayout(named = "Formulation Name") String name) {
 		return formulationRepo.createFormulation(name);
 	}
 
 	@Action()
 	@MemberOrder(sequence = "2")
-	public Formulation copyFormulation(Formulation copied, String name) {
+	public Formulation copyFormulation(@ParameterLayout(named = "Formulation To Copy") Formulation copied, @ParameterLayout(named = "New Formulation Name") String name) {
 		return null;
 	}
 
@@ -62,19 +63,19 @@ public class FormulationMenu40 {
 	public List<Formulation> listAllFormulations() {
 		return formulationRepo.listAll();
 	}
-	
+
 	@Action()
 	@MemberOrder(sequence = "10")
 	public FormulationMethod createFormulationMethod(String name) {
 		return formulationRepo.createFormulationMethod(name);
 	}
-	
+
 	@Action()
 	@MemberOrder(sequence = "50")
 	public Specification createSpecification(String name) {
 		return specificationRepo.createSpecification(name);
 	}
-	
+
 	@Action()
 	@MemberOrder(sequence = "51")
 	public Specification copySpecification(Specification copied, String name) {
@@ -92,9 +93,5 @@ public class FormulationMenu40 {
 
 	@Inject
 	SpecificationRepository specificationRepo;
-
-
-
-
 
 }

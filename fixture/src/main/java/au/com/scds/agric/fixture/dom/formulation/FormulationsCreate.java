@@ -3,19 +3,15 @@ package au.com.scds.agric.fixture.dom.formulation;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import org.apache.isis.applib.fixturescripts.FixtureScript.Discoverability;
-import org.apache.isis.applib.fixturescripts.FixtureScript.ExecutionContext;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.FormulationMenu40;
-import au.com.scds.agric.dom.demo.FormulationMethodMixin;
-import au.com.scds.agric.dom.demo.FormulationMixin;
+import au.com.scds.agric.dom.demo.FormulationMixins;
 import au.com.scds.agric.dom.demo.IngredientMenu50;
 import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProductLineMenu20;
@@ -28,7 +24,6 @@ import au.com.scds.agric.dom.demo.data.Formulations;
 import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
 import au.com.scds.agric.dom.demo.data.SiUnit;
-import au.com.scds.agric.dom.demo.data.Formulation;
 
 public class FormulationsCreate extends FixtureScript {
 
@@ -47,6 +42,7 @@ public class FormulationsCreate extends FixtureScript {
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/formulations.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			jaxbUnmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
 			Formulations _formulations = (Formulations) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 
 			for (Formulation _f : _formulations.getFormulation()) {
@@ -56,17 +52,19 @@ public class FormulationsCreate extends FixtureScript {
 				FormulationMethod formulationMethod = wrap(formulationMenu).createFormulationMethod(_m.getName());
 				formulationMethod.setDescription(_m.getDescription());
 				formulation.setMethod(formulationMethod);
-				FormulationMethodMixin fmx = new FormulationMethodMixin(formulationMethod);
+				FormulationMixins.FormulationMethod_addStep addStep = mixin(
+						FormulationMixins.FormulationMethod_addStep.class, formulationMethod);
 				for (FormulationStep _s : _m.getSteps()) {
-					wrap(fmx).addStep(_s.getDescription(), _s.getOrder());
+					wrap(addStep).$$(_s.getDescription(), _s.getOrder());
 				}
-				FormulationMixin mx = new FormulationMixin(formulation);
+				FormulationMixins.Formulation_addComponentIngredient addComponentIngredient = mixin(
+						FormulationMixins.Formulation_addComponentIngredient.class, formulation);
 				for (FormulationComponent _c : _f.getComponents()) {
 					Ingredient _i = _c.getIngredient();
 					Ingredient ingredient = wrap(ingredientMenu).createIngredient(_i.getName(), _i.getDescription());
 					// ingredient supply covered in batches fixture
 					SiUnit u = wrap(unitRepo).createSiUnit(_c.getUnit().getName());
-					wrap(mx).addComponentIngredient(ingredient, _c.getQuantity(), u);
+					wrap(addComponentIngredient).$$(ingredient, _c.getQuantity(), u);
 				}
 			}
 		} catch (JAXBException e) {

@@ -161,6 +161,7 @@
 		<complexContent>
 			<extension base="tns:Sampled">
 				<sequence>
+					<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
 					<element name="created-on" type="dateTime" minOccurs="1" maxOccurs="1"></element>
 					<element name="created-by" type="tns:Person" minOccurs="1" maxOccurs="1"></element>
 					<element name="scheduled-for" type="dateTime" minOccurs="0" maxOccurs="1"></element>

@@ -11,6 +11,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.BatchSampleMenu82;
+import au.com.scds.agric.dom.demo.ProductLineMenu20;
 import au.com.scds.agric.dom.demo.SampleMixin;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
 import au.com.scds.agric.dom.demo.TestGroupMixin;
@@ -18,6 +19,7 @@ import au.com.scds.agric.dom.demo.TestRepository;
 import au.com.scds.agric.dom.demo.TestSuiteMixin;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
+import au.com.scds.agric.dom.demo.data.ProductLine;
 import au.com.scds.agric.dom.demo.data.Sample;
 import au.com.scds.agric.dom.demo.data.Sample2;
 import au.com.scds.agric.dom.demo.data.Samples;
@@ -42,10 +44,12 @@ public class SamplesCreate extends FixtureScript {
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/samples.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			jaxbUnmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
 			Samples _samples = (Samples) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 			for (Sample2 _sample : _samples.getSample()) {
 				// dummy batch to 'sample'
-				Batch batch = wrap(batchMenu).createBatch();
+				ProductLine line = wrap(productLineMenu).createProductLine("dummy", null);
+				Batch batch = wrap(batchMenu).createBatch(line);
 				sample = wrap(sampleMenu).createBatchSample(batch);
 				SampleMixin sampleMixin = new SampleMixin(sample);
 				for (TestSingle _test : _sample.getTestSingle()) {
@@ -94,6 +98,8 @@ public class SamplesCreate extends FixtureScript {
 		return this.sample;
 	}
 
+	@javax.inject.Inject
+	private ProductLineMenu20 productLineMenu;
 	@javax.inject.Inject
 	private BatchMenu30 batchMenu;
 	@javax.inject.Inject

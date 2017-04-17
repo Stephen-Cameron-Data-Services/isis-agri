@@ -10,7 +10,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.ClientMenu90;
-import au.com.scds.agric.dom.demo.OrderMixin;
+import au.com.scds.agric.dom.demo.OrderMixins;
 import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProductItemRepository;
 import au.com.scds.agric.dom.demo.ProductLineRepository;
@@ -57,19 +57,24 @@ public class ClientsCreate extends FixtureScript {
 				client = wrap(clientMenu).createClient(_c.getName());
 				if (!_c.getOrders().isEmpty()) {
 					Order _o = _c.getOrders().get(0);
-					Order order = wrap(clientMenu).createOrder(client);
+					Order order = wrap(clientMenu).createOrderForClient(client);
 					Person taker = wrap(personMenu).createPerson(_o.getTakenBy().getFirstName(),
 							_o.getTakenBy().getLastName());
 					order.setTakenBy(taker);
 					order.setTaken(_o.getTaken());
-					OrderMixin orderMixin = new OrderMixin(order);
+					OrderMixins.Order_createOrderLine createOrderLine = mixin(OrderMixins.Order_createOrderLine.class,
+							order);
+					OrderMixins.Order_findOrderLine findOrderLine = mixin(OrderMixins.Order_findOrderLine.class, order);
+					OrderMixins.Order_scheduleOrderLine scheduleOrderLine = mixin(OrderMixins.Order_scheduleOrderLine.class, order);
+					OrderMixins.Order_completeOrderLine completeOrderLine = mixin(OrderMixins.Order_completeOrderLine.class, order);
 					for (OrderLine _line : _o.getOrderLines()) {
 						ProductLine _pLine = _line.getProductLine();
 						ProductType _pType = _pLine.getProductType();
 						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
-						wrap(orderMixin).createOrderLine(productLine);
-						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(),
+								productType);
+						wrap(createOrderLine).$$(productLine);
+						OrderLine newOrderLine = (OrderLine) wrap(findOrderLine).$$(productLine);
 						Person adder = wrap(personMenu).createPerson(_line.getAddedBy().getFirstName(),
 								_line.getAddedBy().getLastName());
 						newOrderLine.setAddedBy(adder);
@@ -80,23 +85,24 @@ public class ClientsCreate extends FixtureScript {
 						ProductLine _pLine = _wrapped.getProductLine();
 						ProductType _pType = _pLine.getProductType();
 						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(),
+								productType);
 						// create an orderline
-						wrap(orderMixin).createOrderLine(productLine);
-						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
+						wrap(createOrderLine).$$(productLine);
+						OrderLine newOrderLine = (OrderLine) wrap(findOrderLine).$$(productLine);
 						Person adder = wrap(personMenu).createPerson(_wrapped.getAddedBy().getFirstName(),
 								_wrapped.getAddedBy().getLastName());
 						newOrderLine.setAddedBy(adder);
 						newOrderLine.setAddedOn(_wrapped.getAddedOn());
 						// schedule the orderline
-						ScheduledOrderLine scheduled = wrap(orderMixin).scheduleOrderLine(newOrderLine);
+						ScheduledOrderLine scheduled = wrap(scheduleOrderLine).$$(newOrderLine);
 						wrap(scheduled).setScheduledOn(_line.getScheduledOn());
 						wrap(scheduled).setScheduledBy(wrap(personMenu).createPerson(
 								_line.getScheduledBy().getFirstName(), _line.getScheduledBy().getLastName()));
 						// append batch portions to scheduled
 						ScheduledOrderLineMixin scheduledMixin = new ScheduledOrderLineMixin(scheduled);
 						for (OrderLineBatch _portion : _line.getScheduledBatchPortions()) {
-							Batch batch = wrap(batchMenu).createBatchForProductLine(productLine);
+							Batch batch = wrap(batchMenu).createBatch(productLine);
 							OrderLineBatch portion = wrap(scheduledMixin).createOrderLineBatch(batch, new Float(100.0));
 						}
 					}
@@ -105,15 +111,16 @@ public class ClientsCreate extends FixtureScript {
 						ProductLine _pLine = _wrapped.getProductLine();
 						ProductType _pType = _pLine.getProductType();
 						ProductType productType = wrap(productTypeMenu).createProductType(_pType.getName());
-						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(), productType);
-						wrap(orderMixin).createOrderLine(productLine);
-						OrderLine newOrderLine = (OrderLine) wrap(orderMixin).findOrderLine(productLine);
+						ProductLine productLine = wrap(productLineMenu).createProductLine(_pLine.getName(),
+								productType);
+						wrap(createOrderLine).$$(productLine);
+						OrderLine newOrderLine = (OrderLine) wrap(findOrderLine).$$(productLine);
 						Person adder = wrap(personMenu).createPerson(_wrapped.getAddedBy().getFirstName(),
 								_wrapped.getAddedBy().getLastName());
 						newOrderLine.setAddedBy(adder);
 						newOrderLine.setAddedOn(_wrapped.getAddedOn());
-						ScheduledOrderLine scheduled = wrap(orderMixin).scheduleOrderLine(newOrderLine);
-						CompletedOrderLine completed = wrap(orderMixin).completeOrderLine(scheduled);
+						ScheduledOrderLine scheduled = wrap(scheduleOrderLine).$$(newOrderLine);
+						CompletedOrderLine completed = wrap(completeOrderLine).$$(scheduled);
 						completed.setCompletedOn(_line.getCompletedOn());
 						completed.setCompletedBy(wrap(personMenu).createPerson(_line.getCompletedBy().getFirstName(),
 								_line.getCompletedBy().getLastName()));

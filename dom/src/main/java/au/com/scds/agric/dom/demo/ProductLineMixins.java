@@ -24,36 +24,15 @@ SOFTWARE.
 
 package au.com.scds.agric.dom.demo;
 
-import javax.inject.Inject;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.Contributed;
 import org.apache.isis.applib.annotation.Mixin;
-import au.com.scds.agric.dom.demo.data.Formulation;
-import au.com.scds.agric.dom.demo.data.FormulationComponent;
-import au.com.scds.agric.dom.demo.data.FormulationMethod;
-import au.com.scds.agric.dom.demo.data.Ingredient;
-import au.com.scds.agric.dom.demo.data.SiUnit;
+import au.com.scds.agric.dom.demo.data.ProductLine;
 
 @Mixin
-public class FormulationMethodMixin {
+public class ProductLineMixins {
 
-	private final FormulationMethod method;
+	private final ProductLine productLine;
 
-	public FormulationMethodMixin(FormulationMethod method) {
-		this.method = method;
+	public ProductLineMixins(ProductLine productLine) {
+		this.productLine = productLine;
 	}
-	
-	@Action()
-	@ActionLayout(contributed = Contributed.AS_ACTION)
-	public FormulationMethod addStep(String description, Integer order) {
-		formulationRepo.createMethodStep(this.method, description, order);
-		return this.method;
-	}
-	
-	@Inject
-	FormulationRepository formulationRepo;
-
-
 }

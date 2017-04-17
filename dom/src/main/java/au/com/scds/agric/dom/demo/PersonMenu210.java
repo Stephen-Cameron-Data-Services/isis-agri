@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import au.com.scds.agric.dom.demo.data.Person;
@@ -46,7 +47,8 @@ public class PersonMenu210 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Person createPerson(String firstname, String lastname) {
+	public Person createPerson(@ParameterLayout(named="First Name") String firstname, 
+			@ParameterLayout(named="Last Name")String lastname) {
 		return personRepo.createPerson(firstname, lastname);
 	}
 

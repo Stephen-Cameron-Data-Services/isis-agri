@@ -31,6 +31,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
 
 import au.com.scds.agric.dom.demo.data.Producer;
 import au.com.scds.agric.dom.demo.data.ProductLine;
@@ -42,20 +45,20 @@ public class ProductLineMenu20 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public ProductLine createProductLine(String name, ProductType type) {
-		return productLineRepo.createProductLine(producerRepo.currentProducer() ,name, type);
+	public ProductLine createProductLine(@ParameterLayout(named = "Product Line Name") String name,
+			@Parameter(optionality = Optionality.OPTIONAL) @ParameterLayout(named = "Product Type") ProductType type) {
+		return productLineRepo.createProductLine(producerRepo.currentProducer(), name, type);
 	}
-	
-	public List<ProductType> choices1CreateProductLine(){
+
+	public List<ProductType> choices1CreateProductLine() {
 		return productTypeRepo.listAllProductTypes();
 	}
-	
+
 	@Action()
 	@MemberOrder(sequence = "2")
 	public List<ProductLine> listAllProductLines() {
 		return productLineRepo.listAll();
 	}
-	
 
 	@javax.inject.Inject
 	ProductLineRepository productLineRepo;
@@ -63,6 +66,5 @@ public class ProductLineMenu20 {
 	ProductTypeRepository productTypeRepo;
 	@javax.inject.Inject
 	ProducerRepository producerRepo;
-
 
 }

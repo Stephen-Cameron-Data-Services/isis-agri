@@ -31,6 +31,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -49,7 +51,7 @@ public class SuppliesMenu60 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public IngredientSupply createIngredientSupply(Ingredient ingredient, IngredientSupplier supplier, float initialQuantity, SiUnit unit) {
+	public IngredientSupply createIngredientSupply(Ingredient ingredient, @Parameter(optionality=Optionality.OPTIONAL) IngredientSupplier supplier, float initialQuantity, SiUnit unit) {
 		return supplierRepo.createIngredientSupply(ingredient, supplier, initialQuantity, unit);
 	}
 	

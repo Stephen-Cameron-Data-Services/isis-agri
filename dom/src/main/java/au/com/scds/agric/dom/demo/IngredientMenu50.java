@@ -33,6 +33,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 
 import au.com.scds.agric.dom.demo.data.Ingredient;
@@ -47,7 +50,8 @@ public class IngredientMenu50 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Ingredient createIngredient(String name, String description) {
+	public Ingredient createIngredient(@ParameterLayout(named = "Ingredient Name") String name,
+			@Parameter(optionality = Optionality.OPTIONAL) @ParameterLayout(named = "Ingredient Name") String description) {
 		return ingredientRepo.createIngredient(name, description);
 	}
 

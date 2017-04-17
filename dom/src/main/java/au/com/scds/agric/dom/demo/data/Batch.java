@@ -44,11 +44,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.apache.isis.applib.annotation.DomainObject;
-
-import au.com.scds.agric.dom.demo.data.BatchComponent;
-import au.com.scds.agric.dom.demo.data.Specification;
 
 /**
  * A batch of product, efficiently created in bulk for subdivision into
@@ -83,7 +79,7 @@ import au.com.scds.agric.dom.demo.data.Specification;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Batch", propOrder = { "createdOn", "createdBy", "scheduledFor", "completedOn", "completedBy",
+@XmlType(name = "Batch", propOrder = { "productLine", "createdOn", "createdBy", "scheduledFor", "completedOn", "completedBy",
 		"formulation","specification","batchComponents", "productItems" })
 @DomainObject(objectType = "Batch")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -92,8 +88,8 @@ import au.com.scds.agric.dom.demo.data.Specification;
 		@Query(name = "findById", language = "JDOQL", value = "SELECT FROM au.com.scds.agric.dom.demo.data.Batch WHERE batch_id_OID == :id ") })
 public class Batch extends Sampled {
 
-	@XmlTransient
-	@Column(allowsNull = "true")
+    @XmlElement(name = "product-line", required = true)
+	@Column(allowsNull = "false")
 	protected ProductLine productLine;
 	@XmlElement(name = "created-on", required = true, type = String.class)
 	@XmlJavaTypeAdapter(Adapter1.class)
@@ -122,7 +118,7 @@ public class Batch extends Sampled {
 	@XmlElement()
 	@Column(allowsNull = "true")	
     protected Specification specification;
-    @XmlElement(name = "batch-components")
+    @XmlElement(name = "batch-component")
 	@Persistent(mappedBy = "batch")
 	@Order(column="batchorder_idx")
     protected List<BatchComponent> batchComponents = new ArrayList<>();

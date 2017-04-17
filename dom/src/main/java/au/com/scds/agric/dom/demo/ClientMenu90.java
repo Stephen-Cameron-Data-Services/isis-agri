@@ -32,6 +32,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
+
 import au.com.scds.agric.dom.demo.data.Client;
 import au.com.scds.agric.dom.demo.data.Order;
 
@@ -41,7 +44,7 @@ public class ClientMenu90 {
 	
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Client createClient(String name) {
+	public Client createClient(@ParameterLayout(named="Client Name") String name) {
 		return clientRepo.createClient(name);
 	}
 	
@@ -53,8 +56,12 @@ public class ClientMenu90 {
 	
 	@Action()
 	@MemberOrder(sequence = "10")
-	public Order createOrder(Client client) {
+	public Order createOrderForClient(@ParameterLayout(named="Select Client") Client client) {
 		return clientRepo.createOrder(client);
+	}
+	
+	public List<Client> choices0CreateOrderForClient(){
+		return clientRepo.listAll();
 	}
 
 	@Inject

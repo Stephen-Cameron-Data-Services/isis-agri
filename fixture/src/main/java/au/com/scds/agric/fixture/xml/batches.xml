@@ -44,8 +44,36 @@
         <tns:name>tns:name</tns:name>
       </tns:unit>
     </tns:batch-component>
+    <tns:orderline-portion>
+      <tns:orderline>
+        <tns:order-line>
+          <tns:product-line>
+            <tns:name>tns:name</tns:name>
+          </tns:product-line>
+          <tns:added-on>2001-12-31T12:00:00</tns:added-on>
+          <tns:added-by>
+            <tns:first-name>tns:first-name</tns:first-name>
+            <tns:last-name>tns:last-name</tns:last-name>
+          </tns:added-by>
+        </tns:order-line>
+        <tns:scheduled-on>2001-12-31T12:00:00</tns:scheduled-on>
+        <tns:scheduled-by>
+          <tns:first-name>tns:first-name</tns:first-name>
+          <tns:last-name>tns:last-name</tns:last-name>
+        </tns:scheduled-by>
+        <tns:orderline-batch-portion/>
+      </tns:orderline>
+      <tns:batch/>
+      <tns:percentage-of-batch>0.0</tns:percentage-of-batch>
+    </tns:orderline-portion>
     <tns:product-item>
       <tns:serial-number>tns:serial-number</tns:serial-number>
+      <tns:product-line>
+        <tns:name>tns:name</tns:name>
+        <tns:product-type>
+          <tns:name>tns:name</tns:name>
+        </tns:product-type>
+      </tns:product-line>
     </tns:product-item>
   </tns:batch>
 </tns:batches>

@@ -26,7 +26,7 @@
 					<row>
 						<col span="12">
 							<ns2:collection defaultView="table" id="batchComponents">
-								<ns2:action id="AddComponent" />
+								<ns2:action id="addComponent" />
 							</ns2:collection>
 						</col>
 					</row>
@@ -42,7 +42,7 @@
 					<row>
 						<col span="12">
 							<ns2:collection defaultView="table" id="productItems" >
-								<ns2:action id="AddProductItem"/>
+								<ns2:action id="addProductItem"/>
 							</ns2:collection>
 						</col>
 					</row>

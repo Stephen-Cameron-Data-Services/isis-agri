@@ -29,6 +29,7 @@ public class SalesCreate extends FixtureScript {
 			InputStream is = this.getClass().getResourceAsStream("/au/com/scds/agric/fixture/dom/sales.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			jaxbUnmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
 			Sales _sales = (Sales) JAXBIntrospector.getValue(jaxbUnmarshaller.unmarshal(is));
 			
 			

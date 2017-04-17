@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 
 import au.com.scds.agric.dom.demo.data.ProductType;
 
@@ -40,16 +41,16 @@ public class ProductTypeMenu21 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public ProductType createProductType(String name) {
+	public ProductType createProductType(@ParameterLayout(named = "Product Type Name") String name) {
 		return productTypeRepo.createProductType(name);
 	}
-	
+
 	@Action()
 	@MemberOrder(sequence = "2")
 	public List<ProductType> listAllProductTypes() {
 		return productTypeRepo.listAllProductTypes();
 	}
-	
+
 	@javax.inject.Inject
 	ProductTypeRepository productTypeRepo;
 }
