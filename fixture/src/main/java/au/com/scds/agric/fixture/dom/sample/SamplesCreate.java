@@ -12,7 +12,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.BatchSampleMenu82;
 import au.com.scds.agric.dom.demo.ProductLineMenu20;
-import au.com.scds.agric.dom.demo.SampleMixin;
+import au.com.scds.agric.dom.demo.TestingMixins;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
 import au.com.scds.agric.dom.demo.TestGroupMixin;
 import au.com.scds.agric.dom.demo.TestRepository;
@@ -51,10 +51,15 @@ public class SamplesCreate extends FixtureScript {
 				ProductLine line = wrap(productLineMenu).createProductLine("dummy", null);
 				Batch batch = wrap(batchMenu).createBatch(line);
 				sample = wrap(sampleMenu).createBatchSample(batch);
-				SampleMixin sampleMixin = new SampleMixin(sample);
+				TestingMixins.Sample_addTestSingle addTestSingle = mixin(TestingMixins.Sample_addTestSingle.class,
+						sample);
+				TestingMixins.Sample_addTestGroup addTestGroup = mixin(TestingMixins.Sample_addTestGroup.class,
+						sample);
+				TestingMixins.Sample_addTestSuite addTestSuite = mixin(TestingMixins.Sample_addTestSuite.class,
+						sample);
 				for (TestSingle _test : _sample.getTestSingle()) {
 					TestSingle test = testRepo.createTestSingle(_test.getTestName());
-					wrap(sampleMixin).addTestSingle(test, 1);
+					wrap(addTestSingle).$$(test, 1);
 				}
 				for (TestGroup _test : _sample.getTestGroup()) {
 					TestGroup testGroup = testRepo.createTestGroup(_test.getTestName());
@@ -63,7 +68,7 @@ public class SamplesCreate extends FixtureScript {
 						TestSingle subtest = testRepo.createTestSingle(_test.getTestName());
 						wrap(tgx).addTestSingle(subtest);
 					}
-					wrap(sampleMixin).addTestGroup(testGroup, 1);
+					wrap(addTestGroup).$$(testGroup, 1);
 				}
 				for (TestSuite _test : _sample.getTestSuite()) {
 					TestSuite testSuite = testRepo.createTestSuite(_test.getTestName());
@@ -81,7 +86,7 @@ public class SamplesCreate extends FixtureScript {
 						}
 						wrap(tsx).addTestGroup(testGroup);
 					}
-					wrap(sampleMixin).addTestSuite(testSuite, 1);
+					wrap(addTestSuite).$$(testSuite, 1);
 				}
 			}
 		} catch (JAXBException e) {

@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import au.com.scds.agric.dom.demo.SaleMenu100;
-import au.com.scds.agric.dom.demo.SampleMixin;
+import au.com.scds.agric.dom.demo.TestingMixins;
 import au.com.scds.agric.dom.demo.BatchSampleMenu82;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
 import au.com.scds.agric.dom.demo.data.Sale;
@@ -54,9 +54,10 @@ public class Sample_IntegTest extends DomainAppIntegTest {
 			assertThat(sample.getSampled()).isNotNull();
 			assertThat(sample.getTests().isEmpty()).isFalse();
 			assertThat(sample.getTests().size()).isEqualTo(3);
-			SampleMixin sampleMixin = new SampleMixin(sample);
-			assertThat(sampleMixin.getResults().isEmpty()).isFalse();
-			assertThat(sampleMixin.getResults().size()).isEqualTo(4);
+			TestingMixins.Sample_getResults getResults = mixin(TestingMixins.Sample_getResults.class,
+					sample);
+			assertThat(getResults.$$().isEmpty()).isFalse();
+			assertThat(getResults.$$().size()).isEqualTo(4);
 		}
 	}
 }

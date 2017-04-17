@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 
@@ -45,7 +46,7 @@ public class ProducerMenu10 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Producer create(String name) {
+	public Producer create(@ParameterLayout(named="Producer Name") String name) {
 		return producerRepo.createProducer(name);
 	}
 	
