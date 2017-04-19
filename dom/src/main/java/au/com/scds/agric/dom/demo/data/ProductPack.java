@@ -137,6 +137,7 @@ public class ProductPack {
      * 
      * 
      */
+    //TOD0 hide this?
     public List<ProductItem> getProductItems() {
         return this.productItems;
     }

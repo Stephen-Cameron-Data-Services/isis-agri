@@ -31,6 +31,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+
+import au.com.scds.agric.dom.demo.data.Client;
 import au.com.scds.agric.dom.demo.data.Sale;
 
 @DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
@@ -39,8 +41,8 @@ public class SaleMenu100 {
 
 	@Action()
 	@MemberOrder(sequence = "1")
-	public Sale createSale() {
-		return saleRepo.createSale();
+	public Sale createSale(Client client) {
+		return saleRepo.createSale(client);
 	}
 	
 	@Action()

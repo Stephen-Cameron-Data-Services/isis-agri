@@ -23,34 +23,20 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import au.com.scds.agric.dom.demo.BatchMenu30;
 import au.com.scds.agric.dom.demo.FormulationMenu40;
-import au.com.scds.agric.dom.demo.FormulationMixins;
 import au.com.scds.agric.dom.demo.PersonMenu210;
 import au.com.scds.agric.dom.demo.ProducerMenu10;
-import au.com.scds.agric.dom.demo.ProducerMixin;
 import au.com.scds.agric.dom.demo.ProductLineMenu20;
 import au.com.scds.agric.dom.demo.ProductTypeMenu21;
-import au.com.scds.agric.dom.demo.data.Batch;
-import au.com.scds.agric.dom.demo.data.Formulation;
-import au.com.scds.agric.dom.demo.data.FormulationComponent;
-import au.com.scds.agric.dom.demo.data.FormulationMethod;
-import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
-import au.com.scds.agric.dom.demo.data.Person;
 import au.com.scds.agric.dom.demo.data.Producer;
-import au.com.scds.agric.dom.demo.data.ProductItem;
 import au.com.scds.agric.dom.demo.data.ProductLine;
 import au.com.scds.agric.dom.demo.data.ProductType;
-import au.com.scds.agric.dom.simple.SimpleObjectMenu;
 
 import java.io.InputStream;
-import java.util.List;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
-import org.apache.isis.applib.fixturescripts.FixtureResult;
-import com.google.common.collect.Lists;
 
 public class ProducerCreate extends FixtureScript {
 

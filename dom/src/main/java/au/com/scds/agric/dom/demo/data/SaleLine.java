@@ -64,19 +64,22 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SaleLine", propOrder = { "productPacks" })
+@XmlType(name = "SaleLine", propOrder = { "productLine", "productPacks" })
 @DomainObject(objectType = "SaleLine")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class SaleLine {
 
 	@XmlTransient
-	@Column(allowsNull="false")
+	@Column(allowsNull = "false")
 	protected Sale sale;
+	@XmlElement(name = "product-line")
+	@Column(allowsNull = "false")
+	protected ProductLine productLine;
 	@XmlElement(name = "product-pack")
 	@Persistent(mappedBy = "saleLine")
 	protected List<ProductPack> productPacks;
-	
+
 	public Sale getSale() {
 		return sale;
 	}
@@ -84,6 +87,15 @@ public class SaleLine {
 	public void setSale(Sale sale) {
 		this.sale = sale;
 	}
+	
+	public ProductLine getProductLine() {
+		return productLine;
+	}
+
+	public void setProductLine(ProductLine productLine) {
+		this.productLine = productLine;
+	}
+
 
 	/**
 	 * Gets the value of the productPack property.
@@ -111,5 +123,4 @@ public class SaleLine {
 	public List<ProductPack> getProductPacks() {
 		return this.productPacks;
 	}
-
 }

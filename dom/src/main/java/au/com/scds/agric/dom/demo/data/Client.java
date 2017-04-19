@@ -31,19 +31,22 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
 
-
-
 /**
- * <p>Java class for Client complex type.
+ * <p>
+ * Java class for Client complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Client">
@@ -57,42 +60,46 @@ import org.apache.isis.applib.annotation.DomainObject;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Client", propOrder = {
-    "orders"
-})
-@DomainObject(objectType="Client")
+@XmlType(name = "Client", propOrder = { "orders" })
+@DomainObject(objectType = "Client")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class Client
-    extends Party
-{
-	@XmlElement(name="order")
-    protected List<Order> orders = new ArrayList<>();
+public class Client extends Party {
+	
+	@XmlElement(name = "order")
+	@Persistent(mappedBy = "client")
+	protected List<Order> orders = new ArrayList<>();
+	@XmlTransient
+	@Persistent(mappedBy = "client")
+	protected List<Sale> sales = new ArrayList<>();
 
-    /**
-     * Gets the value of the order property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the order property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getOrder().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Order }
-     * 
-     * 
-     */
-    public List<Order> getOrders() {
-        return this.orders;
-    }
+	/**
+	 * Gets the value of the order property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the order property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getOrder().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link Order }
+	 * 
+	 * 
+	 */
+	public List<Order> getOrders() {
+		return this.orders;
+	}
 
+	public List<Sale> getSales() {
+		return this.sales;
+	}
 }

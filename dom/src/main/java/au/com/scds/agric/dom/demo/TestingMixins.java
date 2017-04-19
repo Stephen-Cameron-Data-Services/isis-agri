@@ -46,14 +46,65 @@ import au.com.scds.agric.dom.demo.data.TestSuite;
 public class TestingMixins {
 	
 	@Mixin
-	public static class Sample_addTestSingle extends TestingMixins{
+	public static class TestGroup_addTestSingle {
+
+		private TestGroup group;
+
+		public TestGroup_addTestSingle(TestGroup group) {
+			this.group = group;
+		}
 		
+		@Action
+		@ActionLayout(contributed = Contributed.AS_ACTION)
+		public void $$(TestSingle test){
+			this.group.getTests().add(test);
+			return;
+		}
+	}
+
+	@Mixin
+	public static class TestSuite_addTestSingle {
+		
+		private TestSuite suite;
+
+		public TestSuite_addTestSingle(TestSuite suite) {
+			this.suite = suite;
+		}
+
+		@Action
+		@ActionLayout(contributed = Contributed.AS_ACTION)
+		public void $$(TestSingle test) {
+			this.suite.getTests().add(test);
+			return;
+		}
+	}
+
+	@Mixin
+	public static class TestSuite_addTestGroup {
+		
+		private TestSuite suite;
+
+		public TestSuite_addTestGroup(TestSuite suite) {
+			this.suite = suite;
+		}
+
+		@Action
+		@ActionLayout(contributed = Contributed.AS_ACTION)
+		public void $$(TestGroup group) {
+			this.suite.getTestGroups().add(group);
+			return;
+		}
+	}
+
+	@Mixin
+	public static class Sample_addTestSingle extends TestingMixins {
+
 		protected Sample sample = null;
-		
+
 		public Sample_addTestSingle(Sample sample) {
 			this.sample = sample;
 		}
-		
+
 		@Action()
 		@ActionLayout(contributed = Contributed.AS_ACTION)
 		public void $$(TestSingle test, Integer multiples) {
@@ -61,20 +112,20 @@ public class TestingMixins {
 			this.sample.getTests().add(multiple);
 			createResultsForTestMultiple(this.sample, multiple);
 		}
-		
+
 		@javax.inject.Inject
 		private TestRepository testRepo;
 	}
 
 	@Mixin
-	public static class Sample_addTestGroup extends TestingMixins{
-		
+	public static class Sample_addTestGroup extends TestingMixins {
+
 		protected Sample sample = null;
-		
+
 		public Sample_addTestGroup(Sample sample) {
 			this.sample = sample;
 		}
-		
+
 		@Action()
 		@ActionLayout(contributed = Contributed.AS_ACTION)
 		public void $$(TestGroup group, Integer multiples) {
@@ -82,41 +133,41 @@ public class TestingMixins {
 			this.sample.getTests().add(multiple);
 			createResultsForTestMultiple(this.sample, multiple);
 		}
-		
+
 		@javax.inject.Inject
 		private TestRepository testRepo;
 	}
 
 	@Mixin
-	public static class Sample_addTestSuite extends TestingMixins{
-		
+	public static class Sample_addTestSuite extends TestingMixins {
+
 		protected Sample sample = null;
-		
+
 		public Sample_addTestSuite(Sample sample) {
 			this.sample = sample;
 		}
-		
+
 		@Action()
 		@ActionLayout(contributed = Contributed.AS_ACTION)
 		public void $$(TestSuite suite, Integer multiples) {
 			TestMultiple multiple = testRepo.createTestMultiple(this.sample, suite, multiples);
 			this.sample.getTests().add(multiple);
-			createResultsForTestMultiple(this.sample,multiple);
+			createResultsForTestMultiple(this.sample, multiple);
 		}
-		
+
 		@javax.inject.Inject
 		private TestRepository testRepo;
 	}
-	
+
 	@Mixin
-	public static class Sample_getResults extends TestingMixins{
-		
+	public static class Sample_getResults extends TestingMixins {
+
 		protected Sample sample = null;
-		
+
 		public Sample_getResults(Sample sample) {
 			this.sample = sample;
 		}
-		
+
 		@Action()
 		@ActionLayout(contributed = Contributed.AS_ACTION)
 		public List<Result> $$() {
@@ -126,7 +177,7 @@ public class TestingMixins {
 			}
 			return list;
 		}
-		
+
 		@javax.inject.Inject
 		private TestRepository testRepo;
 	}

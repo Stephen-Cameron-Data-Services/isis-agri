@@ -32,29 +32,72 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import au.com.scds.agric.dom.demo.data.Client;
+import au.com.scds.agric.dom.demo.data.Invoice;
+import au.com.scds.agric.dom.demo.data.ProductLine;
 import au.com.scds.agric.dom.demo.data.ProductType;
+import au.com.scds.agric.dom.demo.data.Receipt;
 import au.com.scds.agric.dom.demo.data.Sale;
+import au.com.scds.agric.dom.demo.data.SaleLine;
 
 @DomainService(nature = NatureOfService.DOMAIN, repositoryFor = Sale.class)
 public class SaleRepository {
 
-	public Sale createSale() {
-		final Sale sample = new Sale();
-		serviceRegistry.injectServicesInto(sample);
-		repositoryService.persistAndFlush(sample);
-		return sample;
+	public Sale createSale(Client client) {
+		final Sale sale = new Sale();
+		sale.setClient(client);
+		serviceRegistry.injectServicesInto(sale);
+		repositoryService.persistAndFlush(sale);
+		return sale;
 	}
-	
+
 	public List<Sale> listAll() {
 		return repositoryService.allInstances(Sale.class);
 	}
-	
+
 	public Sale findById(final String id) {
 		return repositoryService.firstMatch(new QueryDefault<>(Sale.class, "findById", "id", id));
 	}
+	
+	public SaleLine createSaleLine(Sale sale, ProductLine product) {
+		final SaleLine line = new SaleLine();
+		line.setSale(sale);
+		line.setProductLine(product);
+		serviceRegistry.injectServicesInto(line);
+		repositoryService.persistAndFlush(line);
+		return line;
+	}
+	
+	public Invoice createInvoice(Client client) {
+		final Invoice invoice = new Invoice();
+		invoice.setClient(client);
+		serviceRegistry.injectServicesInto(invoice);
+		repositoryService.persistAndFlush(invoice);
+		return invoice;
+	}
 
+	public List<Invoice> listAllInvoices() {
+		return repositoryService.allInstances(Invoice.class);
+	}
+	
+	public Receipt createReceipt(Client client) {
+		final Receipt receipt = new Receipt();
+		receipt.setClient(client);
+		serviceRegistry.injectServicesInto(receipt);
+		repositoryService.persistAndFlush(receipt);
+		return receipt;
+	}
+
+	public List<Receipt> listAllReceipts() {
+		return repositoryService.allInstances(Receipt.class);
+	}
+	
 	@javax.inject.Inject
 	RepositoryService repositoryService;
 	@javax.inject.Inject
 	ServiceRegistry2 serviceRegistry;
+
+
+
+
 }

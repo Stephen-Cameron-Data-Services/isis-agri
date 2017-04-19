@@ -24,15 +24,34 @@ SOFTWARE.
 
 package au.com.scds.agric.dom.demo;
 
-import org.apache.isis.applib.annotation.Mixin;
-import au.com.scds.agric.dom.demo.data.ProductLine;
+import java.util.List;
 
-@Mixin
-public class ProductLineMixins {
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 
-	private final ProductLine productLine;
+import au.com.scds.agric.dom.demo.data.Client;
+import au.com.scds.agric.dom.demo.data.Receipt;
 
-	public ProductLineMixins(ProductLine productLine) {
-		this.productLine = productLine;
+@DomainService(nature = NatureOfService.VIEW_MENU_ONLY)
+@DomainServiceLayout(named = "Receipts", menuOrder = "102")
+public class ReceiptsMenu102 {
+
+	@Action()
+	@MemberOrder(sequence = "1")
+	public Receipt createReceipt(Client client) {
+		return saleRepo.createReceipt(client);
 	}
+	
+	@Action()
+	@MemberOrder(sequence = "2")
+	public List<Receipt> listAllReceipts() {
+		return saleRepo.listAllReceipts();
+	}
+	
+
+	@javax.inject.Inject
+	SaleRepository saleRepo;
 }

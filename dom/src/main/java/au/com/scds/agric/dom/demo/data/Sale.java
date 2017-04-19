@@ -35,6 +35,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.isis.applib.annotation.DomainObject;
@@ -72,12 +74,24 @@ import org.apache.isis.applib.annotation.DomainObject;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Sale {
 
+	@XmlTransient
+	@Column(allowsNull="false")
+    protected Client client;
 	@Column(allowsNull="true")
     protected Invoice invoice;
 	@Column(allowsNull="true")
     protected Receipt receipt;
+	@XmlElement(name="line")
 	@Persistent(mappedBy="sale")
     protected List<SaleLine> lines;
+	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
     /**
      * Gets the value of the invoice property.

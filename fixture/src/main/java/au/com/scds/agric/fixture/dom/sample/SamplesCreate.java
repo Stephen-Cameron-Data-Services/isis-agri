@@ -14,9 +14,7 @@ import au.com.scds.agric.dom.demo.BatchSampleMenu82;
 import au.com.scds.agric.dom.demo.ProductLineMenu20;
 import au.com.scds.agric.dom.demo.TestingMixins;
 import au.com.scds.agric.dom.demo.SiUnitRepository;
-import au.com.scds.agric.dom.demo.TestGroupMixin;
 import au.com.scds.agric.dom.demo.TestRepository;
-import au.com.scds.agric.dom.demo.TestSuiteMixin;
 import au.com.scds.agric.dom.demo.data.Batch;
 import au.com.scds.agric.dom.demo.data.ObjectFactory;
 import au.com.scds.agric.dom.demo.data.ProductLine;
@@ -53,38 +51,44 @@ public class SamplesCreate extends FixtureScript {
 				sample = wrap(sampleMenu).createBatchSample(batch);
 				TestingMixins.Sample_addTestSingle addTestSingle = mixin(TestingMixins.Sample_addTestSingle.class,
 						sample);
-				TestingMixins.Sample_addTestGroup addTestGroup = mixin(TestingMixins.Sample_addTestGroup.class,
-						sample);
-				TestingMixins.Sample_addTestSuite addTestSuite = mixin(TestingMixins.Sample_addTestSuite.class,
-						sample);
+				TestingMixins.Sample_addTestGroup addTestGroup = mixin(TestingMixins.Sample_addTestGroup.class, sample);
+				TestingMixins.Sample_addTestSuite addTestSuite = mixin(TestingMixins.Sample_addTestSuite.class, sample);
 				for (TestSingle _test : _sample.getTestSingle()) {
 					TestSingle test = testRepo.createTestSingle(_test.getTestName());
 					wrap(addTestSingle).$$(test, 1);
 				}
 				for (TestGroup _test : _sample.getTestGroup()) {
 					TestGroup testGroup = testRepo.createTestGroup(_test.getTestName());
-					TestGroupMixin tgx = new TestGroupMixin(testGroup);
+					TestingMixins.TestGroup_addTestSingle tg_addTestSingle = mixin(
+							TestingMixins.TestGroup_addTestSingle.class, testGroup);
+					// TestGroupMixin tgx = new TestGroupMixin(testGroup);
 					for (TestSingle _t : _test.getTests()) {
 						TestSingle subtest = testRepo.createTestSingle(_test.getTestName());
-						wrap(tgx).addTestSingle(subtest);
+						wrap(tg_addTestSingle).$$(subtest);
 					}
 					wrap(addTestGroup).$$(testGroup, 1);
 				}
 				for (TestSuite _test : _sample.getTestSuite()) {
 					TestSuite testSuite = testRepo.createTestSuite(_test.getTestName());
-					TestSuiteMixin tsx = new TestSuiteMixin(testSuite);
+					TestingMixins.TestSuite_addTestSingle ts_addTestSingle = mixin(
+							TestingMixins.TestSuite_addTestSingle.class, testSuite);
+					TestingMixins.TestSuite_addTestGroup ts_addTestGroup = mixin(
+							TestingMixins.TestSuite_addTestGroup.class, testSuite);
+					// TestSuiteMixin tsx = new TestSuiteMixin(testSuite);
 					for (TestSingle _t : _test.getTests()) {
 						TestSingle testSingle = testRepo.createTestSingle(_t.getTestName());
-						wrap(tsx).addTestSingle(testSingle);
+						wrap(ts_addTestSingle).$$(testSingle);
 					}
 					for (TestGroup _tg : _test.getTestGroups()) {
 						TestGroup testGroup = testRepo.createTestGroup(_tg.getTestName());
-						TestGroupMixin tgx = new TestGroupMixin(testGroup);
+						TestingMixins.TestGroup_addTestSingle tg_addTestSingle = mixin(
+								TestingMixins.TestGroup_addTestSingle.class, testGroup);
+						// TestGroupMixin tgx = new TestGroupMixin(testGroup);
 						for (TestSingle _t : _tg.getTests()) {
 							TestSingle subtest = testRepo.createTestSingle(_t.getTestName());
-							wrap(tgx).addTestSingle(subtest);
+							wrap(tg_addTestSingle).$$(subtest);
 						}
-						wrap(tsx).addTestGroup(testGroup);
+						wrap(ts_addTestGroup).$$(testGroup);
 					}
 					wrap(addTestSuite).$$(testSuite, 1);
 				}

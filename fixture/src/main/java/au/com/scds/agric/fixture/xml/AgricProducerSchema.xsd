@@ -435,6 +435,7 @@
 
 	<complexType name="SaleLine">
 		<sequence>
+			<element name="product-line" type="tns:ProductLine" maxOccurs="1" minOccurs="1"></element>
 			<element name="product-pack" type="tns:ProductPack" minOccurs="0" maxOccurs="unbounded"></element>
 		</sequence>
 	</complexType>
