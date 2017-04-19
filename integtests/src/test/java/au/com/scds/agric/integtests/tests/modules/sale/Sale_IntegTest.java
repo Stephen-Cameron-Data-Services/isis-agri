@@ -11,6 +11,7 @@ import au.com.scds.agric.dom.demo.data.FormulationComponent;
 import au.com.scds.agric.dom.demo.data.Ingredient;
 import au.com.scds.agric.dom.demo.data.Producer;
 import au.com.scds.agric.dom.demo.data.ProductLine;
+import au.com.scds.agric.dom.demo.data.ProductPack;
 import au.com.scds.agric.fixture.dom.producer.ProducerCreate;
 import au.com.scds.agric.fixture.dom.sales.SalesCreate;
 import au.com.scds.agric.integtests.tests.DomainAppIntegTest;
@@ -30,7 +31,7 @@ public class Sale_IntegTest extends DomainAppIntegTest {
 	@Inject
 	SaleMenu100 saleMenu;
 	
-	Sale Sale;
+	Sale sale;
 
 	@Before
 	public void setUp() throws Exception {
@@ -38,7 +39,7 @@ public class Sale_IntegTest extends DomainAppIntegTest {
 		SalesCreate fs = new SalesCreate();
 		fixtureScripts.runFixtureScript(fs, null);
 		transactionService.nextTransaction();
-		Sale = wrap(saleMenu).listAllSales().get(0);
+		sale = wrap(saleMenu).listAllSales().get(0);
 	}
 
 	public static class SaleClient extends Sale_IntegTest {
@@ -46,9 +47,17 @@ public class Sale_IntegTest extends DomainAppIntegTest {
 		@Test
 		public void accessible() throws Exception {
 
-			Calendar cal = Calendar.getInstance();
-			cal.set(2001,11,31,12,0,0);
-			cal.set(Calendar.MILLISECOND,0);	
+			assertThat(sale).isNotNull();	
+			assertThat(sale.getClient()).isNotNull();
+			assertThat(sale.getClient().getName()).isEqualTo("Client with Sales");
+			assertThat(sale.getInvoice()).isNotNull();
+			assertThat(sale.getReceipt()).isNotNull();
+			assertThat(sale.getLines().isEmpty()).isFalse();
+			assertThat(sale.getLines().get(0)).isNotNull();
+			assertThat(sale.getLines().get(0).getProductPacks().isEmpty()).isFalse();
+			ProductPack pack = sale.getLines().get(0).getProductPacks().get(0);
+			assertThat(pack.getProductItems().isEmpty()).isFalse();
+			assertThat(pack.getProductItems().get(0).getSerialNumber()).isEqualTo("tns:serial-number");
 		}
 	}
 }

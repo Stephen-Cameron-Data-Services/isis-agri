@@ -64,6 +64,7 @@ public class SalesCreate extends FixtureScript {
 							ProductItem item = wrap(productItemRepo).createProductItem(productLine, _item.getSerialNumber());
 							pack.getProductItems().add(item);
 						}
+						line.getProductPacks().add(pack);
 					}
 				}
 				if(_sale.getInvoice() != null){
@@ -75,6 +76,7 @@ public class SalesCreate extends FixtureScript {
 					sale.setReceipt(receipt);
 				}
 			}
+			ec.addResult(this, sale);
 			
 		} catch (JAXBException e) {
 			e.printStackTrace();
